@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ricoh Tone Vault</title>
+
+<style>
+:root{
+  --bg:#f5f5f1;
+  --card:#ffffff;
+  --ink:#181818;
+  --muted:#75756f;
+  --line:#e5e5de;
+  --accent:#d9ff57;
+  --dark:#151515;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,
+  "Segoe UI","Noto Sans Thai",sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+}
+
+.app{
+  max-width:1100px;
+  margin:auto;
+  padding:16px 14px 80px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#151515,#2d2d2d);
+  color:white;
+  border-radius:28px;
+  padding:26px;
+}
+
+.eyebrow{
+  color:var(--accent);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.12em;
+}
+
+h1{
+  font-size:42px;
+  margin:8px 0;
+  line-height:1;
+}
+
+.hero p{
+  color:#d5d5d5;
+  margin:0;
+  line-height:1.55;
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
+  margin:18px 0 14px;
+  overflow:auto;
+}
+
+.tab{
+  white-space:nowrap;
+  border:1px solid var(--line);
+  background:white;
+  border-radius:999px;
+  padding:10px 14px;
+  font-weight:700;
+}
+
+.tab.active{
+  background:#111;
+  color:white;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.search{
+  width:100%;
+  padding:14px;
+  border-radius:15px;
+  border:1px solid var(--line);
+  background:white;
+  font-size:16px;
+}
+
+.chips{
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  margin:12px 0;
+}
+
+.chip{
+  white-space:nowrap;
+  padding:8px 11px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:white;
+}
+
+.chip.active{
+  background:#111;
+  color:white;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+.cover{
+  height:170px;
+  padding:16px;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  position:relative;
+}
+
+.cover.blue{
+  background:linear-gradient(135deg,#99b8c7,#45728d);
+}
+
+.cover.brown{
+  background:linear-gradient(135deg,#ba9b7a,#57463c);
+}
+
+.cover.green{
+  background:linear-gradient(135deg,#95aa89,#52694c);
+}
+
+.cover.dark{
+  background:linear-gradient(135deg,#555,#171717);
+}
+
+.cover.pink{
+  background:linear-gradient(135deg,#dabfb1,#8c6f67);
+}
+
+.cover.cyan{
+  background:linear-gradient(135deg,#8ed4e7,#4388ab);
+}
+
+.cover h3{
+  margin:0;
+  font-size:22px;
+}
+
+.cover small{
+  opacity:.85;
+}
+
+.fav{
+  position:absolute;
+  top:12px;
+  right:12px;
+  background:white;
+  color:#111;
+  border:0;
+  border-radius:50%;
+  width:36px;
+  height:36px;
+  font-size:18px;
+}
+
+.body{
+  padding:14px;
+}
+
+.tags{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
+
+.tag{
+  background:#efefe9;
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:11px;
+}
+
+.settings{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.setting{
+  background:#fafaf7;
+  padding:9px;
+  border-radius:12px;
+  font-size:12px;
+}
+
+.setting b{
+  display:block;
+  font-size:10px;
+  color:var(--muted);
+  margin-bottom:2px;
+}
+
+.advice{
+  border-left:3px solid var(--accent);
+  padding-left:9px;
+  margin-top:10px;
+  font-size:12px;
+  line-height:1.55;
+}
+
+.selector{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:18px;
+}
+
+.scene-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.scene{
+  border:1px solid var(--line);
+  background:white;
+  border-radius:18px;
+  padding:15px;
+  text-align:left;
+}
+
+.scene.active{
+  background:#111;
+  color:white;
+}
+
+.emoji{
+  font-size:27px;
+}
+
+.scene b{
+  display:block;
+  margin-top:6px;
+}
+
+.scene small{
+  opacity:.65;
+}
+
+.reco-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:14px;
+}
+
+.reco{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:14px;
+  background:white;
+}
+
+.reco h3{
+  margin:0 0 8px;
+}
+
+.rank{
+  font-size:11px;
+  color:var(--muted);
+}
+
+.quick{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:10px;
+}
+
+.quick div{
+  background:#f5f5f0;
+  border-radius:11px;
+  padding:9px;
+  font-size:12px;
+}
+
+.quick b{
+  display:block;
+  font-size:10px;
+  color:var(--muted);
+}
+
+.guide{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.guide-card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:14px;
+}
+
+.guide-card b{
+  display:block;
+  margin-bottom:4px;
+}
+
+.guide-card span{
+  font-size:12px;
+  color:var(--muted);
+}
+
+footer{
+  text-align:center;
+  font-size:12px;
+  color:var(--muted);
+  margin-top:25px;
+}
+
+@media(max-width:800px){
+  .grid,
+  .reco-grid{
+    grid-template-columns:1fr;
+  }
+
+  .scene-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  h1{
+    font-size:34px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<section class="hero">
+
+<div class="eyebrow">
+RICOH GR IIIx HDF · PERSONAL PRESET LIBRARY
+</div>
+
+<h1>Ricoh Tone Vault</h1>
+
+<p>
+รวมสูตรโทนสำหรับ Ricoh GR IIIx HDF
+พร้อมตัวช่วยเลือกโทนตามสถานการณ์จริง
+</p>
+
+</section>
+
+
+<div class="tabs">
+
+<button class="tab active"
+onclick="showPage('library',this)">
+📚 คลังโทน
+</button>
+
+<button class="tab"
+onclick="showPage('today',this)">
+📷 วันนี้จะถ่ายอะไร?
+</button>
+
+<button class="tab"
+onclick="showPage('guide',this)">
+💡 คำแนะนำ
+</button>
+
+</div>
+
+
+<section id="library" class="page active">
+
+<input
+id="search"
+class="search"
+placeholder="ค้นหา คาเฟ่ ภูเขา HDF Portrait..."
+oninput="renderLibrary()"
+>
+
+<div id="chips" class="chips"></div>
+
+<div id="grid" class="grid"></div>
+
+</section>
+
+
+<section id="today" class="page">
+
+<div class="selector">
+
+<h2>วันนี้จะถ่ายอะไร?</h2>
+
+<p style="color:#777;font-size:13px">
+เลือกสถานการณ์ แล้วระบบจะแนะนำ 3 โทนให้
+</p>
+
+<div id="sceneGrid" class="scene-grid"></div>
+
+<div id="recommendations"></div>
+
+</div>
+
+</section>
+
+
+<section id="guide" class="page">
+
+<h2>คำแนะนำก่อนถ่าย</h2>
+
+<div class="guide">
+
+<div class="guide-card">
+<b>☀️ แดดจัด</b>
+<span>
+เริ่ม EV -0.3 ถึง -0.7
+เพื่อรักษาฟ้าและ Highlight
+</span>
+</div>
+
+<div class="guide-card">
+<b>🌙 กลางคืน</b>
+<span>
+วัดแสงที่ไฟหลัก
+และอย่าเร่ง EV จนไฟขาวหมด
+</span>
+</div>
+
+<div class="guide-card">
+<b>☕ คาเฟ่</b>
+<span>
+ตรวจ White Balance ก่อน
+เพราะไฟส้มทำให้ผิวเหลืองง่าย
+</span>
+</div>
+
+<div class="guide-card">
+<b>✨ HDF</b>
+<span>
+เหมาะกับย้อนแสง คาเฟ่ นีออน
+และ Portrait แบบนุ่ม
+</span>
+</div>
+
+<div class="guide-card">
+<b>🏖️ ทะเล</b>
+<span>
+ระวัง Highlight ที่ท้องฟ้า
+และผิวน้ำ
+</span>
+</div>
+
+<div class="guide-card">
+<b>⛰️ ภูเขา</b>
+<span>
+ถ้าเขียวแรงเกินไป
+ลด Saturation ลง
+</span>
+</div>
+
+<div class="guide-card">
+<b>👤 Portrait</b>
+<span>
+ให้ความสำคัญกับ WB
+และสีผิวมากที่สุด
+</span>
+</div>
+
+<div class="guide-card">
+<b>⚡ Fashion Flash</b>
+<span>
+ลด Ambient ประมาณ
+2/3–1 stop แล้วเติมไฟด้านหน้า
+</span>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+Ricoh Tone Vault · GR IIIx HDF
+</footer>
+
+</div>
+
+
+<script>
+
+const presets=[
+
+{
+name:"Everyday Natural",
+cat:"Everyday",
+control:"Negative Film",
+wb:"Auto WB",
+shift:"G1 A1",
+ev:"0 ถึง -0.3",
+highlight:"-1",
+shadow:"+1",
+sat:"0",
+sharp:"0",
+hdf:"OFF",
+use:"เดินเล่น / ใช้ทุกวัน",
+advice:"สูตรกลางสำหรับถ่ายทั่วไป สีผิวและสีฉากสมดุล",
+cover:"green",
+scenes:["sunny","city","portrait","cafe"]
+},
+
+{
+name:"Sunny Day",
+cat:"Sunny",
+control:"Positive Film",
+wb:"Daylight",
+shift:"G1 A1",
+ev:"-0.3 ถึง -0.7",
+highlight:"-2",
+shadow:"+1",
+sat:"+1",
+sharp:"0",
+hdf:"OFF",
+use:"แดดจัด / กลางแจ้ง",
+advice:"ลด EV เพื่อเก็บสีฟ้าและรายละเอียด Highlight",
+cover:"cyan",
+scenes:["sunny","sea","city"]
+},
+
+{
+name:"Morning Soft",
+cat:"Sunny",
+control:"Negative Film",
+wb:"Daylight",
+shift:"A2",
+ev:"+0.3",
+highlight:"-1",
+shadow:"+1",
+sat:"0",
+sharp:"-1",
+hdf:"Optional",
+use:"เช้า / แสงอ่อน",
+advice:"ถ้ามีแสงย้อน เปิด HDF เพื่อเพิ่มความฟุ้ง",
+cover:"pink",
+scenes:["sunny","portrait","mountain"]
+},
+
+{
+name:"Golden Hour",
+cat:"Sunny",
+control:"Positive Film",
+wb:"Cloudy",
+shift:"A2",
+ev:"-0.3",
+highlight:"-1",
+shadow:"+1",
+sat:"+1",
+sharp:"0",
+hdf:"Optional",
+use:"ช่วงเย็น / Golden Hour",
+advice:"ให้โทนอุ่นสวย ระวังผิวส้มเกินไป",
+cover:"brown",
+scenes:["sunny","portrait","city"]
+},
+
+{
+name:"Cafe Natural",
+cat:"Cafe",
+control:"Negative Film",
+wb:"Auto WB",
+shift:"A1 G1",
+ev:"+0.3",
+highlight:"-1",
+shadow:"+1",
+sat:"0",
+sharp:"-1",
+hdf:"OFF",
+use:"คาเฟ่แสงหน้าต่าง",
+advice:"วัดแสงที่ใบหน้า ถ้าฉากหลังสว่างมากให้ลด EV",
+cover:"brown",
+scenes:["cafe","portrait"]
+},
+
+{
+name:"Cafe Warm",
+cat:"Cafe",
+control:"Positive Film",
+wb:"4300K",
+shift:"A2",
+ev:"0",
+highlight:"-1",
+shadow:"+2",
+sat:"+1",
+sharp:"-1",
+hdf:"ON",
+use:"ร้านไฟส้ม / Cozy",
+advice:"HDF ช่วยให้ไฟร้านฟุ้งและบรรยากาศอบอุ่น",
+cover:"brown",
+scenes:["cafe","night","portrait"]
+},
+
+{
+name:"City Day",
+cat:"City",
+control:"Positive Film",
+wb:"Daylight",
+shift:"G1",
+ev:"-0.3",
+highlight:"-1",
+shadow:"+1",
+sat:"+1",
+sharp:"+1",
+hdf:"OFF",
+use:"Street / Architecture",
+advice:"เหมาะกับเมืองกลางวันและเส้นสายอาคาร",
+cover:"blue",
+scenes:["city","sunny"]
+},
+
+{
+name:"City Night",
+cat:"Night",
+control:"Negative Film",
+wb:"3800K",
+shift:"B1",
+ev:"-0.7",
+highlight:"-2",
+shadow:"+1",
+sat:"+1",
+sharp:"0",
+hdf:"OFF",
+use:"เมืองกลางคืน",
+advice:"รักษาป้ายไฟไม่ให้ขาวโพลน",
+cover:"dark",
+scenes:["night","city"]
+},
+
+{
+name:"Neon HDF",
+cat:"HDF",
+control:"Positive Film",
+wb:"3600K",
+shift:"B1 M1",
+ev:"-1.0",
+highlight:"-2",
+shadow:"+1",
+sat:"+1",
+sharp:"-1",
+hdf:"ON",
+use:"Neon / Chinatown",
+advice:"เปิด HDF เพื่อสร้าง Halo รอบหลอดไฟ",
+cover:"dark",
+scenes:["night","city","portrait"]
+},
+
+{
+name:"Portrait Day",
+cat:"Portrait",
+control:"Negative Film",
+wb:"Daylight",
+shift:"A1 G1",
+ev:"+0.3",
+highlight:"-2",
+shadow:"+1",
+sat:"0",
+sharp:"-1",
+hdf:"OFF",
+use:"Portrait กลางวัน",
+advice:"คุมสีผิวและ Highlight ให้ดูนุ่ม",
+cover:"pink",
+scenes:["portrait","sunny"]
+},
+
+{
+name:"Portrait Night HDF",
+cat:"HDF",
+control:"Negative Film",
+wb:"4000K",
+shift:"A1",
+ev:"-0.3",
+highlight:"-2",
+shadow:"+2",
+sat:"0",
+sharp:"-2",
+hdf:"ON",
+use:"Portrait กลางคืน",
+advice:"หาไฟนุ่มด้านหน้า แล้วเปิด HDF",
+cover:"dark",
+scenes:["portrait","night","cafe"]
+},
+
+{
+name:"Beach",
+cat:"Nature",
+control:"Positive Film",
+wb:"Daylight",
+shift:"B1 G1",
+ev:"-0.3 ถึง -0.7",
+highlight:"-2",
+shadow:"+1",
+sat:"+1",
+sharp:"0",
+hdf:"OFF",
+use:"ทะเล / ฟ้าใส",
+advice:"เน้นสีฟ้าและน้ำทะเล แต่ต้องรักษา Highlight",
+cover:"cyan",
+scenes:["sea","sunny","portrait"]
+},
+
+{
+name:"Mountain Green",
+cat:"Nature",
+control:"Negative Film",
+wb:"Daylight",
+shift:"G2",
+ev:"-0.3",
+highlight:"-1",
+shadow:"+2",
+sat:"+1",
+sharp:"+1",
+hdf:"OFF",
+use:"ภูเขา / ป่า",
+advice:"ถ้าเขียวจัดเกิน ให้ลด Saturation ลง",
+cover:"green",
+scenes:["mountain"]
+},
+
+{
+name:"Mist & Mountain",
+cat:"Nature",
+control:"Muted",
+wb:"Cloudy",
+shift:"B1",
+ev:"+0.3",
+highlight:"-1",
+shadow:"+1",
+sat:"-1",
+sharp:"-1",
+hdf:"Optional",
+use:"หมอก / อากาศเย็น",
+advice:"ถ้าหมอกหนาอยู่แล้ว ไม่จำเป็นต้องเปิด HDF",
+cover:"blue",
+scenes:["mountain","portrait"]
+},
+
+{
+name:"Warm Film",
+cat:"Film",
+control:"Negative Film",
+wb:"Cloudy",
+shift:"A2 G1",
+ev:"+0.3",
+highlight:"-1",
+shadow:"+2",
+sat:"0",
+sharp:"-1",
+hdf:"OFF",
+use:"Travel / Lifestyle",
+advice:"ฟิล์มอุ่น เหมาะกับช่วงเย็นและเมืองเก่า",
+cover:"brown",
+scenes:["city","portrait","cafe"]
+},
+
+{
+name:"Cool Film",
+cat:"Film",
+control:"Negative Film",
+wb:"4600K",
+shift:"B2 G1",
+ev:"0",
+highlight:"-1",
+shadow:"+1",
+sat:"-1",
+sharp:"0",
+hdf:"OFF",
+use:"เมือง / วันครึ้ม",
+advice:"โทนเย็นสะอาด เหมาะกับแฟชั่นและอาคาร",
+cover:"blue",
+scenes:["city","portrait"]
+},
+
+{
+name:"HDF Dreamy",
+cat:"HDF",
+control:"Negative Film",
+wb:"Auto WB",
+shift:"A1",
+ev:"+0.3",
+highlight:"-2",
+shadow:"+1",
+sat:"0",
+sharp:"-2",
+hdf:"ON",
+use:"Portrait / คาเฟ่ / ย้อนแสง",
+advice:"ถ้าภาพฟุ้งมากเกิน ให้ปิด HDF ก่อนปรับค่าอื่น",
+cover:"pink",
+scenes:["cafe","portrait","sunny"]
+},
+
+{
+name:"Winter Soft Film",
+cat:"Nature",
+control:"Negative Film",
+wb:"Auto WB",
+shift:"A2 G1",
+ev:"-0.3 ถึง -0.7",
+highlight:"-1",
+shadow:"+1",
+sat:"-1",
+sharp:"-1",
+hdf:"ON",
+use:"หิมะ / Winter / ภูเขา",
+advice:"เย็น ละมุน รักษารายละเอียดสีขาวและผิว",
+cover:"blue",
+scenes:["mountain","portrait","sunny"]
+},
+
+{
+name:"Classic Brown Film",
+cat:"Film",
+control:"Negative Film",
+wb:"Auto WB",
+shift:"A2 G2",
+ev:"-0.3 ถึง -0.7",
+highlight:"-1",
+shadow:"+1",
+sat:"-1",
+sharp:"-1",
+hdf:"ON",
+use:"เมืองยุโรป / Outfit",
+advice:"น้ำตาลคลาสสิก เขียวหม่น ดูเหมือนฟิล์ม",
+cover:"brown",
+scenes:["city","portrait","mountain"]
+},
+
+{
+name:"Fuji Blue Film",
+cat:"Nature",
+control:"Positive Film",
+wb:"Auto WB",
+shift:"A2 G1",
+ev:"-0.3 ถึง -0.7",
+highlight:"-1",
+shadow:"+1",
+sat:"-1",
+sharp:"-1",
+hdf:"ON",
+use:"ภูเขา / ทะเลสาบ",
+advice:"ฟ้าใสเย็น ผิวสว่าง เหมาะกับญี่ปุ่นและวิวธรรมชาติ",
+cover:"blue",
+scenes:["mountain","sea","portrait","sunny"]
+},
+
+{
+name:"Sydney Blue Film",
+cat:"Sunny",
+control:"Positive Film",
+wb:"Auto WB",
+shift:"A2 G1",
+ev:"-0.3 ถึง -0.7",
+highlight:"-1",
+shadow:"+1",
+sat:"+1",
+sharp:"0",
+hdf:"ON",
+use:"แดดจัด / เมือง / ริมน้ำ",
+advice:"ฟ้าสด น้ำเด่น เหมาะกับวันอากาศดี",
+cover:"cyan",
+scenes:["sunny","city","sea","portrait"]
+},
+
+{
+name:"Mountain Airy Film",
+cat:"Nature",
+control:"Negative Film",
+wb:"Daylight",
+shift:"G2 A1",
+ev:"+0.3 ถึง +0.7",
+highlight:"-2",
+shadow:"+1",
+sat:"-1",
+sharp:"-1",
+hdf:"Optional",
+use:"ภูเขา / ทะเลสาบ / แดดอ่อน",
+advice:"ฟ้าอ่อน เขียวหม่น ผิวใส ถ้าย้อนแสงเปิด HDF",
+cover:"green",
+scenes:["mountain","portrait","sunny"]
+},
+
+{
+name:"City Flash Editorial",
+cat:"City",
+control:"Negative Film",
+wb:"4800–5000K",
+shift:"B2 G1",
+ev:"-0.7",
+highlight:"-1",
+shadow:"-1",
+sat:"-1",
+sharp:"+1",
+hdf:"OFF",
+use:"Rooftop / Fashion / Day Flash",
+advice:"กด Ambient ลง 2/3–1 stop แล้วเติมแสงด้านหน้า",
+cover:"dark",
+scenes:["city","portrait","sunny"]
+}
+
+];
+
+const categories=[
+"ทั้งหมด",
+"Favorite",
+"Everyday",
+"Sunny",
+"Cafe",
+"Night",
+"City",
+"Nature",
+"Portrait",
+"Film",
+"HDF"
+];
+
+const scenes=[
+{
+id:"sunny",
+emoji:"☀️",
+name:"แดดจัด",
+desc:"กลางแจ้ง / ฟ้าเปิด"
+},
+{
+id:"night",
+emoji:"🌙",
+name:"กลางคืน",
+desc:"ไฟเมือง / แสงน้อย"
+},
+{
+id:"cafe",
+emoji:"☕",
+name:"คาเฟ่",
+desc:"แสงหน้าต่าง / ไฟส้ม"
+},
+{
+id:"city",
+emoji:"🏙️",
+name:"เมือง",
+desc:"Street / Architecture"
+},
+{
+id:"sea",
+emoji:"🏖️",
+name:"ทะเล",
+desc:"ทะเล / ริมน้ำ"
+},
+{
+id:"mountain",
+emoji:"⛰️",
+name:"ภูเขา",
+desc:"ป่า / หมอก / ทะเลสาบ"
+},
+{
+id:"portrait",
+emoji:"👤",
+name:"Portrait",
+desc:"เน้นผิว / ตัวแบบ"
+}
+];
+
+let currentCategory="ทั้งหมด";
+let currentScene=null;
+
+let favorites=
+JSON.parse(
+localStorage.getItem("ricohFavorites") || "{}"
+);
+
+function showPage(id,button){
+
+document
+.querySelectorAll(".page")
+.forEach(page=>{
+page.classList.remove("active");
+});
+
+document
+.getElementById(id)
+.classList.add("active");
+
+document
+.querySelectorAll(".tab")
+.forEach(tab=>{
+tab.classList.remove("active");
+});
+
+button.classList.add("active");
+
+}
+
+function renderChips(){
+
+const wrap=
+document.getElementById("chips");
+
+wrap.innerHTML=
+categories.map(cat=>`
+
+<button
+class="chip ${cat===currentCategory?"active":""}"
+onclick="setCategory('${cat}')"
+>
+
+${cat}
+
+</button>
+
+`).join("");
+
+}
+
+function setCategory(cat){
+
+currentCategory=cat;
+
+renderChips();
+
+renderLibrary();
+
+}
+
+function renderLibrary(){
+
+const q=
+document
+.getElementById("search")
+.value
+.toLowerCase();
+
+let list=
+presets.filter(p=>{
+
+const categoryOK=
+
+currentCategory==="ทั้งหมด"
+
+||
+
+(
+currentCategory==="Favorite"
+
+&& favorites[p.name]
+)
+
+||
+
+p.cat===currentCategory;
+
+const searchOK=
+
+Object.values(p)
+.join(" ")
+.toLowerCase()
+.includes(q);
+
+return categoryOK && searchOK;
+
+});
+
+document
+.getElementById("grid")
+.innerHTML=
+
+list.map(p=>cardHTML(p)).join("");
+
+}
+
+function cardHTML(p){
+
+return `
+
+<article class="card">
+
+<div class="cover ${p.cover}">
+
+<button
+class="fav"
+onclick="toggleFavorite('${p.name}')"
+>
+
+${favorites[p.name]?"♥":"♡"}
+
+</button>
+
+<h3>${p.name}</h3>
+
+<small>${p.use}</small>
+
+</div>
+
+<div class="body">
+
+<div class="tags">
+
+<span class="tag">
+${p.hdf==="ON"
+?"✨ HDF ON"
+:p.hdf==="Optional"
+?"✨ HDF Optional"
+:"HDF OFF"}
+</span>
+
+<span class="tag">
+${p.control}
+</span>
+
+</div>
+
+<div class="settings">
+
+<div class="setting">
+<b>WB</b>
+${p.wb}
+</div>
+
+<div class="setting">
+<b>WB SHIFT</b>
+${p.shift}
+</div>
+
+<div class="setting">
+<b>EV</b>
+${p.ev}
+</div>
+
+<div class="setting">
+<b>HIGHLIGHT</b>
+${p.highlight}
+</div>
+
+<div class="setting">
+<b>SHADOW</b>
+${p.shadow}
+</div>
+
+<div class="setting">
+<b>SATURATION</b>
+${p.sat}
+</div>
+
+<div class="setting">
+<b>SHARPNESS</b>
+${p.sharp}
+</div>
+
+<div class="setting">
+<b>IMAGE CONTROL</b>
+${p.control}
+</div>
+
+</div>
+
+<div class="advice">
+💡 ${p.advice}
+</div>
+
+</div>
+
+</article>
+
+`;
+
+}
+
+function toggleFavorite(name){
+
+favorites[name]=!favorites[name];
+
+localStorage.setItem(
+"ricohFavorites",
+JSON.stringify(favorites)
+);
+
+renderLibrary();
+
+}
+
+function renderScenes(){
+
+document
+.getElementById("sceneGrid")
+.innerHTML=
+
+scenes.map(s=>`
+
+<button
+class="scene ${currentScene===s.id?"active":""}"
+onclick="pickScene('${s.id}')"
+>
+
+<div class="emoji">
+${s.emoji}
+</div>
+
+<b>${s.name}</b>
+
+<small>${s.desc}</small>
+
+</button>
+
+`).join("");
+
+}
+
+function scorePreset(preset,scene){
+
+let score=0;
+
+if(
+preset.scenes &&
+preset.scenes.includes(scene)
+){
+score+=5;
+}
+
+const text=
+(
+preset.name+" "+preset.use
+).toLowerCase();
+
+if(
+scene==="portrait"
+&&
+/portrait|ผิว|คน/.test(text)
+){
+score+=2;
+}
+
+if(
+scene==="city"
+&&
+/city|เมือง|street|rooftop|architecture/.test(text)
+){
+score+=2;
+}
+
+if(
+scene==="night"
+&&
+/night|กลางคืน|neon|นีออน/.test(text)
+){
+score+=2;
+}
+
+if(
+scene==="cafe"
+&&
+/cafe|คาเฟ่|ร้าน/.test(text)
+){
+score+=2;
+}
+
+if(
+scene==="sea"
+&&
+/ทะเล|sea|ริม|น้ำ/.test(text)
+){
+score+=2;
+}
+
+if(
+scene==="mountain"
+&&
+/ภูเขา|mountain|ป่า|หมอก|หิมะ/.test(text)
+){
+score+=2;
+}
+
+if(
+scene==="sunny"
+&&
+/แดด|sunny|day|ฟ้า/.test(text)
+){
+score+=2;
+}
+
+return score;
+
+}
+
+function pickScene(scene){
+
+currentScene=scene;
+
+renderScenes();
+
+const label=
+scenes.find(s=>s.id===scene);
+
+const best=
+
+presets
+.map(p=>{
+return {
+...p,
+_score:scorePreset(p,scene)
+};
+})
+.sort((a,b)=>b._score-a._score)
+.slice(0,3);
+
+document
+.getElementById("recommendations")
+.innerHTML=
+
+`
+
+<h2 style="margin-top:25px">
+
+${label.emoji}
+${label.name}
+
+</h2>
+
+<p style="color:#777;font-size:13px">
+
+3 โทนที่เหมาะที่สุด
+
+</p>
+
+<div class="reco-grid">
+
+${best.map((p,index)=>`
+
+<div class="reco">
+
+<div class="rank">
+
+อันดับ ${index+1}
+
+</div>
+
+<h3>
+
+${p.name}
+
+</h3>
+
+<div class="tags">
+
+<span class="tag">
+
+${
+p.hdf==="ON"
+?"✨ เปิด HDF"
+:p.hdf==="Optional"
+?"✨ HDF ตามสภาพแสง"
+:"HDF OFF"
+}
+
+</span>
+
+<span class="tag">
+
+EV ${p.ev}
+
+</span>
+
+</div>
+
+<div class="quick">
+
+<div>
+
+<b>
+IMAGE CONTROL
+</b>
+
+${p.control}
+
+</div>
+
+<div>
+
+<b>
+WB
+</b>
+
+${p.wb}
+
+</div>
+
+</div>
+
+<p style="
+font-size:12px;
+color:#555;
+line-height:1.6;
+">
+
+${p.advice}
+
+</p>
+
+</div>
+
+`).join("")}
+
+</div>
+
+`;
+
+}
+
+renderChips();
+renderLibrary();
+renderScenes();
+
+</script>
+
+</body>
+</html>
