@@ -447,6 +447,95 @@ label{
   .search-row{grid-template-columns:1fr}
   h1{font-size:34px}
 }
+
+.environment-box{
+  margin-top:16px;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fafaf7;
+}
+.environment-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:10px;
+}
+.environment{
+  border:1px solid var(--line);
+  background:white;
+  border-radius:16px;
+  padding:14px;
+  text-align:left;
+  cursor:pointer;
+}
+.environment.active{
+  background:#111;
+  color:white;
+}
+.environment .emoji{font-size:24px}
+.environment b{display:block;margin-top:5px}
+.environment small{opacity:.72}
+.wb-helper{
+  margin-top:14px;
+  background:#111;
+  color:white;
+  border-radius:18px;
+  padding:16px;
+}
+.wb-helper h3{margin:0 0 8px}
+.wb-summary{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:10px;
+}
+.wb-summary div{
+  background:#242424;
+  border-radius:12px;
+  padding:11px;
+  font-size:13px;
+}
+.wb-summary b{
+  display:block;
+  color:var(--accent);
+  font-size:10px;
+  margin-bottom:3px;
+}
+.beginner-note{
+  margin-top:10px;
+  padding:11px 12px;
+  background:#f5f5f0;
+  border-radius:12px;
+  font-size:12px;
+  line-height:1.6;
+}
+.adjust-list{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:10px;
+}
+.adjust-item{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px;
+  font-size:12px;
+  line-height:1.5;
+  background:white;
+}
+.reco-setup{
+  margin-top:10px;
+  padding:10px;
+  border-radius:12px;
+  background:#f6f6f1;
+  font-size:12px;
+  line-height:1.55;
+}
+@media(max-width:700px){
+  .environment-grid,.wb-summary,.adjust-list{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -499,7 +588,19 @@ label{
   <section id="today" class="page">
     <div class="section-box">
       <h2 style="margin-top:0">วันนี้จะถ่ายอะไร?</h2>
-      <p class="muted">เลือกได้หลายหัวข้อ เช่น “แดดจัด + เมือง + Portrait” แล้วระบบจะเลือก 3 โทนที่เหมาะที่สุดให้</p>
+      <p class="muted">เริ่มจากบอก “สภาพแวดล้อมตอนนี้” ก่อน แล้วค่อยเลือกว่าจะถ่ายอะไร ระบบจะช่วยแนะนำโทน + White Balance + WB Shift ให้เข้าใจง่ายขึ้น</p>
+
+      <div class="environment-box">
+        <b>1) ตอนนี้สภาพแวดล้อมเป็นยังไง?</b>
+        <div class="muted" style="margin-top:4px">เลือกอันที่ใกล้เคียงที่สุด ไม่ต้องรู้ศัพท์กล้องก็ได้</div>
+        <div id="environmentGrid" class="environment-grid"></div>
+        <div id="wbHelper"></div>
+      </div>
+
+      <div style="margin-top:18px">
+        <b>2) แล้ววันนี้จะถ่ายอะไร?</b>
+        <div class="muted" style="margin:4px 0 10px">เลือกได้หลายข้อ เช่น เมือง + Portrait + Street</div>
+      </div>
       <div id="sceneGrid" class="scene-grid"></div>
       <div style="margin-top:12px">
         <button class="btn primary" onclick="clearSceneSelection()">ล้างการเลือก</button>
@@ -822,6 +923,161 @@ const DEFAULT_PRESETS = [
   }
 ];
 
+
+const ENVIRONMENTS = [
+  {
+    id:"bright_sun",
+    emoji:"☀️",
+    name:"แดดแรง / ฟ้าใส",
+    desc:"กลางแจ้ง แสงแข็ง เงาชัด",
+    wb:"Daylight หรือ 5000–5600K",
+    shift:"G1 หรือ G1 A1",
+    ev:"เริ่ม -0.3 ถึง -0.7",
+    advice:"เน้นเก็บท้องฟ้าและผิวไม่ให้ขาวล้น",
+    matchScenes:["sunny","city","sea","travel","architecture"]
+  },
+  {
+    id:"soft_daylight",
+    emoji:"🌤",
+    name:"แดดอ่อน / แสงนุ่ม",
+    desc:"เช้า บ่าย หรือมีเมฆบาง",
+    wb:"Auto WB หรือ 5000–5500K",
+    shift:"G1 A1",
+    ev:"เริ่ม 0 ถึง +0.3",
+    advice:"เหมาะกับคนและวิว เพราะ contrast ไม่แรง",
+    matchScenes:["softsun","portrait","travel","mountain","forest"]
+  },
+  {
+    id:"cloudy",
+    emoji:"☁️",
+    name:"ครึ้ม / ฟ้าหม่น",
+    desc:"แสงเย็น สีฉากดูแบน",
+    wb:"Cloudy หรือ 5600–6200K",
+    shift:"A1 ถึง A2",
+    ev:"เริ่ม 0 ถึง +0.3",
+    advice:"เพิ่มความอุ่นเล็กน้อยช่วยให้ผิวไม่ซีด",
+    matchScenes:["cloudy","portrait","street","travel"]
+  },
+  {
+    id:"window_light",
+    emoji:"🪟",
+    name:"ในร่ม + แสงหน้าต่าง",
+    desc:"คาเฟ่ บ้าน โรงแรม แสงธรรมชาติ",
+    wb:"Auto WB หรือ 4500–5200K",
+    shift:"A1",
+    ev:"เริ่ม 0 ถึง +0.3",
+    advice:"ดูสีผิวเป็นหลัก ถ้าหน้าเหลืองให้ลด Kelvin",
+    matchScenes:["cafe","portrait","food","indoor"]
+  },
+  {
+    id:"warm_indoor",
+    emoji:"💡",
+    name:"ไฟเหลือง / ไฟส้ม",
+    desc:"คาเฟ่ ร้านอาหาร ห้องไฟอุ่น",
+    wb:"3800–4500K",
+    shift:"A1–A2 หรือ M1 ถ้าติดเขียว",
+    ev:"เริ่ม 0 ถึง -0.3",
+    advice:"ลด Kelvin เพื่อหักความเหลือง แต่ไม่ควรลดจนผิวกลายเป็นฟ้า",
+    matchScenes:["cafe","food","portrait","indoor","night"]
+  },
+  {
+    id:"white_indoor",
+    emoji:"🏬",
+    name:"ไฟขาว / ห้าง / Office",
+    desc:"LED หรือ fluorescent",
+    wb:"4000–5000K",
+    shift:"M1 ถ้าภาพติดเขียว",
+    ev:"เริ่ม 0",
+    advice:"ไฟ LED บางแบบทำให้ผิวอมเขียว ให้ขยับ WB Shift ไปทาง M",
+    matchScenes:["indoor","portrait","fashion","architecture"]
+  },
+  {
+    id:"night_city",
+    emoji:"🌙",
+    name:"กลางคืน / ไฟเมือง",
+    desc:"ถนน ป้ายไฟ แสงน้อย",
+    wb:"3200–4200K",
+    shift:"B1 หรือ B1 M1",
+    ev:"เริ่ม -0.7",
+    advice:"กด EV ช่วยรักษาป้ายไฟ ถ้าไฟขาวโพลนมากลอง -1.0",
+    matchScenes:["night","city","street","travel"]
+  },
+  {
+    id:"neon",
+    emoji:"✨",
+    name:"นีออน / สีไฟจัด",
+    desc:"ป้ายร้าน Chinatown บาร์",
+    wb:"3200–3800K",
+    shift:"B1 M1",
+    ev:"เริ่ม -0.7 ถึง -1.0",
+    advice:"ให้สีไฟเด่นและยังเก็บรายละเอียด highlight",
+    matchScenes:["neon","night","city","portrait","street","backlight"]
+  },
+  {
+    id:"golden",
+    emoji:"🌅",
+    name:"Golden Hour / แสงเย็น",
+    desc:"ก่อนพระอาทิตย์ตก แสงอุ่น",
+    wb:"Daylight หรือ 5000–5800K",
+    shift:"A1",
+    ev:"เริ่ม -0.3 ถึง +0.3",
+    advice:"ถ้าอยากเก็บบรรยากาศอุ่น อย่าตั้ง WB เย็นเกินไป",
+    matchScenes:["golden","portrait","travel","backlight"]
+  }
+];
+
+let selectedEnvironment = null;
+
+function renderEnvironmentGrid(){
+  document.getElementById("environmentGrid").innerHTML = ENVIRONMENTS.map(env => `
+    <button class="environment ${selectedEnvironment===env.id ? "active" : ""}" onclick="selectEnvironment('${env.id}')">
+      <div class="emoji">${env.emoji}</div>
+      <b>${env.name}</b>
+      <small>${env.desc}</small>
+    </button>
+  `).join("");
+  renderWBHelper();
+}
+
+function selectEnvironment(id){
+  selectedEnvironment = selectedEnvironment === id ? null : id;
+  renderEnvironmentGrid();
+  renderRecommendations();
+}
+
+function getSelectedEnvironment(){
+  return ENVIRONMENTS.find(x => x.id === selectedEnvironment) || null;
+}
+
+function renderWBHelper(){
+  const box = document.getElementById("wbHelper");
+  const env = getSelectedEnvironment();
+
+  if(!env){
+    box.innerHTML = `<div class="beginner-note">💡 <b>White Balance (WB) คืออะไร?</b><br>WB ใช้แก้สีของแสงให้ภาพไม่เหลืองหรือฟ้าเกินไป ส่วน WB Shift คือการขยับสีละเอียดอีกขั้น: <b>A = อุ่น/ส้ม</b>, <b>B = เย็น/ฟ้า</b>, <b>G = เขียว</b>, <b>M = ม่วงแดง</b></div>`;
+    return;
+  }
+
+  box.innerHTML = `
+    <div class="wb-helper">
+      <h3>${env.emoji} ค่าตั้งต้นสำหรับ “${env.name}”</h3>
+      <div class="muted" style="color:#cfcfcf">นี่คือจุดเริ่มต้น ไม่จำเป็นต้องตรงเป๊ะทุกสถานที่ ให้ดูสีผิวและสีขาวในภาพเป็นหลัก</div>
+      <div class="wb-summary">
+        <div><b>WHITE BALANCE</b>${env.wb}</div>
+        <div><b>WB SHIFT</b>${env.shift}</div>
+        <div><b>EV เริ่มต้น</b>${env.ev}</div>
+      </div>
+      <div style="margin-top:10px;font-size:12px;line-height:1.6">💡 ${env.advice}</div>
+    </div>
+    <div class="adjust-list">
+      <div class="adjust-item"><b>ภาพเหลือง / ส้มเกินไป</b><br>ลด Kelvin ลงทีละประมาณ 200–300K หรือขยับจาก A กลับเข้า 0</div>
+      <div class="adjust-item"><b>ภาพฟ้า / เย็นเกินไป</b><br>เพิ่ม Kelvin ขึ้นทีละประมาณ 200–300K หรือขยับไปทาง A</div>
+      <div class="adjust-item"><b>ผิวหรือสีขาวติดเขียว</b><br>ขยับ WB Shift ไปทาง <b>M</b> ทีละ 1 ขั้น</div>
+      <div class="adjust-item"><b>ภาพติดชมพู / ม่วงแดง</b><br>ขยับ WB Shift ไปทาง <b>G</b> ทีละ 1 ขั้น</div>
+    </div>
+  `;
+}
+
 const SCENES = [
   {id:"sunny", emoji:"☀️", name:"แดดจัด", desc:"ฟ้าเปิด แสงแรง"},
   {id:"softsun", emoji:"🌤", name:"แดดอ่อน", desc:"แสงนุ่ม เช้า/บ่าย"},
@@ -981,13 +1237,31 @@ function toggleScene(id){
 
 function clearSceneSelection(){
   selectedScenes = [];
+  selectedEnvironment = null;
   renderSceneGrid();
+  renderEnvironmentGrid();
   renderRecommendations();
 }
 
 function scorePreset(preset, selected){
   let score = 0;
   const presetScenes = preset.scenes || [];
+
+  const env = getSelectedEnvironment();
+  if(env){
+    env.matchScenes.forEach(sceneId => {
+      if(presetScenes.includes(sceneId)) score += 3;
+    });
+
+    const wbText = `${preset.wb || ""} ${preset.shift || ""}`.toLowerCase();
+
+    if(env.id==="bright_sun" && /daylight|5000|5200|5400|5600/.test(wbText)) score += 2;
+    if(env.id==="warm_indoor" && /3800|4000|4200|4300|4500/.test(wbText)) score += 3;
+    if(env.id==="night_city" && /3200|3400|3600|3800|4000|4200/.test(wbText)) score += 2;
+    if(env.id==="neon" && (preset.hdf==="ON" || /3200|3400|3600|3800/.test(wbText))) score += 3;
+    if(env.id==="cloudy" && /cloudy|5600|5800|6000|6200/.test(wbText)) score += 2;
+  }
+
   selected.forEach(sceneId => {
     if(presetScenes.includes(sceneId)) score += 5;
 
@@ -1028,8 +1302,8 @@ function getRecommendationCover(p){
 function renderRecommendations(){
   const area = document.getElementById("recommendationArea");
 
-  if(selectedScenes.length === 0){
-    area.innerHTML = `<p class="muted" style="margin-top:14px">ยังไม่ได้เลือกหัวข้อ</p>`;
+  if(selectedScenes.length === 0 && !selectedEnvironment){
+    area.innerHTML = `<p class="muted" style="margin-top:14px">ยังไม่ได้เลือกสภาพแวดล้อมหรือหัวข้อ</p>`;
     return;
   }
 
@@ -1043,10 +1317,16 @@ function renderRecommendations(){
     .filter(Boolean)
     .join(" + ");
 
+  const env = getSelectedEnvironment();
+  const summaryParts = [
+    env ? env.name : "",
+    labelList
+  ].filter(Boolean).join(" + ");
+
   area.innerHTML = `
     <div style="margin-top:18px">
-      <h3 style="margin:0 0 6px 0">หัวข้อที่เลือก: ${escapeHtml(labelList)}</h3>
-      <p class="muted">3 โทนที่เหมาะที่สุดจากการเลือกหลายหัวข้อ</p>
+      <h3 style="margin:0 0 6px 0">สถานการณ์ที่เลือก: ${escapeHtml(summaryParts)}</h3>
+      <p class="muted">3 โทนที่เหมาะที่สุด โดยคิดทั้งสภาพแสงและสิ่งที่จะถ่าย</p>
       <div class="reco-grid">
         ${top.map((p, idx) => `
           <div class="reco">
@@ -1061,6 +1341,16 @@ function renderRecommendations(){
               <div class="quick">
                 <div><b>IMAGE CONTROL</b>${escapeHtml(p.control || "")}</div>
                 <div><b>WB</b>${escapeHtml(p.wb || "")}</div>
+                <div><b>WB SHIFT</b>${escapeHtml(p.shift || "")}</div>
+                <div><b>EV</b>${escapeHtml(p.ev || "")}</div>
+              </div>
+              <div class="reco-setup">
+                <b>📷 ตั้งกล้องตามนี้ก่อน</b><br>
+                1. Image Control → ${escapeHtml(p.control || "-")}<br>
+                2. White Balance → ${escapeHtml(p.wb || "-")}<br>
+                3. WB Shift → ${escapeHtml(p.shift || "-")}<br>
+                4. EV → ${escapeHtml(p.ev || "-")}<br>
+                5. HDF → ${escapeHtml(p.hdf || "OFF")}
               </div>
               <p style="font-size:12px;line-height:1.55;color:#555">${escapeHtml(p.advice || "")}</p>
             </div>
@@ -1267,6 +1557,7 @@ function resetApp(){
     presets = JSON.parse(JSON.stringify(DEFAULT_PRESETS));
     favorites = {};
     selectedScenes = [];
+    selectedEnvironment = null;
     saveAll();
     renderLibrary();
     renderSceneGrid();
@@ -1288,6 +1579,7 @@ function escapeJs(str){
 
 renderLibrary();
 renderSceneGrid();
+renderEnvironmentGrid();
 renderRecommendations();
 </script>
 </body>
