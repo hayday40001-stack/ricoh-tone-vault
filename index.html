@@ -1576,7 +1576,56 @@ function escapeHtml(str){
 function escapeJs(str){
   return String(str ?? "").replace(/'/g, "\\'");
 }
+document.getElementById("importJsonInput").addEventListener("change", function(e){
+  const file = e.target.files[0];
+  if(!file) return;
 
+  const reader = new FileReader();
+
+  reader.onload = function(evt){
+    try{
+      const data = JSON.parse(evt.target.result);
+      const importedPresets = Array.isArray(data)
+        ? data
+        : (data.presets || []);
+
+      // เพิ่มของใหม่เข้าไป โดยของเก่ายังอยู่
+      importedPresets.forEach(newPreset => {
+        const existingIndex = presets.findIndex(
+          p => p.name.toLowerCase() === newPreset.name.toLowerCase()
+        );
+
+        if(existingIndex === -1){
+          presets.unshift(newPreset);
+        } else {
+          // ถ้าชื่อซ้ำ ให้ทำเป็น Copy เพื่อไม่ทับของเดิม
+          presets.unshift({
+            ...newPreset,
+            name: newPreset.name + " (Imported)"
+          });
+        }
+      });
+
+      // รวม Favorite โดยไม่ลบของเก่า
+      if(!Array.isArray(data) && data.favorites){
+        favorites = {
+          ...favorites,
+          ...data.favorites
+        };
+      }
+
+      saveAll();
+      renderLibrary();
+      renderRecommendations();
+
+      alert(`Import สำเร็จ เพิ่ม ${importedPresets.length} โทน โดยข้อมูลเดิมยังอยู่`);
+    }catch(err){
+      alert("ไฟล์ JSON ไม่ถูกต้อง");
+    }
+  };
+
+  reader.readAsText(file);
+});
 renderLibrary();
 renderSceneGrid();
 renderEnvironmentGrid();
