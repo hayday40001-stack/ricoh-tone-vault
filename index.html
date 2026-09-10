@@ -536,6 +536,50 @@ label{
   .environment-grid,.wb-summary,.adjust-list{grid-template-columns:1fr}
 }
 
+
+.quick-import{
+  grid-column:1/-1;
+  border:1px solid var(--line);
+  background:#111;
+  color:white;
+  border-radius:18px;
+  padding:14px;
+}
+.quick-import label{
+  color:var(--accent);
+}
+.quick-import textarea{
+  width:100%;
+  min-height:150px;
+  margin-top:8px;
+  border:1px solid #3b3b3b;
+  background:#1c1c1c;
+  color:white;
+  border-radius:12px;
+  padding:12px;
+  resize:vertical;
+}
+.quick-import .hint{
+  color:#c8c8c8;
+  font-size:12px;
+  line-height:1.55;
+  margin-top:6px;
+}
+.quick-import-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.quick-import .btn{
+  border-color:#444;
+}
+.quick-import-status{
+  margin-top:9px;
+  font-size:12px;
+  color:#d8d8d8;
+}
+
 </style>
 </head>
 <body>
@@ -633,6 +677,39 @@ label{
     </div>
 
     <div class="form-grid" style="margin-top:14px">
+
+      <div class="quick-import">
+        <label>⚡ เพิ่มเร็ว — วางสูตรจาก ChatGPT</label>
+        <div class="hint">
+          คัดลอกสูตรที่ผมส่งให้แล้ววางตรงนี้ จากนั้นกด “เติมฟอร์มอัตโนมัติ” ได้เลย
+          รองรับทั้ง JSON และข้อความแบบ Name / WB / EV / HDF
+        </div>
+        <textarea id="quickPresetText" placeholder='ตัวอย่าง:
+{
+  "name": "Sydney Day Flash",
+  "cat": "City",
+  "control": "Positive Film",
+  "wb": "5200K",
+  "shift": "B2 G1",
+  "ev": "-0.7",
+  "highlight": "-2",
+  "shadow": "-1",
+  "sat": "+1",
+  "sharp": "+1",
+  "hdf": "OFF",
+  "use": "แดดจัด / Portrait / Fashion",
+  "advice": "กดแสงฉากหลังแล้วใช้ Fill Flash",
+  "scenes": ["sunny","city","portrait","fashion","travel"]
+}'></textarea>
+        <div class="quick-import-actions">
+          <button class="btn primary" type="button" onclick="applyQuickPreset()">✨ เติมฟอร์มอัตโนมัติ</button>
+          <button class="btn" type="button" onclick="pasteQuickPreset()">📋 วางจาก Clipboard</button>
+          <button class="btn" type="button" onclick="copyPresetTemplate()">คัดลอก Template</button>
+          <button class="btn" type="button" onclick="clearQuickPreset()">ล้าง</button>
+        </div>
+        <div id="quickPresetStatus" class="quick-import-status"></div>
+      </div>
+
       <div class="field">
         <label>ชื่อโทน</label>
         <input id="f_name" class="text-input">
@@ -1384,6 +1461,8 @@ function closePresetForm(){
 }
 
 function clearForm(){
+  if(document.getElementById("quickPresetText")) document.getElementById("quickPresetText").value = "";
+  if(document.getElementById("quickPresetStatus")) document.getElementById("quickPresetStatus").textContent = "";
   [
     "f_name","f_control","f_wb","f_shift","f_ev","f_highlight","f_shadow",
     "f_sat","f_sharp","f_use","f_advice","f_image_url"
@@ -1434,6 +1513,219 @@ document.getElementById("f_image_url").addEventListener("input", function(e){
 function getSelectedFormScenes(){
   return [...document.querySelectorAll("#sceneCheckboxGrid input[type='checkbox']:checked")].map(el => el.value);
 }
+
+
+function normalizePresetObject(obj){
+  const aliases = {
+    name:["name","ชื่อ","ชื่อโทน","tone","preset"],
+    cat:["cat","category","หมวด"],
+    control:["control","imagecontrol","image_control","image control","โทนภาพ"],
+    wb:["wb","whitebalance","white_balance","white balance"],
+    shift:["shift","wbshift","wb_shift","wb shift"],
+    ev:["ev","exposure","exposurecompensation"],
+    highlight:["highlight","highlights"],
+    shadow:["shadow","shadows"],
+    sat:["sat","saturation","สี","ความอิ่มสี"],
+    sharp:["sharp","sharpness","ความคม"],
+    hdf:["hdf"],
+    use:["use","เหมาะกับ","usage","suitable"],
+    advice:["advice","คำแนะนำ","note","notes"],
+    cover:["cover","สีการ์ด"],
+    scenes:["scenes","scene","หัวข้อ"]
+  };
+
+  const clean = {};
+  Object.entries(obj || {}).forEach(([k,v])=>{
+    clean[String(k).toLowerCase().replace(/\s+/g,"").replace(/_/g,"")] = v;
+  });
+
+  const out = {};
+  Object.entries(aliases).forEach(([target, keys])=>{
+    for(const key of keys){
+      const normalized = key.toLowerCase().replace(/\s+/g,"").replace(/_/g,"");
+      if(clean[normalized] !== undefined){
+        out[target] = clean[normalized];
+        break;
+      }
+    }
+  });
+  return out;
+}
+
+function parseLoosePresetText(text){
+  const obj = {};
+  const lines = text.split(/\n+/);
+
+  const mapKey = (raw)=>{
+    const k = raw.trim().toLowerCase();
+    if(/^(name|ชื่อ|ชื่อโทน)$/.test(k)) return "name";
+    if(/^(cat|category|หมวด)$/.test(k)) return "cat";
+    if(/^(image\s*control|control|โทนภาพ)$/.test(k)) return "control";
+    if(/^(wb|white\s*balance)$/.test(k)) return "wb";
+    if(/^(wb\s*shift|shift)$/.test(k)) return "shift";
+    if(/^ev$/.test(k)) return "ev";
+    if(/^highlights?$/.test(k)) return "highlight";
+    if(/^shadows?$/.test(k)) return "shadow";
+    if(/^(sat|saturation)$/.test(k)) return "sat";
+    if(/^(sharp|sharpness)$/.test(k)) return "sharp";
+    if(/^hdf$/.test(k)) return "hdf";
+    if(/^(use|เหมาะกับ)$/.test(k)) return "use";
+    if(/^(advice|คำแนะนำ|note)$/.test(k)) return "advice";
+    if(/^scenes?$/.test(k)) return "scenes";
+    if(/^cover$/.test(k)) return "cover";
+    return null;
+  };
+
+  for(const line of lines){
+    const m = line.match(/^\s*[-•*]?\s*([^:=：]+)\s*[:=：]\s*(.+)\s*$/);
+    if(!m) continue;
+    const key = mapKey(m[1]);
+    if(!key) continue;
+    let value = m[2].trim().replace(/^["']|["']$/g,"");
+    if(key==="scenes"){
+      value = value.replace(/[\[\]"]/g,"").split(/[,/|+]+/).map(x=>x.trim()).filter(Boolean);
+    }
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function sceneIdsFromAny(value){
+  if(!value) return [];
+  const items = Array.isArray(value) ? value : String(value).split(/[,/|+]+/);
+  const aliases = {
+    "แดดจัด":"sunny","sunny":"sunny",
+    "แดดอ่อน":"softsun","softsun":"softsun",
+    "ฟ้าครึ้ม":"cloudy","cloudy":"cloudy",
+    "ฝน":"rainy","rainy":"rainy",
+    "golden hour":"golden","golden":"golden",
+    "กลางคืน":"night","night":"night",
+    "นีออน":"neon","neon":"neon",
+    "คาเฟ่":"cafe","cafe":"cafe",
+    "เมือง":"city","city":"city",
+    "ทะเล":"sea","sea":"sea",
+    "ภูเขา":"mountain","mountain":"mountain",
+    "ป่า":"forest","forest":"forest",
+    "portrait":"portrait","คน":"portrait",
+    "fashion":"fashion","outfit":"fashion",
+    "อาหาร":"food","food":"food",
+    "architecture":"architecture",
+    "street":"street",
+    "travel":"travel","เที่ยว":"travel",
+    "ขาวดำ":"bw","bw":"bw",
+    "backlight":"backlight","ย้อนแสง":"backlight",
+    "indoor":"indoor","ในร่ม":"indoor"
+  };
+
+  return [...new Set(items.map(x=>{
+    const s = String(x).trim();
+    const lower = s.toLowerCase();
+    if(SCENES.some(sc=>sc.id===lower)) return lower;
+    return aliases[lower] || aliases[s] || null;
+  }).filter(Boolean))];
+}
+
+function setFieldIfPresent(id, value){
+  if(value === undefined || value === null || value === "") return;
+  const el = document.getElementById(id);
+  if(el) el.value = value;
+}
+
+function applyQuickPreset(){
+  const text = document.getElementById("quickPresetText").value.trim();
+  const status = document.getElementById("quickPresetStatus");
+
+  if(!text){
+    status.textContent = "ยังไม่มีข้อความให้แปลง";
+    return;
+  }
+
+  try{
+    let parsed;
+    try{
+      parsed = JSON.parse(text);
+      if(parsed.presets && Array.isArray(parsed.presets)) parsed = parsed.presets[0];
+      if(Array.isArray(parsed)) parsed = parsed[0];
+      parsed = normalizePresetObject(parsed);
+    }catch(e){
+      parsed = parseLoosePresetText(text);
+    }
+
+    if(!parsed || Object.keys(parsed).length === 0){
+      throw new Error("อ่านสูตรไม่เจอ");
+    }
+
+    setFieldIfPresent("f_name", parsed.name);
+    setFieldIfPresent("f_cat", parsed.cat);
+    setFieldIfPresent("f_control", parsed.control);
+    setFieldIfPresent("f_wb", parsed.wb);
+    setFieldIfPresent("f_shift", parsed.shift);
+    setFieldIfPresent("f_ev", parsed.ev);
+    setFieldIfPresent("f_highlight", parsed.highlight);
+    setFieldIfPresent("f_shadow", parsed.shadow);
+    setFieldIfPresent("f_sat", parsed.sat);
+    setFieldIfPresent("f_sharp", parsed.sharp);
+    setFieldIfPresent("f_hdf", parsed.hdf);
+    setFieldIfPresent("f_use", parsed.use);
+    setFieldIfPresent("f_advice", parsed.advice);
+    setFieldIfPresent("f_cover", parsed.cover);
+
+    const scenes = sceneIdsFromAny(parsed.scenes);
+    if(scenes.length){
+      renderSceneCheckboxes(scenes);
+    }
+
+    status.textContent = "✅ เติมฟอร์มให้แล้ว ตรวจดูค่าก่อนกดบันทึกได้เลย";
+  }catch(err){
+    status.textContent = "⚠️ อ่านสูตรไม่สำเร็จ ลองใช้ JSON หรือข้อความรูปแบบ Name: / WB: / EV:";
+  }
+}
+
+async function pasteQuickPreset(){
+  const status = document.getElementById("quickPresetStatus");
+  try{
+    const text = await navigator.clipboard.readText();
+    document.getElementById("quickPresetText").value = text;
+    status.textContent = "📋 วางจาก Clipboard แล้ว กด “เติมฟอร์มอัตโนมัติ” ได้เลย";
+  }catch(err){
+    status.textContent = "เบราว์เซอร์ไม่อนุญาตอ่าน Clipboard ให้กดค้างแล้ววางในช่องข้อความแทน";
+  }
+}
+
+async function copyPresetTemplate(){
+  const template = `{
+  "name": "ชื่อโทน",
+  "cat": "City",
+  "control": "Positive Film",
+  "wb": "5200K",
+  "shift": "B2 G1",
+  "ev": "-0.7",
+  "highlight": "-2",
+  "shadow": "-1",
+  "sat": "+1",
+  "sharp": "+1",
+  "hdf": "OFF",
+  "use": "แดดจัด / Portrait / Travel",
+  "advice": "คำแนะนำการถ่าย",
+  "cover": "cyan",
+  "scenes": ["sunny","city","portrait","travel"]
+}`;
+
+  try{
+    await navigator.clipboard.writeText(template);
+    document.getElementById("quickPresetStatus").textContent = "✅ คัดลอก Template แล้ว";
+  }catch(err){
+    document.getElementById("quickPresetText").value = template;
+    document.getElementById("quickPresetStatus").textContent = "วาง Template ในช่องให้แล้ว";
+  }
+}
+
+function clearQuickPreset(){
+  document.getElementById("quickPresetText").value = "";
+  document.getElementById("quickPresetStatus").textContent = "";
+}
+
 
 function savePreset(){
   const data = {
@@ -1576,56 +1868,7 @@ function escapeHtml(str){
 function escapeJs(str){
   return String(str ?? "").replace(/'/g, "\\'");
 }
-document.getElementById("importJsonInput").addEventListener("change", function(e){
-  const file = e.target.files[0];
-  if(!file) return;
 
-  const reader = new FileReader();
-
-  reader.onload = function(evt){
-    try{
-      const data = JSON.parse(evt.target.result);
-      const importedPresets = Array.isArray(data)
-        ? data
-        : (data.presets || []);
-
-      // เพิ่มของใหม่เข้าไป โดยของเก่ายังอยู่
-      importedPresets.forEach(newPreset => {
-        const existingIndex = presets.findIndex(
-          p => p.name.toLowerCase() === newPreset.name.toLowerCase()
-        );
-
-        if(existingIndex === -1){
-          presets.unshift(newPreset);
-        } else {
-          // ถ้าชื่อซ้ำ ให้ทำเป็น Copy เพื่อไม่ทับของเดิม
-          presets.unshift({
-            ...newPreset,
-            name: newPreset.name + " (Imported)"
-          });
-        }
-      });
-
-      // รวม Favorite โดยไม่ลบของเก่า
-      if(!Array.isArray(data) && data.favorites){
-        favorites = {
-          ...favorites,
-          ...data.favorites
-        };
-      }
-
-      saveAll();
-      renderLibrary();
-      renderRecommendations();
-
-      alert(`Import สำเร็จ เพิ่ม ${importedPresets.length} โทน โดยข้อมูลเดิมยังอยู่`);
-    }catch(err){
-      alert("ไฟล์ JSON ไม่ถูกต้อง");
-    }
-  };
-
-  reader.readAsText(file);
-});
 renderLibrary();
 renderSceneGrid();
 renderEnvironmentGrid();
