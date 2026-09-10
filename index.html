@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Ricoh Tone Vault</title>
+
 <style>
 :root{
   --bg:#f5f5f1;
@@ -13,83 +15,137 @@
   --line:#e5e5de;
   --accent:#d9ff57;
   --dark:#151515;
-  --soft:#efefe9;
+  --soft:#fafaf7;
 }
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Thai",sans-serif;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans Thai",
+    sans-serif;
   background:var(--bg);
   color:var(--ink);
 }
-button,input,textarea,select{font:inherit}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
 .app{
-  max-width:1100px;
+  max-width:1120px;
   margin:auto;
   padding:16px 14px 80px;
 }
+
+
+/* =========================
+   HERO
+========================= */
+
 .hero{
-  background:linear-gradient(135deg,#151515,#2d2d2d);
-  color:white;
+  background:
+    linear-gradient(
+      135deg,
+      #151515,
+      #2c2c2c
+    );
+  color:#fff;
   border-radius:28px;
   padding:26px;
 }
+
 .eyebrow{
   color:var(--accent);
   font-size:11px;
   font-weight:800;
   letter-spacing:.12em;
 }
+
 h1{
   font-size:42px;
-  margin:8px 0;
   line-height:1;
+  margin:8px 0;
 }
+
 .hero p{
   color:#d5d5d5;
-  margin:0;
   line-height:1.55;
+  margin:0;
 }
+
 .actions{
   display:flex;
   gap:8px;
   flex-wrap:wrap;
   margin-top:16px;
 }
+
 .btn{
   border:1px solid var(--line);
-  background:white;
+  background:#fff;
+  color:#111;
   border-radius:999px;
   padding:10px 14px;
   font-weight:700;
-  cursor:pointer;
 }
+
 .btn.primary{
   background:var(--accent);
-  color:#111;
   border-color:transparent;
 }
+
+
+/* =========================
+   TABS
+========================= */
+
 .tabs{
   display:flex;
   gap:8px;
   margin:18px 0 14px;
   overflow:auto;
 }
+
 .tab{
   white-space:nowrap;
   border:1px solid var(--line);
-  background:white;
+  background:#fff;
   border-radius:999px;
   padding:10px 14px;
   font-weight:700;
-  cursor:pointer;
 }
+
 .tab.active{
   background:#111;
-  color:white;
+  color:#fff;
 }
-.page{display:none}
-.page.active{display:block}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
 
 .search-row{
   display:grid;
@@ -97,261 +153,401 @@ h1{
   gap:10px;
   margin-bottom:12px;
 }
-.search,.select{
+
+.search,
+.select,
+.text-input,
+.text-area{
   width:100%;
-  padding:14px;
-  border-radius:15px;
+  padding:13px 14px;
+  border-radius:14px;
   border:1px solid var(--line);
-  background:white;
-  font-size:16px;
+  background:#fff;
 }
 
-.chips{
-  display:flex;
-  gap:8px;
-  overflow:auto;
-  margin:12px 0;
-  flex-wrap:wrap;
+.text-area{
+  min-height:90px;
+  resize:vertical;
 }
-.chip{
-  white-space:nowrap;
-  padding:8px 11px;
-  border-radius:999px;
-  border:1px solid var(--line);
-  background:white;
-  cursor:pointer;
-}
-.chip.active{
-  background:#111;
-  color:white;
-}
+
+
+/* =========================
+   CARDS
+========================= */
 
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:14px;
 }
+
 .card{
-  background:white;
+  background:#fff;
   border:1px solid var(--line);
   border-radius:22px;
   overflow:hidden;
   box-shadow:0 10px 25px rgba(0,0,0,.05);
 }
+
 .cover{
-  height:200px;
+  height:210px;
   position:relative;
-  background:linear-gradient(135deg,#cfd8dc,#90a4ae);
   overflow:hidden;
+  background:linear-gradient(135deg,#aaa,#555);
 }
+
 .cover img{
   width:100%;
   height:100%;
   object-fit:cover;
   display:block;
 }
-.cover.noimg{
-  display:flex;
-  align-items:flex-end;
-  padding:16px;
+
+.cover.blue{
+  background:linear-gradient(135deg,#99b8c7,#45728d);
 }
-.cover.blue{background:linear-gradient(135deg,#99b8c7,#45728d)}
-.cover.brown{background:linear-gradient(135deg,#ba9b7a,#57463c)}
-.cover.green{background:linear-gradient(135deg,#95aa89,#52694c)}
-.cover.dark{background:linear-gradient(135deg,#555,#171717)}
-.cover.pink{background:linear-gradient(135deg,#dabfb1,#8c6f67)}
-.cover.cyan{background:linear-gradient(135deg,#8ed4e7,#4388ab)}
+
+.cover.brown{
+  background:linear-gradient(135deg,#ba9b7a,#57463c);
+}
+
+.cover.green{
+  background:linear-gradient(135deg,#95aa89,#52694c);
+}
+
+.cover.dark{
+  background:linear-gradient(135deg,#555,#171717);
+}
+
+.cover.pink{
+  background:linear-gradient(135deg,#dabfb1,#8c6f67);
+}
+
+.cover.cyan{
+  background:linear-gradient(135deg,#8ed4e7,#4388ab);
+}
+
 .overlay{
   position:absolute;
   inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,0) 60%);
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.62),
+      rgba(0,0,0,0) 60%
+    );
 }
+
 .badge{
   position:absolute;
   top:12px;
   left:12px;
-  background:white;
+  background:#fff;
+  color:#111;
   border-radius:999px;
   padding:6px 9px;
   font-size:11px;
   font-weight:800;
 }
+
 .fav{
   position:absolute;
   top:12px;
   right:12px;
-  background:white;
+  background:#fff;
   color:#111;
   border:0;
   border-radius:50%;
   width:36px;
   height:36px;
   font-size:18px;
-  cursor:pointer;
 }
+
 .cover-title{
   position:absolute;
   left:14px;
   right:14px;
   bottom:14px;
-  color:white;
+  color:#fff;
   text-shadow:0 2px 10px rgba(0,0,0,.35);
 }
+
 .cover-title h3{
   margin:0;
   font-size:22px;
 }
+
 .cover-title small{
-  opacity:.88;
+  opacity:.9;
 }
+
 .body{
   padding:14px;
 }
+
 .tags{
   display:flex;
   gap:6px;
   flex-wrap:wrap;
   margin-bottom:10px;
 }
+
 .tag{
   background:#efefe9;
   padding:5px 8px;
   border-radius:999px;
   font-size:11px;
 }
+
+.group-title{
+  margin:14px 0 7px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.04em;
+  color:#555;
+}
+
 .settings{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:8px;
 }
+
 .setting{
-  background:#fafaf7;
+  background:var(--soft);
   padding:9px;
   border-radius:12px;
   font-size:12px;
 }
+
 .setting b{
   display:block;
   font-size:10px;
   color:var(--muted);
   margin-bottom:2px;
 }
+
 .advice{
   border-left:3px solid var(--accent);
   padding-left:9px;
   margin-top:10px;
   font-size:12px;
-  line-height:1.55;
+  line-height:1.6;
 }
+
+.beginner-note{
+  margin-top:10px;
+  padding:11px 12px;
+  background:#f5f5f0;
+  border-radius:12px;
+  font-size:12px;
+  line-height:1.65;
+}
+
 .card-actions{
   display:flex;
   gap:8px;
   flex-wrap:wrap;
   margin-top:12px;
 }
+
 .small-btn{
   border:1px solid var(--line);
-  background:white;
+  background:#fff;
   border-radius:10px;
   padding:8px 10px;
   font-size:12px;
-  cursor:pointer;
 }
+
+
+/* =========================
+   TODAY
+========================= */
+
 .section-box{
-  background:white;
+  background:#fff;
   border:1px solid var(--line);
   border-radius:22px;
   padding:18px;
 }
-.scene-grid{
+
+.scene-grid,
+.environment-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:10px;
 }
-.scene{
+
+.scene,
+.environment{
   border:1px solid var(--line);
-  background:white;
+  background:#fff;
   border-radius:18px;
   padding:15px;
   text-align:left;
-  cursor:pointer;
 }
-.scene.active{
+
+.scene.active,
+.environment.active{
   background:#111;
-  color:white;
+  color:#fff;
 }
-.scene .emoji{
-  font-size:27px;
+
+.emoji{
+  font-size:26px;
 }
-.scene b{
+
+.scene b,
+.environment b{
   display:block;
   margin-top:6px;
 }
-.scene small{
+
+.scene small,
+.environment small{
   opacity:.7;
 }
+
+.environment-box{
+  margin-top:16px;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:var(--soft);
+}
+
+
+/* =========================
+   WB HELPER
+========================= */
+
+.wb-helper{
+  margin-top:14px;
+  background:#111;
+  color:#fff;
+  border-radius:18px;
+  padding:16px;
+}
+
+.wb-helper h3{
+  margin:0 0 8px;
+}
+
+.wb-summary{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:10px;
+}
+
+.wb-summary div{
+  background:#242424;
+  border-radius:12px;
+  padding:11px;
+  font-size:13px;
+}
+
+.wb-summary b{
+  display:block;
+  color:var(--accent);
+  font-size:10px;
+  margin-bottom:3px;
+}
+
+.adjust-list{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:10px;
+}
+
+.adjust-item{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px;
+  font-size:12px;
+  line-height:1.5;
+  background:#fff;
+}
+
+
+/* =========================
+   RECOMMENDATIONS
+========================= */
+
 .reco-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:12px;
   margin-top:14px;
 }
+
 .reco{
+  background:#fff;
   border:1px solid var(--line);
   border-radius:18px;
   overflow:hidden;
-  background:white;
 }
+
 .reco-cover{
   height:150px;
   position:relative;
   overflow:hidden;
-  background:linear-gradient(135deg,#ccc,#999);
+  background:linear-gradient(135deg,#bbb,#666);
 }
+
 .reco-cover img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
+
 .reco-content{
   padding:14px;
 }
-.quick{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
+
+.reco-setup{
   margin-top:10px;
-}
-.quick div{
-  background:#f5f5f0;
-  border-radius:11px;
-  padding:9px;
+  padding:10px;
+  border-radius:12px;
+  background:#f6f6f1;
   font-size:12px;
+  line-height:1.65;
 }
-.quick b{
-  display:block;
-  font-size:10px;
-  color:var(--muted);
-}
+
+
+/* =========================
+   GUIDE
+========================= */
+
 .guide{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:10px;
 }
+
 .guide-card{
-  background:white;
+  background:#fff;
   border:1px solid var(--line);
   border-radius:18px;
   padding:14px;
 }
+
 .guide-card b{
   display:block;
   margin-bottom:4px;
 }
+
 .guide-card span{
   font-size:12px;
   color:var(--muted);
 }
+
+
+/* =========================
+   DIALOG
+========================= */
+
 .dialog-backdrop{
   position:fixed;
   inset:0;
@@ -362,50 +558,48 @@ h1{
   padding:16px;
   z-index:50;
 }
+
 .dialog-backdrop.show{
   display:flex;
 }
+
 .dialog{
-  width:min(760px,100%);
+  width:min(820px,100%);
   max-height:90vh;
   overflow:auto;
-  background:white;
+  background:#fff;
   border-radius:24px;
   padding:18px;
 }
+
 .form-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
 }
+
 .field{
   display:flex;
   flex-direction:column;
   gap:6px;
 }
+
 .field.full{
   grid-column:1/-1;
 }
+
 label{
   font-size:12px;
   font-weight:700;
   color:var(--muted);
 }
-.text-input, .text-area, .select{
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:11px 12px;
-  background:white;
-}
-.text-area{
-  min-height:90px;
-  resize:vertical;
-}
+
 .check-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:8px;
 }
+
 .check-item{
   border:1px solid var(--line);
   border-radius:12px;
@@ -413,1645 +607,5360 @@ label{
   font-size:13px;
   display:flex;
   gap:8px;
-  align-items:flex-start;
 }
+
 .preview-box{
   border:1px dashed var(--line);
   border-radius:14px;
   padding:12px;
-  background:#fafaf7;
+  background:var(--soft);
 }
+
 .preview-box img{
   max-width:100%;
+  max-height:420px;
+  object-fit:contain;
   border-radius:12px;
   display:block;
 }
+
+
+/* =========================
+   QUICK IMPORT
+========================= */
+
+.quick-import{
+  grid-column:1/-1;
+  background:#111;
+  color:#fff;
+  border-radius:18px;
+  padding:14px;
+}
+
+.quick-import label{
+  color:var(--accent);
+}
+
+.quick-import textarea{
+  width:100%;
+  min-height:230px;
+  margin-top:8px;
+  border:1px solid #3b3b3b;
+  background:#1c1c1c;
+  color:#fff;
+  border-radius:12px;
+  padding:12px;
+  resize:vertical;
+}
+
+.quick-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.quick-status{
+  color:#ddd;
+  font-size:12px;
+  margin-top:8px;
+}
+
+.save-status{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:12px;
+  display:none;
+  font-size:13px;
+}
+
+.save-status.success{
+  display:block;
+  background:#edf8e4;
+  color:#285d13;
+}
+
+.save-status.error{
+  display:block;
+  background:#fff0f0;
+  color:#9a2323;
+}
+
 .muted{
   color:var(--muted);
   font-size:12px;
 }
+
 .footer{
   text-align:center;
   font-size:12px;
   color:var(--muted);
   margin-top:25px;
 }
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
 @media(max-width:900px){
-  .grid,.reco-grid{grid-template-columns:1fr 1fr}
-  .scene-grid{grid-template-columns:1fr 1fr}
-  .form-grid{grid-template-columns:1fr}
-  .check-grid{grid-template-columns:1fr 1fr}
+
+  .grid,
+  .reco-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .scene-grid,
+  .environment-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .check-grid{
+    grid-template-columns:1fr 1fr;
+  }
 }
+
 @media(max-width:700px){
-  .grid,.reco-grid,.guide{grid-template-columns:1fr}
-  .search-row{grid-template-columns:1fr}
-  h1{font-size:34px}
-}
 
-.environment-box{
-  margin-top:16px;
-  padding:16px;
-  border:1px solid var(--line);
-  border-radius:18px;
-  background:#fafaf7;
-}
-.environment-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-top:10px;
-}
-.environment{
-  border:1px solid var(--line);
-  background:white;
-  border-radius:16px;
-  padding:14px;
-  text-align:left;
-  cursor:pointer;
-}
-.environment.active{
-  background:#111;
-  color:white;
-}
-.environment .emoji{font-size:24px}
-.environment b{display:block;margin-top:5px}
-.environment small{opacity:.72}
-.wb-helper{
-  margin-top:14px;
-  background:#111;
-  color:white;
-  border-radius:18px;
-  padding:16px;
-}
-.wb-helper h3{margin:0 0 8px}
-.wb-summary{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-top:10px;
-}
-.wb-summary div{
-  background:#242424;
-  border-radius:12px;
-  padding:11px;
-  font-size:13px;
-}
-.wb-summary b{
-  display:block;
-  color:var(--accent);
-  font-size:10px;
-  margin-bottom:3px;
-}
-.beginner-note{
-  margin-top:10px;
-  padding:11px 12px;
-  background:#f5f5f0;
-  border-radius:12px;
-  font-size:12px;
-  line-height:1.6;
-}
-.adjust-list{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-top:10px;
-}
-.adjust-item{
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:10px;
-  font-size:12px;
-  line-height:1.5;
-  background:white;
-}
-.reco-setup{
-  margin-top:10px;
-  padding:10px;
-  border-radius:12px;
-  background:#f6f6f1;
-  font-size:12px;
-  line-height:1.55;
-}
-@media(max-width:700px){
-  .environment-grid,.wb-summary,.adjust-list{grid-template-columns:1fr}
-}
+  .grid,
+  .reco-grid,
+  .guide{
+    grid-template-columns:1fr;
+  }
 
+  .search-row{
+    grid-template-columns:1fr;
+  }
 
-.quick-import{
-  grid-column:1/-1;
-  border:1px solid var(--line);
-  background:#111;
-  color:white;
-  border-radius:18px;
-  padding:14px;
-}
-.quick-import label{
-  color:var(--accent);
-}
-.quick-import textarea{
-  width:100%;
-  min-height:150px;
-  margin-top:8px;
-  border:1px solid #3b3b3b;
-  background:#1c1c1c;
-  color:white;
-  border-radius:12px;
-  padding:12px;
-  resize:vertical;
-}
-.quick-import .hint{
-  color:#c8c8c8;
-  font-size:12px;
-  line-height:1.55;
-  margin-top:6px;
-}
-.quick-import-actions{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
-.quick-import .btn{
-  border-color:#444;
-}
-.quick-import-status{
-  margin-top:9px;
-  font-size:12px;
-  color:#d8d8d8;
-}
+  .wb-summary,
+  .adjust-list{
+    grid-template-columns:1fr;
+  }
 
-
-.ai-pattern{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:18px;
-  margin-top:14px;
+  h1{
+    font-size:34px;
+  }
 }
-.ai-pattern textarea{
-  width:100%;
-  min-height:420px;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:14px;
-  background:#fafaf7;
-  line-height:1.6;
-  resize:vertical;
-  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
-  font-size:12px;
-}
-.ai-pattern-actions{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
-.ai-pattern-note{
-  font-size:12px;
-  color:var(--muted);
-  line-height:1.6;
-  margin-top:8px;
-}
-
 </style>
 </head>
+
 <body>
+
 <div class="app">
-  <section class="hero">
-    <div class="eyebrow">RICOH GR IIIx HDF · PERSONAL PRESET LIBRARY</div>
-    <h1>Ricoh Tone Vault</h1>
-    <p>รวมสูตรโทน Ricoh GR IIIx HDF พร้อมเพิ่มรูปตัวอย่างเองได้ และระบบ “วันนี้จะถ่ายอะไร?” แบบเลือกได้หลายหัวข้อ</p>
-    <div class="actions">
-      <button class="btn primary" onclick="openPresetForm()">+ เพิ่มโทนใหม่</button>
-      <button class="btn" onclick="exportData()">Export JSON</button>
-      <button class="btn" onclick="importJsonClick()">Import JSON</button>
-      <button class="btn" onclick="resetApp()">รีเซ็ตข้อมูล</button>
-      <input id="importJsonInput" type="file" accept=".json" style="display:none">
-    </div>
-  </section>
 
-  <div class="tabs">
-    <button class="tab active" onclick="showPage('library', this)">📚 คลังโทน</button>
-    <button class="tab" onclick="showPage('today', this)">📷 วันนี้จะถ่ายอะไร?</button>
-    <button class="tab" onclick="showPage('guide', this)">💡 คำแนะนำ</button>
-  </div>
+<section class="hero">
 
-  <section id="library" class="page active">
-    <div class="search-row">
-      <input id="searchInput" class="search" placeholder="ค้นหา เช่น คาเฟ่ ภูเขา HDF Portrait..." oninput="renderLibrary()">
-      <select id="sortSelect" class="select" onchange="renderLibrary()">
-        <option value="default">เรียงตามชุดแนะนำ</option>
-        <option value="name">เรียงตามชื่อ</option>
-        <option value="favorite">Favorite ก่อน</option>
-      </select>
-      <select id="categorySelect" class="select" onchange="renderLibrary()">
-        <option value="all">ทุกหมวด</option>
-        <option value="favorite">Favorite</option>
-        <option value="Everyday">Everyday</option>
-        <option value="Sunny">Sunny</option>
-        <option value="Cafe">Cafe</option>
-        <option value="Night">Night</option>
-        <option value="City">City</option>
-        <option value="Nature">Nature</option>
-        <option value="Portrait">Portrait</option>
-        <option value="Film">Film</option>
-        <option value="HDF">HDF</option>
-        <option value="Special">Special</option>
-      </select>
-    </div>
-    <div id="presetGrid" class="grid"></div>
-  </section>
+<div class="eyebrow">
+RICOH GR IIIx HDF · FULL PRESET LIBRARY
+</div>
 
-  <section id="today" class="page">
-    <div class="section-box">
-      <h2 style="margin-top:0">วันนี้จะถ่ายอะไร?</h2>
-      <p class="muted">เริ่มจากบอก “สภาพแวดล้อมตอนนี้” ก่อน แล้วค่อยเลือกว่าจะถ่ายอะไร ระบบจะช่วยแนะนำโทน + White Balance + WB Shift ให้เข้าใจง่ายขึ้น</p>
+<h1>
+Ricoh Tone Vault
+</h1>
 
-      <div class="environment-box">
-        <b>1) ตอนนี้สภาพแวดล้อมเป็นยังไง?</b>
-        <div class="muted" style="margin-top:4px">เลือกอันที่ใกล้เคียงที่สุด ไม่ต้องรู้ศัพท์กล้องก็ได้</div>
-        <div id="environmentGrid" class="environment-grid"></div>
-        <div id="wbHelper"></div>
-      </div>
+<p>
+เก็บสูตร Ricoh GR IIIx HDF แบบละเอียดครบทุกค่า
+พร้อมรูปตัวอย่าง ระบบเพิ่มเร็ว JSON และระบบแนะนำโทนตามสถานการณ์
+</p>
 
-      <div style="margin-top:18px">
-        <b>2) แล้ววันนี้จะถ่ายอะไร?</b>
-        <div class="muted" style="margin:4px 0 10px">เลือกได้หลายข้อ เช่น เมือง + Portrait + Street</div>
-      </div>
-      <div id="sceneGrid" class="scene-grid"></div>
-      <div style="margin-top:12px">
-        <button class="btn primary" onclick="clearSceneSelection()">ล้างการเลือก</button>
-      </div>
-      <div id="recommendationArea"></div>
-    </div>
-  </section>
+<div class="actions">
 
-  <section id="guide" class="page">
-    <div class="guide">
-      <div class="guide-card"><b>☀️ แดดจัด</b><span>เริ่ม EV -0.3 ถึง -0.7 เพื่อรักษาฟ้าและ highlight</span></div>
-      <div class="guide-card"><b>🌙 กลางคืน</b><span>อย่าเร่ง EV มากเกินไปจนไฟขาวโพลน</span></div>
-      <div class="guide-card"><b>☕ คาเฟ่</b><span>เช็ก WB ก่อน เพราะไฟร้านทำให้ผิวเหลืองง่าย</span></div>
-      <div class="guide-card"><b>✨ HDF</b><span>เหมาะกับย้อนแสง คาเฟ่ นีออน และภาพละมุน</span></div>
-      <div class="guide-card"><b>🏖️ ทะเล</b><span>ระวังท้องฟ้าและผิวน้ำหลุด highlight</span></div>
-      <div class="guide-card"><b>⛰️ ภูเขา</b><span>ถ้าเขียวแรงเกิน ลด Saturation ลง</span></div>
-      <div class="guide-card"><b>👤 Portrait</b><span>สีผิวและ WB สำคัญกว่าฉากในหลายสถานการณ์</span></div>
-      <div class="guide-card"><b>⚡ Fashion Flash</b><span>กด ambient ลงประมาณ 2/3–1 stop แล้วเติมแสงด้านหน้า</span></div>
-    </div>
+<button
+class="btn primary"
+onclick="openPresetForm()"
+>
++ เพิ่มโทนใหม่
+</button>
 
-    <div class="ai-pattern">
-      <h2 style="margin-top:0">🤖 Prompt Pattern สำหรับสั่ง AI ตัวอื่น</h2>
-      <p class="muted">
-        ใช้ข้อความนี้เวลาส่งรูปให้ AI ตัวอื่น แล้วให้มันสร้างสูตรที่สามารถนำกลับมาวางใน “⚡ เพิ่มเร็ว” ได้ทันที
-      </p>
+<button
+class="btn"
+onclick="exportData()"
+>
+Export JSON
+</button>
 
-      <textarea id="aiPromptPattern" readonly>คุณคือผู้ช่วยวิเคราะห์โทนภาพสำหรับ Ricoh GR IIIx HDF
+<button
+class="btn"
+onclick="importJsonClick()"
+>
+Import JSON
+</button>
 
-งานของคุณ:
-1) วิเคราะห์ภาพตัวอย่างที่ฉันส่งให้ โดยดู
-- ลักษณะแสง
-- White Balance โดยประมาณ
-- สีผิว
-- สีฟ้า/เขียว/แดง
-- Contrast
-- Highlight / Shadow
-- Saturation
-- Sharpness
-- ลักษณะ Film Look
-- มีลักษณะคล้ายการใช้ Flash หรือไม่
-- HDF เหมาะจะเปิดหรือปิด
+<button
+class="btn"
+onclick="resetApp()"
+>
+รีเซ็ตข้อมูล
+</button>
 
-2) จากนั้นสร้างสูตรสำหรับ Ricoh GR IIIx HDF ที่พยายามให้ได้อารมณ์ใกล้ภาพตัวอย่างที่สุด
+<input
+id="importJsonInput"
+type="file"
+accept=".json"
+style="display:none"
+>
 
-3) ถ้าภาพดูเหมือนใช้แฟลช ให้บอกใน advice ด้วยว่าเป็น Fill Flash / Day Flash / Night Flash และแนะนำการกด EV ของ ambient โดยประมาณ
+</div>
 
-4) White Balance:
-- ระบุค่า Kelvin หรือโหมด WB ที่ชัดเจน
-- ระบุ WB Shift ในรูป A / B / G / M
-- อธิบายแบบสั้น ๆ ว่าถ้าผิวเหลือง ฟ้า เขียว หรือชมพูเกินไป ควรปรับไปทางไหน
+</section>
 
-5) ห้ามตอบเป็นคำอธิบายยาว
-ให้ตอบเป็น JSON เท่านั้น โดยใช้ schema ด้านล่างนี้แบบตรง ๆ เพื่อให้เว็บ Ricoh Tone Vault สามารถอ่านได้
+
+<div class="tabs">
+
+<button
+class="tab active"
+onclick="showPage('library',this)"
+>
+📚 คลังโทน
+</button>
+
+<button
+class="tab"
+onclick="showPage('today',this)"
+>
+📷 วันนี้จะถ่ายอะไร?
+</button>
+
+<button
+class="tab"
+onclick="showPage('guide',this)"
+>
+💡 คำแนะนำ
+</button>
+
+</div>
+
+
+<!-- =========================
+LIBRARY
+========================= -->
+
+<section
+id="library"
+class="page active"
+>
+
+<div class="search-row">
+
+<input
+id="searchInput"
+class="search"
+placeholder="ค้นหา เช่น Portrait / HDF / 5200K / Clarity..."
+oninput="renderLibrary()"
+>
+
+<select
+id="sortSelect"
+class="select"
+onchange="renderLibrary()"
+>
+
+<option value="default">
+เรียงตามชุดแนะนำ
+</option>
+
+<option value="name">
+เรียงตามชื่อ
+</option>
+
+<option value="favorite">
+Favorite ก่อน
+</option>
+
+</select>
+
+
+<select
+id="categorySelect"
+class="select"
+onchange="renderLibrary()"
+>
+
+<option value="all">ทุกหมวด</option>
+<option value="favorite">Favorite</option>
+
+<option value="Everyday">Everyday</option>
+<option value="Sunny">Sunny</option>
+<option value="Cafe">Cafe</option>
+<option value="Night">Night</option>
+<option value="City">City</option>
+<option value="Nature">Nature</option>
+<option value="Portrait">Portrait</option>
+<option value="Film">Film</option>
+<option value="HDF">HDF</option>
+<option value="Special">Special</option>
+
+</select>
+
+</div>
+
+
+<div
+id="presetGrid"
+class="grid"
+></div>
+
+</section>
+
+
+<!-- =========================
+TODAY
+========================= -->
+
+<section
+id="today"
+class="page"
+>
+
+<div class="section-box">
+
+<h2 style="margin-top:0">
+วันนี้จะถ่ายอะไร?
+</h2>
+
+<p class="muted">
+เลือกสภาพแสงและสิ่งที่จะถ่าย ระบบจะเลือก 3 โทนที่เหมาะที่สุด
+</p>
+
+
+<div class="environment-box">
+
+<b>
+1) ตอนนี้สภาพแสงเป็นแบบไหน?
+</b>
+
+<div
+class="muted"
+style="margin-top:4px"
+>
+เลือกข้อที่ใกล้เคียงที่สุด
+</div>
+
+<div
+id="environmentGrid"
+class="environment-grid"
+></div>
+
+<div id="wbHelper"></div>
+
+</div>
+
+
+<div style="margin-top:18px">
+
+<b>
+2) วันนี้จะถ่ายอะไร?
+</b>
+
+<div
+class="muted"
+style="margin:4px 0 10px"
+>
+เลือกได้หลายข้อ เช่น Portrait + เมือง + Travel
+</div>
+
+</div>
+
+
+<div
+id="sceneGrid"
+class="scene-grid"
+></div>
+
+
+<div style="margin-top:12px">
+
+<button
+class="btn"
+onclick="clearSceneSelection()"
+>
+ล้างการเลือก
+</button>
+
+</div>
+
+
+<div id="recommendationArea"></div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+GUIDE
+========================= -->
+
+<section
+id="guide"
+class="page"
+>
+
+<div class="guide">
+
+<div class="guide-card">
+<b>Image Control</b>
+<span>
+เลือกพื้นฐานโทน เช่น Negative Film, Positive Film, Standard, Hard Monotone
+</span>
+</div>
+
+<div class="guide-card">
+<b>Saturation</b>
+<span>
+เพิ่มหรือลดความอิ่มของสี
+</span>
+</div>
+
+<div class="guide-card">
+<b>Hue</b>
+<span>
+ขยับลักษณะโทนสีโดยรวม
+</span>
+</div>
+
+<div class="guide-card">
+<b>High/Low Key</b>
+<span>
+ขยับบุคลิกภาพรวมให้สว่างโปร่งหรือเข้มขึ้น
+</span>
+</div>
+
+<div class="guide-card">
+<b>Contrast</b>
+<span>
+ควบคุม Contrast ภาพรวม
+</span>
+</div>
+
+<div class="guide-card">
+<b>Contrast Highlight</b>
+<span>
+Contrast เฉพาะส่วนสว่าง ไม่ใช่ Highlight Correction
+</span>
+</div>
+
+<div class="guide-card">
+<b>Contrast Shadow</b>
+<span>
+Contrast เฉพาะส่วนเงา ไม่ใช่ Shadow Correction
+</span>
+</div>
+
+<div class="guide-card">
+<b>Sharpness</b>
+<span>
+ความคมของรายละเอียด
+</span>
+</div>
+
+<div class="guide-card">
+<b>Shading</b>
+<span>
+ปรับบุคลิกความสว่างบริเวณขอบและโทนภาพ
+</span>
+</div>
+
+<div class="guide-card">
+<b>Clarity</b>
+<span>
+เพิ่มหรือลดความชัดระดับ Micro Contrast
+</span>
+</div>
+
+<div class="guide-card">
+<b>WB Shift</b>
+<span>
+A = Amber · B = Blue · G = Green · M = Magenta
+</span>
+</div>
+
+<div class="guide-card">
+<b>Highlight Correction</b>
+<span>
+ระบบช่วยรักษารายละเอียดส่วนสว่าง แยกจาก Contrast Highlight
+</span>
+</div>
+
+<div class="guide-card">
+<b>Shadow Correction</b>
+<span>
+ระบบช่วยยกเงา เช่น Off / Low / Medium / High
+</span>
+</div>
+
+<div class="guide-card">
+<b>Peripheral Illumination</b>
+<span>
+ระบบแก้ขอบภาพมืดจากเลนส์
+</span>
+</div>
+
+<div class="guide-card">
+<b>Noise Reduction</b>
+<span>
+ตั้งการลด Noise โดยเฉพาะเมื่อ ISO สูง
+</span>
+</div>
+
+<div class="guide-card">
+<b>HDF</b>
+<span>
+ระบุทั้งสถานะและเงื่อนไข เช่น ON เมื่อย้อนแสง หรือ OFF เมื่ออยากได้ภาพคมใส
+</span>
+</div>
+
+</div>
+
+</section>
+
+
+<div class="footer">
+Ricoh Tone Vault · Full Settings Schema
+</div>
+
+</div>
+
+
+<!-- =========================
+ADD / EDIT DIALOG
+========================= -->
+
+<div
+id="presetDialog"
+class="dialog-backdrop"
+>
+
+<div class="dialog">
+
+<div
+style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px
+"
+>
+
+<h2
+id="dialogTitle"
+style="margin:0"
+>
+เพิ่มโทนใหม่
+</h2>
+
+<button
+class="btn"
+onclick="closePresetForm()"
+>
+ปิด
+</button>
+
+</div>
+
+
+<div
+class="form-grid"
+style="margin-top:14px"
+>
+
+
+<!-- QUICK JSON -->
+
+<div class="quick-import">
+
+<label>
+⚡ เพิ่มเร็ว — วางสูตร JSON แบบเต็ม
+</label>
+
+<textarea
+id="quickPresetText"
+placeholder='{
+  "name":"Mountain Airy Film",
+  "cat":"Nature",
+  "control":"Negative Film",
+  "saturation":"-1",
+  "hue":"0",
+  "highLowKey":"+1",
+  "contrast":"-1",
+  "contrastHighlight":"-2",
+  "contrastShadow":"+1",
+  "sharpness":"-1",
+  "shading":"0",
+  "clarity":"-2",
+  "wb":"Daylight",
+  "shift":"G2 : A1",
+  "exposureCompensation":"+0.3 ถึง +0.7 EV",
+  "highlightCorrection":"ON",
+  "shadowCorrection":"Low",
+  "peripheralIllumination":"ON",
+  "noiseReduction":"Auto / Low",
+  "hdf":"ON เมื่อมีแสงย้อนหรือแดดอ่อน",
+  "use":"ภูเขา / Portrait / Travel",
+  "advice":"คำแนะนำการถ่าย",
+  "cover":"green",
+  "scenes":["mountain","portrait","travel","softsun"]
+}'
+></textarea>
+
+
+<div class="quick-actions">
+
+<button
+class="btn primary"
+type="button"
+onclick="applyQuickPreset()"
+>
+✨ เติมฟอร์มอัตโนมัติ
+</button>
+
+<button
+class="btn"
+type="button"
+onclick="pasteQuickPreset()"
+>
+📋 วาง Clipboard
+</button>
+
+<button
+class="btn"
+type="button"
+onclick="copyPresetTemplate()"
+>
+คัดลอก Template
+</button>
+
+<button
+class="btn"
+type="button"
+onclick="clearQuickPreset()"
+>
+ล้าง
+</button>
+
+</div>
+
+
+<div
+id="quickPresetStatus"
+class="quick-status"
+></div>
+
+</div>
+
+
+<!-- BASIC -->
+
+<div class="field">
+
+<label>
+ชื่อโทน
+</label>
+
+<input
+id="f_name"
+class="text-input"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+หมวด
+</label>
+
+<select
+id="f_cat"
+class="select"
+>
+
+<option>Everyday</option>
+<option>Sunny</option>
+<option>Cafe</option>
+<option>Night</option>
+<option>City</option>
+<option>Nature</option>
+<option>Portrait</option>
+<option>Film</option>
+<option>HDF</option>
+<option>Special</option>
+
+</select>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+Image Control
+</label>
+
+<input
+id="f_control"
+class="text-input"
+placeholder="เช่น Negative Film"
+>
+
+</div>
+
+
+<!-- IMAGE CONTROL DETAILS -->
+
+<div class="field">
+
+<label>
+Saturation
+</label>
+
+<input
+id="f_saturation"
+class="text-input"
+placeholder="-1"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Hue
+</label>
+
+<input
+id="f_hue"
+class="text-input"
+placeholder="0"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+High/Low Key
+</label>
+
+<input
+id="f_highLowKey"
+class="text-input"
+placeholder="+1"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Contrast
+</label>
+
+<input
+id="f_contrast"
+class="text-input"
+placeholder="-1"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Contrast Highlight
+</label>
+
+<input
+id="f_contrastHighlight"
+class="text-input"
+placeholder="-2"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Contrast Shadow
+</label>
+
+<input
+id="f_contrastShadow"
+class="text-input"
+placeholder="+1"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Sharpness
+</label>
+
+<input
+id="f_sharpness"
+class="text-input"
+placeholder="-1"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Shading
+</label>
+
+<input
+id="f_shading"
+class="text-input"
+placeholder="0"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Clarity
+</label>
+
+<input
+id="f_clarity"
+class="text-input"
+placeholder="-2"
+>
+
+</div>
+
+
+<!-- WB -->
+
+<div class="field">
+
+<label>
+White Balance
+</label>
+
+<input
+id="f_wb"
+class="text-input"
+placeholder="Daylight / 5000K / Auto WB"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+WB Shift
+</label>
+
+<input
+id="f_shift"
+class="text-input"
+placeholder="G2 : A1"
+>
+
+</div>
+
+
+<!-- EXPOSURE -->
+
+<div class="field full">
+
+<label>
+Exposure Compensation
+</label>
+
+<input
+id="f_exposureCompensation"
+class="text-input"
+placeholder="+0.3 ถึง +0.7 EV"
+>
+
+</div>
+
+
+<!-- CORRECTIONS -->
+
+<div class="field">
+
+<label>
+Highlight Correction
+</label>
+
+<input
+id="f_highlightCorrection"
+class="text-input"
+placeholder="ON"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Shadow Correction
+</label>
+
+<input
+id="f_shadowCorrection"
+class="text-input"
+placeholder="Low"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Peripheral Illumination
+</label>
+
+<input
+id="f_peripheralIllumination"
+class="text-input"
+placeholder="ON"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Noise Reduction
+</label>
+
+<input
+id="f_noiseReduction"
+class="text-input"
+placeholder="Auto / Low"
+>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+HDF
+</label>
+
+<input
+id="f_hdf"
+class="text-input"
+placeholder="ON เมื่อมีแสงย้อนหรือแดดอ่อน"
+>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+เหมาะกับ
+</label>
+
+<input
+id="f_use"
+class="text-input"
+placeholder="ภูเขา / Portrait / Travel"
+>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+คำแนะนำ
+</label>
+
+<textarea
+id="f_advice"
+class="text-area"
+></textarea>
+
+</div>
+
+
+<div class="field">
+
+<label>
+สีการ์ด
+</label>
+
+<select
+id="f_cover"
+class="select"
+>
+
+<option value="blue">Blue</option>
+<option value="brown">Brown</option>
+<option value="green">Green</option>
+<option value="dark">Dark</option>
+<option value="pink">Pink</option>
+<option value="cyan">Cyan</option>
+
+</select>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+หัวข้อที่โทนนี้เหมาะกับ
+</label>
+
+<div
+id="sceneCheckboxGrid"
+class="check-grid"
+></div>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+📷 รูปตัวอย่าง
+</label>
+
+<input
+id="f_image_file"
+type="file"
+accept="image/*"
+class="text-input"
+>
+
+<div class="muted">
+รูปจากมือถือจะถูกย่ออัตโนมัติก่อนบันทึก และเก็บใน IndexedDB
+</div>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+หรือใช้ลิงก์รูป
+</label>
+
+<input
+id="f_image_url"
+class="text-input"
+placeholder="https://..."
+>
+
+</div>
+
+
+<div class="field full">
+
+<label>
+ตัวอย่างภาพ
+</label>
+
+<div class="preview-box">
+
+<img
+id="imagePreview"
+style="display:none"
+>
+
+<div
+id="previewPlaceholder"
+class="muted"
+>
+ยังไม่มีรูปตัวอย่าง
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div
+id="saveStatus"
+class="save-status"
+></div>
+
+
+<div
+style="
+display:flex;
+gap:8px;
+justify-content:flex-end;
+margin-top:16px;
+flex-wrap:wrap
+"
+>
+
+<button
+class="btn"
+onclick="closePresetForm()"
+>
+ยกเลิก
+</button>
+
+<button
+id="savePresetBtn"
+class="btn primary"
+onclick="savePreset()"
+>
+💾 บันทึก
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =============================
+DEFAULT PRESETS
+============================= */
+
+const DEFAULT_PRESETS = [
 
 {
-  "name": "ชื่อโทนภาษาอังกฤษสั้น ๆ",
-  "cat": "Everyday | Sunny | Cafe | Night | City | Nature | Portrait | Film | HDF | Special",
-  "control": "ชื่อ Image Control",
-  "wb": "เช่น 5200K หรือ Daylight",
-  "shift": "เช่น B2 G1",
-  "ev": "เช่น -0.7",
-  "highlight": "เช่น -2",
-  "shadow": "เช่น -1",
-  "sat": "เช่น +1",
-  "sharp": "เช่น +1",
-  "hdf": "ON | OFF | Optional",
-  "use": "สถานการณ์ที่เหมาะ เช่น แดดจัด / Portrait / Travel",
-  "advice": "คำแนะนำสั้น ๆ รวมเรื่องแสง แฟลช และการแก้ WB",
-  "cover": "blue | brown | green | dark | pink | cyan",
-  "scenes": [
-    "sunny",
-    "softsun",
-    "cloudy",
-    "rainy",
-    "golden",
-    "night",
-    "neon",
-    "cafe",
-    "city",
-    "sea",
+  name:"Mountain Airy Film",
+  cat:"Nature",
+
+  control:"Negative Film",
+
+  saturation:"-1",
+  hue:"0",
+  highLowKey:"+1",
+  contrast:"-1",
+  contrastHighlight:"-2",
+  contrastShadow:"+1",
+  sharpness:"-1",
+  shading:"0",
+  clarity:"-2",
+
+  wb:"Daylight",
+  shift:"G2 : A1",
+
+  exposureCompensation:"+0.3 ถึง +0.7 EV",
+
+  highlightCorrection:"ON",
+  shadowCorrection:"Low",
+  peripheralIllumination:"ON",
+  noiseReduction:"Auto / Low",
+
+  hdf:"ON เมื่อมีแสงย้อนหรือแดดอ่อน",
+
+  use:"ภูเขา / ทะเลสาบ / Portrait / Travel / แดดอ่อน",
+
+  advice:
+  "เหมาะกับวิวภูเขาและ Portrait กลางแจ้ง ให้ภาพโปร่ง ฟ้าอ่อน เขียวหม่น ถ้าแดดแรงให้ลด EV ลง",
+
+  cover:"green",
+
+  imageId:"",
+  imageUrl:"",
+
+  scenes:[
     "mountain",
     "forest",
     "portrait",
-    "fashion",
-    "food",
-    "architecture",
-    "street",
     "travel",
-    "bw",
-    "backlight",
-    "indoor"
+    "softsun",
+    "backlight"
+  ]
+},
+
+{
+  name:"City Flash Editorial",
+  cat:"City",
+
+  control:"Negative Film",
+
+  saturation:"-1",
+  hue:"0",
+  highLowKey:"0",
+  contrast:"+1",
+  contrastHighlight:"-1",
+  contrastShadow:"-1",
+  sharpness:"+1",
+  shading:"0",
+  clarity:"+1",
+
+  wb:"4800–5000K",
+  shift:"B2 : G1",
+
+  exposureCompensation:"-0.7 EV",
+
+  highlightCorrection:"ON",
+  shadowCorrection:"Low",
+  peripheralIllumination:"ON",
+  noiseReduction:"Auto / Low",
+
+  hdf:"OFF",
+
+  use:"แดดจัด / Portrait / Fashion / City / Travel",
+
+  advice:
+  "กด Ambient ลงประมาณ 2/3–1 stop แล้วเติมแสงด้านหน้าหรือแฟลช เพื่อให้ตัวแบบเด่นและฉากเมืองเข้มขึ้น",
+
+  cover:"dark",
+
+  imageId:"",
+  imageUrl:"",
+
+  scenes:[
+    "sunny",
+    "city",
+    "portrait",
+    "fashion",
+    "travel",
+    "architecture"
+  ]
+},
+
+{
+  name:"Fuji Blue Portrait",
+  cat:"Nature",
+
+  control:"Positive Film",
+
+  saturation:"0",
+  hue:"0",
+  highLowKey:"0",
+  contrast:"-1",
+  contrastHighlight:"-2",
+  contrastShadow:"+1",
+  sharpness:"+1",
+  shading:"0",
+  clarity:"0",
+
+  wb:"5000K",
+  shift:"B2 : M1",
+
+  exposureCompensation:"-0.3 EV",
+
+  highlightCorrection:"ON",
+  shadowCorrection:"Low",
+  peripheralIllumination:"ON",
+  noiseReduction:"Auto / Low",
+
+  hdf:"OFF",
+
+  use:"ภูเขา / ทะเลสาบ / Portrait / Travel / แดดอ่อน",
+
+  advice:
+  "ลด EV เล็กน้อยเพื่อเก็บชุดสีขาวและท้องฟ้า ถ้าหน้ามืดให้เพิ่มแสงที่ตัวแบบแทนการดัน EV",
+
+  cover:"blue",
+
+  imageId:"",
+  imageUrl:"",
+
+  scenes:[
+    "mountain",
+    "sea",
+    "portrait",
+    "travel",
+    "softsun"
   ]
 }
 
-กฎสำคัญ:
-- ตอบ JSON อย่างเดียว
-- ห้ามใส่ Markdown code fence
-- ห้ามใส่ข้อความก่อนหรือหลัง JSON
-- scenes ให้เลือกเฉพาะค่าที่เกี่ยวข้องจริง
-- ถ้าไม่แน่ใจ ให้เลือกค่ากลางที่ปลอดภัยสำหรับเริ่มถ่าย
-- อย่าพยายามเดาค่าที่ละเอียดเกินกว่าภาพจะบอกได้
-- ตั้งชื่อโทนให้สื่ออารมณ์ของภาพและจำง่าย</textarea>
-
-      <div class="ai-pattern-actions">
-        <button class="btn primary" type="button" onclick="copyAiPromptPattern()">📋 คัดลอก Prompt ทั้งหมด</button>
-        <button class="btn" type="button" onclick="copyShortAiPrompt()">คัดลอกแบบสั้น</button>
-      </div>
-
-      <div id="aiPatternStatus" class="ai-pattern-note">
-        วิธีใช้: ส่งรูปให้ AI → วาง Prompt นี้ → คัดลอก JSON ที่ AI ตอบ → กลับมาที่ “+ เพิ่มโทนใหม่” → วางใน “⚡ เพิ่มเร็ว”
-      </div>
-    </div>
-  </section>
-
-  <div class="footer">Ricoh Tone Vault · รองรับการเพิ่มรูปตัวอย่างเอง</div>
-</div>
-
-<div id="presetDialog" class="dialog-backdrop">
-  <div class="dialog">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-      <h2 id="dialogTitle" style="margin:0">เพิ่มโทนใหม่</h2>
-      <button class="btn" onclick="closePresetForm()">ปิด</button>
-    </div>
-
-    <div class="form-grid" style="margin-top:14px">
-
-      <div class="quick-import">
-        <label>⚡ เพิ่มเร็ว — วางสูตรจาก ChatGPT</label>
-        <div class="hint">
-          คัดลอกสูตรที่ผมส่งให้แล้ววางตรงนี้ จากนั้นกด “เติมฟอร์มอัตโนมัติ” ได้เลย
-          รองรับทั้ง JSON และข้อความแบบ Name / WB / EV / HDF
-        </div>
-        <textarea id="quickPresetText" placeholder='ตัวอย่าง:
-{
-  "name": "Sydney Day Flash",
-  "cat": "City",
-  "control": "Positive Film",
-  "wb": "5200K",
-  "shift": "B2 G1",
-  "ev": "-0.7",
-  "highlight": "-2",
-  "shadow": "-1",
-  "sat": "+1",
-  "sharp": "+1",
-  "hdf": "OFF",
-  "use": "แดดจัด / Portrait / Fashion",
-  "advice": "กดแสงฉากหลังแล้วใช้ Fill Flash",
-  "scenes": ["sunny","city","portrait","fashion","travel"]
-}'></textarea>
-        <div class="quick-import-actions">
-          <button class="btn primary" type="button" onclick="applyQuickPreset()">✨ เติมฟอร์มอัตโนมัติ</button>
-          <button class="btn" type="button" onclick="pasteQuickPreset()">📋 วางจาก Clipboard</button>
-          <button class="btn" type="button" onclick="copyPresetTemplate()">คัดลอก Template</button>
-          <button class="btn" type="button" onclick="clearQuickPreset()">ล้าง</button>
-        </div>
-        <div id="quickPresetStatus" class="quick-import-status"></div>
-      </div>
-
-      <div class="field">
-        <label>ชื่อโทน</label>
-        <input id="f_name" class="text-input">
-      </div>
-
-      <div class="field">
-        <label>หมวด</label>
-        <select id="f_cat" class="select">
-          <option>Everyday</option>
-          <option>Sunny</option>
-          <option>Cafe</option>
-          <option>Night</option>
-          <option>City</option>
-          <option>Nature</option>
-          <option>Portrait</option>
-          <option>Film</option>
-          <option>HDF</option>
-          <option>Special</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Image Control</label>
-        <input id="f_control" class="text-input">
-      </div>
-
-      <div class="field">
-        <label>White Balance</label>
-        <input id="f_wb" class="text-input">
-      </div>
-
-      <div class="field">
-        <label>WB Shift</label>
-        <input id="f_shift" class="text-input">
-      </div>
-
-      <div class="field">
-        <label>EV</label>
-        <input id="f_ev" class="text-input">
-      </div>
-
-      <div class="field">
-        <label>Highlight</label>
-        <input id="f_highlight" class="text-input">
-      </div>
-
-      <div class="field">
-        <label>Shadow</label>
-        <input id="f_shadow" class="text-input">
-      </div>
-
-      <div class="field">
-        <label>Saturation</label>
-        <input id="f_sat" class="text-input">
-      </div>
-
-      <div class="field">
-        <label>Sharpness</label>
-        <input id="f_sharp" class="text-input">
-      </div>
-
-      <div class="field">
-        <label>HDF</label>
-        <select id="f_hdf" class="select">
-          <option>OFF</option>
-          <option>ON</option>
-          <option>Optional</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>สีการ์ดตอนยังไม่มีรูป</label>
-        <select id="f_cover" class="select">
-          <option value="blue">Blue</option>
-          <option value="brown">Brown</option>
-          <option value="green">Green</option>
-          <option value="dark">Dark</option>
-          <option value="pink">Pink</option>
-          <option value="cyan">Cyan</option>
-        </select>
-      </div>
-
-      <div class="field full">
-        <label>เหมาะกับ</label>
-        <input id="f_use" class="text-input" placeholder="เช่น ภูเขา / ทะเลสาบ / Portrait / เมือง">
-      </div>
-
-      <div class="field full">
-        <label>คำแนะนำ</label>
-        <textarea id="f_advice" class="text-area"></textarea>
-      </div>
-
-      <div class="field full">
-        <label>หัวข้อที่โทนนี้เหมาะกับ (เลือกได้หลายข้อ)</label>
-        <div id="sceneCheckboxGrid" class="check-grid"></div>
-      </div>
-
-      <div class="field full">
-        <label>รูปตัวอย่าง (อัปจากเครื่องได้เลย)</label>
-        <input id="f_image_file" type="file" accept="image/*" class="text-input">
-        <div class="muted">ระบบจะเก็บรูปนี้ไว้ในเบราว์เซอร์ของคุณเอง</div>
-      </div>
-
-      <div class="field full">
-        <label>หรือวางลิงก์รูป (ถ้ามี)</label>
-        <input id="f_image_url" class="text-input" placeholder="https://...">
-      </div>
-
-      <div class="field full">
-        <label>ตัวอย่างภาพ</label>
-        <div class="preview-box">
-          <img id="imagePreview" style="display:none">
-          <div id="previewPlaceholder" class="muted">ยังไม่มีรูปตัวอย่าง</div>
-        </div>
-      </div>
-    </div>
-
-    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap">
-      <button class="btn" onclick="closePresetForm()">ยกเลิก</button>
-      <button class="btn primary" onclick="savePreset()">บันทึก</button>
-    </div>
-  </div>
-</div>
-
-<script>
-const DEFAULT_PRESETS = [
-  {
-    name:"Everyday Natural",
-    cat:"Everyday",
-    control:"Negative Film",
-    wb:"Auto WB",
-    shift:"G1 A1",
-    ev:"0 ถึง -0.3",
-    highlight:"-1",
-    shadow:"+1",
-    sat:"0",
-    sharp:"0",
-    hdf:"OFF",
-    use:"เดินเล่น / ใช้ทุกวัน",
-    advice:"สูตรกลางสำหรับถ่ายทั่วไป สีผิวและสีฉากสมดุล",
-    cover:"green",
-    image:"",
-    scenes:["sunny","city","portrait","cafe","travel"]
-  },
-  {
-    name:"Sunny Day",
-    cat:"Sunny",
-    control:"Positive Film",
-    wb:"Daylight",
-    shift:"G1 A1",
-    ev:"-0.3 ถึง -0.7",
-    highlight:"-2",
-    shadow:"+1",
-    sat:"+1",
-    sharp:"0",
-    hdf:"OFF",
-    use:"แดดจัด / กลางแจ้ง",
-    advice:"ลด EV เพื่อเก็บสีฟ้าและรายละเอียด highlight",
-    cover:"cyan",
-    image:"",
-    scenes:["sunny","sea","city","travel"]
-  },
-  {
-    name:"Cafe Warm",
-    cat:"Cafe",
-    control:"Positive Film",
-    wb:"4300K",
-    shift:"A2",
-    ev:"0",
-    highlight:"-1",
-    shadow:"+2",
-    sat:"+1",
-    sharp:"-1",
-    hdf:"ON",
-    use:"ร้านไฟส้ม / Cozy",
-    advice:"HDF ช่วยให้ไฟร้านฟุ้งและบรรยากาศอบอุ่นขึ้น",
-    cover:"brown",
-    image:"",
-    scenes:["cafe","night","portrait","food","indoor"]
-  },
-  {
-    name:"City Night",
-    cat:"Night",
-    control:"Negative Film",
-    wb:"3800K",
-    shift:"B1",
-    ev:"-0.7",
-    highlight:"-2",
-    shadow:"+1",
-    sat:"+1",
-    sharp:"0",
-    hdf:"OFF",
-    use:"เมืองกลางคืน",
-    advice:"รักษาป้ายไฟไม่ให้ขาวโพลน ถ้าไฟเยอะมากลอง EV -1",
-    cover:"dark",
-    image:"",
-    scenes:["night","city","street","travel"]
-  },
-  {
-    name:"Neon HDF",
-    cat:"HDF",
-    control:"Positive Film",
-    wb:"3600K",
-    shift:"B1 M1",
-    ev:"-1.0",
-    highlight:"-2",
-    shadow:"+1",
-    sat:"+1",
-    sharp:"-1",
-    hdf:"ON",
-    use:"นีออน / Chinatown / กลางคืน",
-    advice:"ให้มีแหล่งไฟในเฟรมเพื่อสร้าง halo สวย ๆ",
-    cover:"dark",
-    image:"",
-    scenes:["night","city","portrait","neon","street","backlight"]
-  },
-  {
-    name:"Beach",
-    cat:"Nature",
-    control:"Positive Film",
-    wb:"Daylight",
-    shift:"B1 G1",
-    ev:"-0.3 ถึง -0.7",
-    highlight:"-2",
-    shadow:"+1",
-    sat:"+1",
-    sharp:"0",
-    hdf:"OFF",
-    use:"ทะเล / ฟ้าใส",
-    advice:"คุมผิวน้ำและท้องฟ้าไม่ให้หลุด highlight",
-    cover:"cyan",
-    image:"",
-    scenes:["sea","sunny","portrait","travel"]
-  },
-  {
-    name:"Mountain Airy Film",
-    cat:"Nature",
-    control:"Negative Film",
-    wb:"Daylight",
-    shift:"G2 A1",
-    ev:"+0.3 ถึง +0.7",
-    highlight:"-2",
-    shadow:"+1",
-    sat:"-1",
-    sharp:"-1",
-    hdf:"Optional",
-    use:"ภูเขา / ทะเลสาบ / แดดอ่อน",
-    advice:"ฟ้าอ่อน เขียวหม่น ผิวใส ถ้าย้อนแสงเปิด HDF",
-    cover:"green",
-    image:"",
-    scenes:["mountain","forest","portrait","softsun","travel","backlight"]
-  },
-  {
-    name:"City Flash Editorial",
-    cat:"City",
-    control:"Negative Film",
-    wb:"4800–5000K",
-    shift:"B2 G1",
-    ev:"-0.7",
-    highlight:"-1",
-    shadow:"-1",
-    sat:"-1",
-    sharp:"+1",
-    hdf:"OFF",
-    use:"Rooftop / Fashion / Day Flash",
-    advice:"กด ambient ลง 2/3–1 stop แล้วเติมแสงด้านหน้า",
-    cover:"dark",
-    image:"",
-    scenes:["city","portrait","sunny","fashion","architecture"]
-  },
-  {
-    name:"Fuji Blue Film",
-    cat:"Nature",
-    control:"Positive Film",
-    wb:"Auto WB",
-    shift:"A2 G1",
-    ev:"-0.3 ถึง -0.7",
-    highlight:"-1",
-    shadow:"+1",
-    sat:"-1",
-    sharp:"-1",
-    hdf:"ON",
-    use:"ภูเขา / ทะเลสาบ / ญี่ปุ่น",
-    advice:"ฟ้าใสเย็นสบาย ผิวขาวใส เหมาะกับวิวธรรมชาติ",
-    cover:"blue",
-    image:"",
-    scenes:["mountain","sea","portrait","sunny","travel"]
-  }
 ];
 
 
-const ENVIRONMENTS = [
-  {
-    id:"bright_sun",
-    emoji:"☀️",
-    name:"แดดแรง / ฟ้าใส",
-    desc:"กลางแจ้ง แสงแข็ง เงาชัด",
-    wb:"Daylight หรือ 5000–5600K",
-    shift:"G1 หรือ G1 A1",
-    ev:"เริ่ม -0.3 ถึง -0.7",
-    advice:"เน้นเก็บท้องฟ้าและผิวไม่ให้ขาวล้น",
-    matchScenes:["sunny","city","sea","travel","architecture"]
-  },
-  {
-    id:"soft_daylight",
-    emoji:"🌤",
-    name:"แดดอ่อน / แสงนุ่ม",
-    desc:"เช้า บ่าย หรือมีเมฆบาง",
-    wb:"Auto WB หรือ 5000–5500K",
-    shift:"G1 A1",
-    ev:"เริ่ม 0 ถึง +0.3",
-    advice:"เหมาะกับคนและวิว เพราะ contrast ไม่แรง",
-    matchScenes:["softsun","portrait","travel","mountain","forest"]
-  },
-  {
-    id:"cloudy",
-    emoji:"☁️",
-    name:"ครึ้ม / ฟ้าหม่น",
-    desc:"แสงเย็น สีฉากดูแบน",
-    wb:"Cloudy หรือ 5600–6200K",
-    shift:"A1 ถึง A2",
-    ev:"เริ่ม 0 ถึง +0.3",
-    advice:"เพิ่มความอุ่นเล็กน้อยช่วยให้ผิวไม่ซีด",
-    matchScenes:["cloudy","portrait","street","travel"]
-  },
-  {
-    id:"window_light",
-    emoji:"🪟",
-    name:"ในร่ม + แสงหน้าต่าง",
-    desc:"คาเฟ่ บ้าน โรงแรม แสงธรรมชาติ",
-    wb:"Auto WB หรือ 4500–5200K",
-    shift:"A1",
-    ev:"เริ่ม 0 ถึง +0.3",
-    advice:"ดูสีผิวเป็นหลัก ถ้าหน้าเหลืองให้ลด Kelvin",
-    matchScenes:["cafe","portrait","food","indoor"]
-  },
-  {
-    id:"warm_indoor",
-    emoji:"💡",
-    name:"ไฟเหลือง / ไฟส้ม",
-    desc:"คาเฟ่ ร้านอาหาร ห้องไฟอุ่น",
-    wb:"3800–4500K",
-    shift:"A1–A2 หรือ M1 ถ้าติดเขียว",
-    ev:"เริ่ม 0 ถึง -0.3",
-    advice:"ลด Kelvin เพื่อหักความเหลือง แต่ไม่ควรลดจนผิวกลายเป็นฟ้า",
-    matchScenes:["cafe","food","portrait","indoor","night"]
-  },
-  {
-    id:"white_indoor",
-    emoji:"🏬",
-    name:"ไฟขาว / ห้าง / Office",
-    desc:"LED หรือ fluorescent",
-    wb:"4000–5000K",
-    shift:"M1 ถ้าภาพติดเขียว",
-    ev:"เริ่ม 0",
-    advice:"ไฟ LED บางแบบทำให้ผิวอมเขียว ให้ขยับ WB Shift ไปทาง M",
-    matchScenes:["indoor","portrait","fashion","architecture"]
-  },
-  {
-    id:"night_city",
-    emoji:"🌙",
-    name:"กลางคืน / ไฟเมือง",
-    desc:"ถนน ป้ายไฟ แสงน้อย",
-    wb:"3200–4200K",
-    shift:"B1 หรือ B1 M1",
-    ev:"เริ่ม -0.7",
-    advice:"กด EV ช่วยรักษาป้ายไฟ ถ้าไฟขาวโพลนมากลอง -1.0",
-    matchScenes:["night","city","street","travel"]
-  },
-  {
-    id:"neon",
-    emoji:"✨",
-    name:"นีออน / สีไฟจัด",
-    desc:"ป้ายร้าน Chinatown บาร์",
-    wb:"3200–3800K",
-    shift:"B1 M1",
-    ev:"เริ่ม -0.7 ถึง -1.0",
-    advice:"ให้สีไฟเด่นและยังเก็บรายละเอียด highlight",
-    matchScenes:["neon","night","city","portrait","street","backlight"]
-  },
-  {
-    id:"golden",
-    emoji:"🌅",
-    name:"Golden Hour / แสงเย็น",
-    desc:"ก่อนพระอาทิตย์ตก แสงอุ่น",
-    wb:"Daylight หรือ 5000–5800K",
-    shift:"A1",
-    ev:"เริ่ม -0.3 ถึง +0.3",
-    advice:"ถ้าอยากเก็บบรรยากาศอุ่น อย่าตั้ง WB เย็นเกินไป",
-    matchScenes:["golden","portrait","travel","backlight"]
-  }
-];
-
-let selectedEnvironment = null;
-
-function renderEnvironmentGrid(){
-  document.getElementById("environmentGrid").innerHTML = ENVIRONMENTS.map(env => `
-    <button class="environment ${selectedEnvironment===env.id ? "active" : ""}" onclick="selectEnvironment('${env.id}')">
-      <div class="emoji">${env.emoji}</div>
-      <b>${env.name}</b>
-      <small>${env.desc}</small>
-    </button>
-  `).join("");
-  renderWBHelper();
-}
-
-function selectEnvironment(id){
-  selectedEnvironment = selectedEnvironment === id ? null : id;
-  renderEnvironmentGrid();
-  renderRecommendations();
-}
-
-function getSelectedEnvironment(){
-  return ENVIRONMENTS.find(x => x.id === selectedEnvironment) || null;
-}
-
-function renderWBHelper(){
-  const box = document.getElementById("wbHelper");
-  const env = getSelectedEnvironment();
-
-  if(!env){
-    box.innerHTML = `<div class="beginner-note">💡 <b>White Balance (WB) คืออะไร?</b><br>WB ใช้แก้สีของแสงให้ภาพไม่เหลืองหรือฟ้าเกินไป ส่วน WB Shift คือการขยับสีละเอียดอีกขั้น: <b>A = อุ่น/ส้ม</b>, <b>B = เย็น/ฟ้า</b>, <b>G = เขียว</b>, <b>M = ม่วงแดง</b></div>`;
-    return;
-  }
-
-  box.innerHTML = `
-    <div class="wb-helper">
-      <h3>${env.emoji} ค่าตั้งต้นสำหรับ “${env.name}”</h3>
-      <div class="muted" style="color:#cfcfcf">นี่คือจุดเริ่มต้น ไม่จำเป็นต้องตรงเป๊ะทุกสถานที่ ให้ดูสีผิวและสีขาวในภาพเป็นหลัก</div>
-      <div class="wb-summary">
-        <div><b>WHITE BALANCE</b>${env.wb}</div>
-        <div><b>WB SHIFT</b>${env.shift}</div>
-        <div><b>EV เริ่มต้น</b>${env.ev}</div>
-      </div>
-      <div style="margin-top:10px;font-size:12px;line-height:1.6">💡 ${env.advice}</div>
-    </div>
-    <div class="adjust-list">
-      <div class="adjust-item"><b>ภาพเหลือง / ส้มเกินไป</b><br>ลด Kelvin ลงทีละประมาณ 200–300K หรือขยับจาก A กลับเข้า 0</div>
-      <div class="adjust-item"><b>ภาพฟ้า / เย็นเกินไป</b><br>เพิ่ม Kelvin ขึ้นทีละประมาณ 200–300K หรือขยับไปทาง A</div>
-      <div class="adjust-item"><b>ผิวหรือสีขาวติดเขียว</b><br>ขยับ WB Shift ไปทาง <b>M</b> ทีละ 1 ขั้น</div>
-      <div class="adjust-item"><b>ภาพติดชมพู / ม่วงแดง</b><br>ขยับ WB Shift ไปทาง <b>G</b> ทีละ 1 ขั้น</div>
-    </div>
-  `;
-}
+/* =============================
+SCENES
+============================= */
 
 const SCENES = [
-  {id:"sunny", emoji:"☀️", name:"แดดจัด", desc:"ฟ้าเปิด แสงแรง"},
-  {id:"softsun", emoji:"🌤", name:"แดดอ่อน", desc:"แสงนุ่ม เช้า/บ่าย"},
-  {id:"cloudy", emoji:"☁️", name:"ฟ้าครึ้ม", desc:"แสงแบน สีหม่น"},
-  {id:"rainy", emoji:"🌧", name:"ฝน / หลังฝน", desc:"ถนนเปียก reflection"},
-  {id:"golden", emoji:"🌅", name:"Golden Hour", desc:"เย็นอบอุ่น"},
-  {id:"night", emoji:"🌙", name:"กลางคืน", desc:"ไฟเมือง แสงน้อย"},
-  {id:"neon", emoji:"✨", name:"นีออน", desc:"ป้ายไฟ สีจัด"},
-  {id:"cafe", emoji:"☕", name:"คาเฟ่", desc:"แสงหน้าต่าง / ไฟส้ม"},
-  {id:"city", emoji:"🏙️", name:"เมือง", desc:"Street / Urban"},
-  {id:"sea", emoji:"🏖️", name:"ทะเล", desc:"ชายหาด / ริมน้ำ"},
-  {id:"mountain", emoji:"⛰️", name:"ภูเขา", desc:"วิวเขา / ทะเลสาบ"},
-  {id:"forest", emoji:"🌲", name:"ป่า / ธรรมชาติ", desc:"เขียว / เงาไม้"},
-  {id:"portrait", emoji:"👤", name:"Portrait", desc:"เน้นผิว / ตัวแบบ"},
-  {id:"fashion", emoji:"👗", name:"Fashion / Outfit", desc:"เสื้อผ้า / ลุค"},
-  {id:"food", emoji:"🍰", name:"อาหาร / ขนม", desc:"Cafe / Menu"},
-  {id:"architecture", emoji:"🏛", name:"Architecture", desc:"อาคาร / โครงสร้าง"},
-  {id:"street", emoji:"🚶", name:"Street", desc:"เดินถ่าย / candid"},
-  {id:"travel", emoji:"✈️", name:"Travel", desc:"เที่ยว / โลเคชัน"},
-  {id:"bw", emoji:"🖤", name:"ขาวดำ", desc:"แสงเงา / tone"},
-  {id:"backlight", emoji:"💡", name:"ย้อนแสง / HDF", desc:"แสงย้อน / halo"},
-  {id:"indoor", emoji:"🏠", name:"ในร่ม", desc:"บ้าน / โรงแรม / ห้าง"}
+
+{id:"sunny",emoji:"☀️",name:"แดดจัด",desc:"ฟ้าเปิด แสงแรง"},
+
+{id:"softsun",emoji:"🌤",name:"แดดอ่อน",desc:"เช้า / บ่าย"},
+
+{id:"cloudy",emoji:"☁️",name:"ฟ้าครึ้ม",desc:"แสงนุ่ม หม่น"},
+
+{id:"rainy",emoji:"🌧",name:"ฝน / หลังฝน",desc:"พื้นเปียก Reflection"},
+
+{id:"golden",emoji:"🌅",name:"Golden Hour",desc:"แสงเย็นอุ่น"},
+
+{id:"night",emoji:"🌙",name:"กลางคืน",desc:"ไฟเมือง แสงน้อย"},
+
+{id:"neon",emoji:"✨",name:"นีออน",desc:"ป้ายไฟ สีจัด"},
+
+{id:"cafe",emoji:"☕",name:"คาเฟ่",desc:"หน้าต่าง / ไฟส้ม"},
+
+{id:"city",emoji:"🏙️",name:"เมือง",desc:"Urban / Street"},
+
+{id:"sea",emoji:"🏖️",name:"ทะเล",desc:"ชายหาด / ริมน้ำ"},
+
+{id:"mountain",emoji:"⛰️",name:"ภูเขา",desc:"วิวเขา / ทะเลสาบ"},
+
+{id:"forest",emoji:"🌲",name:"ป่า / ธรรมชาติ",desc:"เขียว / เงาไม้"},
+
+{id:"portrait",emoji:"👤",name:"Portrait",desc:"คน / สีผิว"},
+
+{id:"fashion",emoji:"👗",name:"Fashion",desc:"Outfit / ลุค"},
+
+{id:"food",emoji:"🍰",name:"อาหาร",desc:"อาหาร / ขนม"},
+
+{id:"architecture",emoji:"🏛️",name:"Architecture",desc:"อาคาร"},
+
+{id:"street",emoji:"🚶",name:"Street",desc:"Candid"},
+
+{id:"travel",emoji:"✈️",name:"Travel",desc:"เที่ยว"},
+
+{id:"bw",emoji:"🖤",name:"ขาวดำ",desc:"Contrast"},
+
+{id:"backlight",emoji:"💡",name:"ย้อนแสง / HDF",desc:"Halo / ฟุ้ง"},
+
+{id:"indoor",emoji:"🏠",name:"ในร่ม",desc:"บ้าน / ห้าง"}
+
 ];
 
-let presets = JSON.parse(localStorage.getItem("ricohPresetsV3")) || DEFAULT_PRESETS;
-let favorites = JSON.parse(localStorage.getItem("ricohFavoritesV3")) || {};
-let selectedScenes = [];
-let editingIndex = null;
-let tempImageData = "";
 
-function saveAll(){
-  localStorage.setItem("ricohPresetsV3", JSON.stringify(presets));
-  localStorage.setItem("ricohFavoritesV3", JSON.stringify(favorites));
+/* =============================
+ENVIRONMENTS
+============================= */
+
+const ENVIRONMENTS = [
+
+{
+  id:"bright_sun",
+  emoji:"☀️",
+  name:"แดดแรง / ฟ้าใส",
+  desc:"แสงแข็ง เงาชัด",
+  wb:"Daylight หรือ 5000–5600K",
+  shift:"G1 หรือ G1 : A1",
+  ev:"-0.3 ถึง -0.7 EV",
+  advice:"เก็บรายละเอียดฟ้าและเสื้อสีขาว",
+  matchScenes:[
+    "sunny",
+    "city",
+    "sea",
+    "travel",
+    "architecture"
+  ]
+},
+
+{
+  id:"soft_daylight",
+  emoji:"🌤",
+  name:"แดดอ่อน / แสงนุ่ม",
+  desc:"เช้า บ่าย เมฆบาง",
+  wb:"Auto WB หรือ 5000–5500K",
+  shift:"G1 : A1",
+  ev:"0 ถึง +0.3 EV",
+  advice:"เหมาะกับ Portrait และวิว",
+  matchScenes:[
+    "softsun",
+    "portrait",
+    "travel",
+    "mountain",
+    "forest"
+  ]
+},
+
+{
+  id:"cloudy",
+  emoji:"☁️",
+  name:"ครึ้ม / ฟ้าหม่น",
+  desc:"แสงเย็น สีแบน",
+  wb:"Cloudy หรือ 5600–6200K",
+  shift:"A1 ถึง A2",
+  ev:"0 ถึง +0.3 EV",
+  advice:"เพิ่มความอุ่นเล็กน้อยช่วยให้ผิวไม่ซีด",
+  matchScenes:[
+    "cloudy",
+    "portrait",
+    "street",
+    "travel"
+  ]
+},
+
+{
+  id:"window_light",
+  emoji:"🪟",
+  name:"ในร่ม + แสงหน้าต่าง",
+  desc:"คาเฟ่ บ้าน โรงแรม",
+  wb:"Auto WB หรือ 4500–5200K",
+  shift:"A1",
+  ev:"0 ถึง +0.3 EV",
+  advice:"ถ้าหน้าเหลืองให้ลด Kelvin",
+  matchScenes:[
+    "cafe",
+    "portrait",
+    "food",
+    "indoor"
+  ]
+},
+
+{
+  id:"warm_indoor",
+  emoji:"💡",
+  name:"ไฟเหลือง / ไฟส้ม",
+  desc:"คาเฟ่ ร้านอาหาร",
+  wb:"3800–4500K",
+  shift:"A1–A2 หรือ M1 ถ้าติดเขียว",
+  ev:"0 ถึง -0.3 EV",
+  advice:"ลด Kelvin เพื่อแก้ความเหลือง",
+  matchScenes:[
+    "cafe",
+    "food",
+    "portrait",
+    "indoor",
+    "night"
+  ]
+},
+
+{
+  id:"white_indoor",
+  emoji:"🏬",
+  name:"ไฟขาว / ห้าง",
+  desc:"LED / Fluorescent",
+  wb:"4000–5000K",
+  shift:"M1 ถ้าภาพติดเขียว",
+  ev:"0 EV",
+  advice:"ถ้าผิวติดเขียวขยับ WB Shift ไปทาง M",
+  matchScenes:[
+    "indoor",
+    "portrait",
+    "fashion",
+    "architecture"
+  ]
+},
+
+{
+  id:"night_city",
+  emoji:"🌙",
+  name:"กลางคืน / ไฟเมือง",
+  desc:"ถนน ป้ายไฟ",
+  wb:"3200–4200K",
+  shift:"B1 หรือ B1 : M1",
+  ev:"เริ่ม -0.7 EV",
+  advice:"กด EV เพื่อรักษาไฟไม่ให้ขาวโพลน",
+  matchScenes:[
+    "night",
+    "city",
+    "street",
+    "travel"
+  ]
+},
+
+{
+  id:"neon",
+  emoji:"✨",
+  name:"นีออน",
+  desc:"ป้ายไฟ สีจัด",
+  wb:"3200–3800K",
+  shift:"B1 : M1",
+  ev:"-0.7 ถึง -1.0 EV",
+  advice:"รักษาสีไฟและ Highlight",
+  matchScenes:[
+    "neon",
+    "night",
+    "city",
+    "portrait",
+    "street",
+    "backlight"
+  ]
+},
+
+{
+  id:"golden",
+  emoji:"🌅",
+  name:"Golden Hour",
+  desc:"แสงเย็นอุ่น",
+  wb:"Daylight หรือ 5000–5800K",
+  shift:"A1",
+  ev:"-0.3 ถึง +0.3 EV",
+  advice:"อย่าตั้ง WB เย็นเกินไปจนเสียแสงทอง",
+  matchScenes:[
+    "golden",
+    "portrait",
+    "travel",
+    "backlight"
+  ]
 }
 
-function showPage(id, btn){
-  document.querySelectorAll(".page").forEach(el => el.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  document.querySelectorAll(".tab").forEach(el => el.classList.remove("active"));
-  btn.classList.add("active");
+];
+
+
+/* =============================
+STORAGE
+============================= */
+
+const STORAGE_KEY =
+"ricohPresetsFullV6";
+
+const FAVORITE_KEY =
+"ricohFavoritesFullV6";
+
+const DB_NAME =
+"RicohToneVaultDB";
+
+const DB_VERSION =
+1;
+
+const IMAGE_STORE =
+"images";
+
+
+let presets =
+loadPresets();
+
+let favorites =
+loadFavorites();
+
+let selectedScenes =
+[];
+
+let selectedEnvironment =
+null;
+
+let editingIndex =
+null;
+
+let tempImageData =
+"";
+
+let tempImageUrl =
+"";
+
+let existingImageId =
+"";
+
+let existingImageUrl =
+"";
+
+
+/* =============================
+OLD DATA MIGRATION
+============================= */
+
+function migratePresetSchema(p){
+
+  return {
+
+    name:
+      p.name || "Untitled",
+
+    cat:
+      p.cat || "Everyday",
+
+    control:
+      p.control || "",
+
+
+    saturation:
+      p.saturation ??
+      p.sat ??
+      "",
+
+    hue:
+      p.hue ??
+      "",
+
+    highLowKey:
+      p.highLowKey ??
+      p.highlowkey ??
+      "",
+
+    contrast:
+      p.contrast ??
+      "",
+
+    contrastHighlight:
+      p.contrastHighlight ??
+      p.highlight ??
+      "",
+
+    contrastShadow:
+      p.contrastShadow ??
+      p.shadow ??
+      "",
+
+    sharpness:
+      p.sharpness ??
+      p.sharp ??
+      "",
+
+    shading:
+      p.shading ??
+      "",
+
+    clarity:
+      p.clarity ??
+      "",
+
+
+    wb:
+      p.wb || "",
+
+    shift:
+      p.shift || "",
+
+
+    exposureCompensation:
+      p.exposureCompensation ??
+      p.ev ??
+      "",
+
+
+    highlightCorrection:
+      p.highlightCorrection ??
+      "",
+
+    shadowCorrection:
+      p.shadowCorrection ??
+      "",
+
+    peripheralIllumination:
+      p.peripheralIllumination ??
+      "",
+
+    noiseReduction:
+      p.noiseReduction ??
+      "",
+
+
+    hdf:
+      p.hdf || "",
+
+
+    use:
+      p.use || "",
+
+    advice:
+      p.advice || "",
+
+    cover:
+      p.cover || "blue",
+
+    imageId:
+      p.imageId || "",
+
+    imageUrl:
+      p.imageUrl ||
+      (
+        typeof p.image === "string" &&
+        /^https?:\/\//i.test(p.image)
+
+        ?
+
+        p.image
+
+        :
+
+        ""
+      ),
+
+    image:
+      p.image || "",
+
+    scenes:
+      Array.isArray(p.scenes)
+      ?
+      p.scenes
+      :
+      []
+
+  };
+
 }
 
-function getHdfLabel(v){
-  if(v==="ON") return "✨ HDF ON";
-  if(v==="Optional") return "✨ HDF Optional";
-  return "HDF OFF";
+
+function migrateSchemaArray(arr){
+
+  return (arr || [])
+  .map(
+    migratePresetSchema
+  );
+
 }
 
-function toggleFavorite(name){
-  favorites[name] = !favorites[name];
-  saveAll();
-  renderLibrary();
-}
 
-function getCardCover(p){
-  if(p.image){
-    return `
-      <div class="cover">
-        <img src="${p.image}" alt="${escapeHtml(p.name)}">
-        <div class="overlay"></div>
-        <span class="badge">${escapeHtml(p.cat)}</span>
-        <button class="fav" onclick="toggleFavorite('${escapeJs(p.name)}')">${favorites[p.name] ? "♥" : "♡"}</button>
-        <div class="cover-title">
-          <h3>${escapeHtml(p.name)}</h3>
-          <small>${escapeHtml(p.use || "")}</small>
-        </div>
-      </div>
-    `;
+function loadPresets(){
+
+  try{
+
+    const current =
+      localStorage.getItem(
+        STORAGE_KEY
+      );
+
+    if(current){
+
+      return migrateSchemaArray(
+        JSON.parse(current)
+      );
+
+    }
+
+
+    const old =
+      localStorage.getItem(
+        "ricohPresetsV6"
+      )
+      ||
+      localStorage.getItem(
+        "ricohPresetsV5"
+      )
+      ||
+      localStorage.getItem(
+        "ricohPresetsV3"
+      );
+
+
+    if(old){
+
+      return migrateSchemaArray(
+        JSON.parse(old)
+      );
+
+    }
+
   }
-  return `
-    <div class="cover noimg ${p.cover || "blue"}">
-      <span class="badge">${escapeHtml(p.cat)}</span>
-      <button class="fav" onclick="toggleFavorite('${escapeJs(p.name)}')">${favorites[p.name] ? "♥" : "♡"}</button>
-      <div class="cover-title">
-        <h3>${escapeHtml(p.name)}</h3>
-        <small>${escapeHtml(p.use || "")}</small>
-      </div>
-      <div class="overlay"></div>
-    </div>
-  `;
-}
 
-function renderLibrary(){
-  const q = document.getElementById("searchInput").value.trim().toLowerCase();
-  const sort = document.getElementById("sortSelect").value;
-  const category = document.getElementById("categorySelect").value;
+  catch(err){
 
-  let list = presets.map((p, i) => ({...p, _index:i}));
+    console.error(
+      "Load error",
+      err
+    );
 
-  list = list.filter(p => {
-    const text = Object.values(p).join(" ").toLowerCase();
-    const matchesSearch = text.includes(q);
-    const matchesCategory =
-      category === "all" ? true :
-      category === "favorite" ? !!favorites[p.name] :
-      p.cat === category;
-    return matchesSearch && matchesCategory;
-  });
-
-  if(sort === "name"){
-    list.sort((a,b) => a.name.localeCompare(b.name, "th"));
-  } else if(sort === "favorite"){
-    list.sort((a,b) => (favorites[b.name]?1:0) - (favorites[a.name]?1:0));
   }
 
-  const html = list.map(p => `
-    <article class="card">
-      ${getCardCover(p)}
-      <div class="body">
-        <div class="tags">
-          <span class="tag">${getHdfLabel(p.hdf)}</span>
-          <span class="tag">${escapeHtml(p.control || "")}</span>
-        </div>
-        <div class="settings">
-          <div class="setting"><b>WB</b>${escapeHtml(p.wb || "")}</div>
-          <div class="setting"><b>WB SHIFT</b>${escapeHtml(p.shift || "")}</div>
-          <div class="setting"><b>EV</b>${escapeHtml(p.ev || "")}</div>
-          <div class="setting"><b>HIGHLIGHT</b>${escapeHtml(p.highlight || "")}</div>
-          <div class="setting"><b>SHADOW</b>${escapeHtml(p.shadow || "")}</div>
-          <div class="setting"><b>SATURATION</b>${escapeHtml(p.sat || "")}</div>
-          <div class="setting"><b>SHARPNESS</b>${escapeHtml(p.sharp || "")}</div>
-          <div class="setting"><b>IMAGE CONTROL</b>${escapeHtml(p.control || "")}</div>
-        </div>
-        <div class="advice">💡 ${escapeHtml(p.advice || "")}</div>
-        <div class="card-actions">
-          <button class="small-btn" onclick="editPreset(${p._index})">แก้ไข</button>
-          <button class="small-btn" onclick="duplicatePreset(${p._index})">ทำสำเนา</button>
-          <button class="small-btn" onclick="deletePreset(${p._index})">ลบ</button>
-        </div>
-      </div>
-    </article>
-  `).join("");
 
-  document.getElementById("presetGrid").innerHTML = html || `<div class="muted">ไม่พบโทนที่ค้นหา</div>`;
+  return JSON.parse(
+    JSON.stringify(
+      DEFAULT_PRESETS
+    )
+  );
+
 }
 
-function renderSceneGrid(){
-  const html = SCENES.map(scene => `
-    <button class="scene ${selectedScenes.includes(scene.id) ? "active" : ""}" onclick="toggleScene('${scene.id}')">
-      <div class="emoji">${scene.emoji}</div>
-      <b>${scene.name}</b>
-      <small>${scene.desc}</small>
-    </button>
-  `).join("");
-  document.getElementById("sceneGrid").innerHTML = html;
-}
 
-function toggleScene(id){
-  if(selectedScenes.includes(id)){
-    selectedScenes = selectedScenes.filter(x => x !== id);
-  } else {
-    selectedScenes.push(id);
-  }
-  renderSceneGrid();
-  renderRecommendations();
-}
+function loadFavorites(){
 
-function clearSceneSelection(){
-  selectedScenes = [];
-  selectedEnvironment = null;
-  renderSceneGrid();
-  renderEnvironmentGrid();
-  renderRecommendations();
-}
+  try{
 
-function scorePreset(preset, selected){
-  let score = 0;
-  const presetScenes = preset.scenes || [];
+    return JSON.parse(
+      localStorage.getItem(
+        FAVORITE_KEY
+      )
+      ||
+      localStorage.getItem(
+        "ricohFavoritesV5"
+      )
+      ||
+      localStorage.getItem(
+        "ricohFavoritesV3"
+      )
+      ||
+      "{}"
+    );
 
-  const env = getSelectedEnvironment();
-  if(env){
-    env.matchScenes.forEach(sceneId => {
-      if(presetScenes.includes(sceneId)) score += 3;
-    });
-
-    const wbText = `${preset.wb || ""} ${preset.shift || ""}`.toLowerCase();
-
-    if(env.id==="bright_sun" && /daylight|5000|5200|5400|5600/.test(wbText)) score += 2;
-    if(env.id==="warm_indoor" && /3800|4000|4200|4300|4500/.test(wbText)) score += 3;
-    if(env.id==="night_city" && /3200|3400|3600|3800|4000|4200/.test(wbText)) score += 2;
-    if(env.id==="neon" && (preset.hdf==="ON" || /3200|3400|3600|3800/.test(wbText))) score += 3;
-    if(env.id==="cloudy" && /cloudy|5600|5800|6000|6200/.test(wbText)) score += 2;
   }
 
-  selected.forEach(sceneId => {
-    if(presetScenes.includes(sceneId)) score += 5;
+  catch(err){
 
-    const text = (preset.name + " " + preset.use + " " + preset.advice).toLowerCase();
+    return {};
 
-    if(sceneId==="portrait" && /portrait|คน|ผิว/.test(text)) score += 2;
-    if(sceneId==="city" && /city|เมือง|urban|rooftop/.test(text)) score += 2;
-    if(sceneId==="night" && /night|กลางคืน|ไฟ/.test(text)) score += 2;
-    if(sceneId==="cafe" && /cafe|คาเฟ่|ร้าน/.test(text)) score += 2;
-    if(sceneId==="sea" && /ทะเล|sea|ริมน้ำ|ทะเลสาบ/.test(text)) score += 2;
-    if(sceneId==="mountain" && /ภูเขา|mountain|หิมะ|ทะเลสาบ/.test(text)) score += 2;
-    if(sceneId==="forest" && /ป่า|เขียว|forest|ธรรมชาติ/.test(text)) score += 2;
-    if(sceneId==="fashion" && /fashion|outfit|ลุค|เสื้อผ้า/.test(text)) score += 2;
-    if(sceneId==="food" && /food|ขนม|อาหาร|dessert/.test(text)) score += 2;
-    if(sceneId==="architecture" && /architecture|อาคาร|สถาปัตย์/.test(text)) score += 2;
-    if(sceneId==="street" && /street|เดินถ่าย|candid/.test(text)) score += 2;
-    if(sceneId==="travel" && /travel|เที่ยว|ท่องเที่ยว/.test(text)) score += 2;
-    if(sceneId==="backlight" && /ย้อนแสง|halo|hdf/.test(text) || preset.hdf==="ON" || preset.hdf==="Optional") score += 2;
-    if(sceneId==="sunny" && /แดด|sunny|ฟ้า/.test(text)) score += 1;
-    if(sceneId==="softsun" && /แสงอ่อน|เช้า|เย็น|soft/.test(text)) score += 1;
-    if(sceneId==="cloudy" && /ครึ้ม|หม่น|cloudy/.test(text)) score += 1;
-    if(sceneId==="rainy" && /ฝน|หลังฝน|เปียก/.test(text)) score += 1;
-    if(sceneId==="golden" && /golden|เย็น|อุ่น/.test(text)) score += 1;
-    if(sceneId==="bw" && /ขาวดำ|monotone|bw/.test(text)) score += 2;
-    if(sceneId==="neon" && /neon|นีออน|chinatown/.test(text)) score += 2;
-    if(sceneId==="indoor" && /ในร่ม|ห้าง|บ้าน|hotel|indoor/.test(text)) score += 1;
-  });
-  return score;
-}
-
-function getRecommendationCover(p){
-  if(p.image){
-    return `<div class="reco-cover"><img src="${p.image}" alt="${escapeHtml(p.name)}"><div class="overlay"></div></div>`;
   }
-  return `<div class="reco-cover ${p.cover || "blue"}"></div>`;
+
 }
 
-function renderRecommendations(){
-  const area = document.getElementById("recommendationArea");
 
-  if(selectedScenes.length === 0 && !selectedEnvironment){
-    area.innerHTML = `<p class="muted" style="margin-top:14px">ยังไม่ได้เลือกสภาพแวดล้อมหรือหัวข้อ</p>`;
+function saveMetadata(){
+
+  try{
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(presets)
+    );
+
+    localStorage.setItem(
+      FAVORITE_KEY,
+      JSON.stringify(favorites)
+    );
+
+    return true;
+
+  }
+
+  catch(err){
+
+    console.error(
+      "Save metadata error",
+      err
+    );
+
+    return false;
+
+  }
+
+}
+
+
+/* =============================
+INDEXED DB
+============================= */
+
+function openImageDB(){
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      const request =
+        indexedDB.open(
+          DB_NAME,
+          DB_VERSION
+        );
+
+
+      request.onupgradeneeded =
+      function(event){
+
+        const db =
+          event.target.result;
+
+        if(
+          !db.objectStoreNames
+          .contains(
+            IMAGE_STORE
+          )
+        ){
+
+          db.createObjectStore(
+            IMAGE_STORE,
+            {
+              keyPath:"id"
+            }
+          );
+
+        }
+
+      };
+
+
+      request.onsuccess =
+      function(){
+
+        resolve(
+          request.result
+        );
+
+      };
+
+
+      request.onerror =
+      function(){
+
+        reject(
+          request.error
+        );
+
+      };
+
+    }
+  );
+
+}
+
+
+function createImageId(){
+
+  return (
+    "img_"
+    +
+    Date.now()
+    +
+    "_"
+    +
+    Math.random()
+    .toString(36)
+    .slice(2)
+  );
+
+}
+
+
+async function saveImageToDB(
+  dataUrl,
+  imageId=null
+){
+
+  const db =
+    await openImageDB();
+
+  const id =
+    imageId ||
+    createImageId();
+
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      const tx =
+        db.transaction(
+          IMAGE_STORE,
+          "readwrite"
+        );
+
+      tx.objectStore(
+        IMAGE_STORE
+      )
+      .put({
+        id:id,
+        dataUrl:dataUrl,
+        updatedAt:Date.now()
+      });
+
+
+      tx.oncomplete =
+      function(){
+
+        db.close();
+        resolve(id);
+
+      };
+
+
+      tx.onerror =
+      function(){
+
+        db.close();
+        reject(tx.error);
+
+      };
+
+    }
+  );
+
+}
+
+
+async function getImageFromDB(id){
+
+  if(!id){
+    return "";
+  }
+
+
+  const db =
+    await openImageDB();
+
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      const tx =
+        db.transaction(
+          IMAGE_STORE,
+          "readonly"
+        );
+
+      const request =
+        tx.objectStore(
+          IMAGE_STORE
+        )
+        .get(id);
+
+
+      request.onsuccess =
+      function(){
+
+        db.close();
+
+        resolve(
+          request.result
+          ?
+          request.result.dataUrl
+          :
+          ""
+        );
+
+      };
+
+
+      request.onerror =
+      function(){
+
+        db.close();
+        reject(request.error);
+
+      };
+
+    }
+  );
+
+}
+
+
+async function deleteImageFromDB(id){
+
+  if(!id){
     return;
   }
 
-  const top = presets
-    .map(p => ({...p, score: scorePreset(p, selectedScenes)}))
-    .sort((a,b) => b.score - a.score)
-    .slice(0,3);
 
-  const labelList = selectedScenes
-    .map(id => SCENES.find(s => s.id===id)?.name)
-    .filter(Boolean)
-    .join(" + ");
+  const db =
+    await openImageDB();
 
-  const env = getSelectedEnvironment();
-  const summaryParts = [
-    env ? env.name : "",
-    labelList
-  ].filter(Boolean).join(" + ");
 
-  area.innerHTML = `
-    <div style="margin-top:18px">
-      <h3 style="margin:0 0 6px 0">สถานการณ์ที่เลือก: ${escapeHtml(summaryParts)}</h3>
-      <p class="muted">3 โทนที่เหมาะที่สุด โดยคิดทั้งสภาพแสงและสิ่งที่จะถ่าย</p>
-      <div class="reco-grid">
-        ${top.map((p, idx) => `
-          <div class="reco">
-            ${getRecommendationCover(p)}
-            <div class="reco-content">
-              <div class="muted">อันดับ ${idx + 1}</div>
-              <h3 style="margin:4px 0 8px 0">${escapeHtml(p.name)}</h3>
-              <div class="tags">
-                <span class="tag">${p.hdf==="ON" ? "✨ เปิด HDF" : p.hdf==="Optional" ? "✨ HDF ตามสภาพแสง" : "HDF OFF"}</span>
-                <span class="tag">EV ${escapeHtml(p.ev || "")}</span>
-              </div>
-              <div class="quick">
-                <div><b>IMAGE CONTROL</b>${escapeHtml(p.control || "")}</div>
-                <div><b>WB</b>${escapeHtml(p.wb || "")}</div>
-                <div><b>WB SHIFT</b>${escapeHtml(p.shift || "")}</div>
-                <div><b>EV</b>${escapeHtml(p.ev || "")}</div>
-              </div>
-              <div class="reco-setup">
-                <b>📷 ตั้งกล้องตามนี้ก่อน</b><br>
-                1. Image Control → ${escapeHtml(p.control || "-")}<br>
-                2. White Balance → ${escapeHtml(p.wb || "-")}<br>
-                3. WB Shift → ${escapeHtml(p.shift || "-")}<br>
-                4. EV → ${escapeHtml(p.ev || "-")}<br>
-                5. HDF → ${escapeHtml(p.hdf || "OFF")}
-              </div>
-              <p style="font-size:12px;line-height:1.55;color:#555">${escapeHtml(p.advice || "")}</p>
-            </div>
-          </div>
-        `).join("")}
-      </div>
-    </div>
-  `;
-}
+  return new Promise(
+    (resolve,reject)=>{
 
-function renderSceneCheckboxes(selected=[]){
-  document.getElementById("sceneCheckboxGrid").innerHTML = SCENES.map(scene => `
-    <label class="check-item">
-      <input type="checkbox" value="${scene.id}" ${selected.includes(scene.id) ? "checked" : ""}>
-      <span>${scene.emoji} ${scene.name}</span>
-    </label>
-  `).join("");
-}
+      const tx =
+        db.transaction(
+          IMAGE_STORE,
+          "readwrite"
+        );
 
-function openPresetForm(){
-  editingIndex = null;
-  tempImageData = "";
-  document.getElementById("dialogTitle").textContent = "เพิ่มโทนใหม่";
-  clearForm();
-  renderSceneCheckboxes([]);
-  document.getElementById("presetDialog").classList.add("show");
-}
+      tx.objectStore(
+        IMAGE_STORE
+      )
+      .delete(id);
 
-function closePresetForm(){
-  document.getElementById("presetDialog").classList.remove("show");
-}
 
-function clearForm(){
-  if(document.getElementById("quickPresetText")) document.getElementById("quickPresetText").value = "";
-  if(document.getElementById("quickPresetStatus")) document.getElementById("quickPresetStatus").textContent = "";
-  [
-    "f_name","f_control","f_wb","f_shift","f_ev","f_highlight","f_shadow",
-    "f_sat","f_sharp","f_use","f_advice","f_image_url"
-  ].forEach(id => document.getElementById(id).value = "");
-  document.getElementById("f_cat").value = "Everyday";
-  document.getElementById("f_hdf").value = "OFF";
-  document.getElementById("f_cover").value = "blue";
-  document.getElementById("f_image_file").value = "";
-  setPreview("");
-}
+      tx.oncomplete =
+      function(){
 
-function setPreview(src){
-  const img = document.getElementById("imagePreview");
-  const ph = document.getElementById("previewPlaceholder");
-  if(src){
-    img.src = src;
-    img.style.display = "block";
-    ph.style.display = "none";
-  } else {
-    img.src = "";
-    img.style.display = "none";
-    ph.style.display = "block";
-  }
-}
+        db.close();
+        resolve();
 
-document.getElementById("f_image_file").addEventListener("change", function(e){
-  const file = e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = function(evt){
-    tempImageData = evt.target.result;
-    setPreview(tempImageData);
-  };
-  reader.readAsDataURL(file);
-});
+      };
 
-document.getElementById("f_image_url").addEventListener("input", function(e){
-  const url = e.target.value.trim();
-  if(url){
-    tempImageData = url;
-    setPreview(url);
-  } else if(!document.getElementById("f_image_file").files[0]){
-    tempImageData = "";
-    setPreview("");
-  }
-});
 
-function getSelectedFormScenes(){
-  return [...document.querySelectorAll("#sceneCheckboxGrid input[type='checkbox']:checked")].map(el => el.value);
+      tx.onerror =
+      function(){
+
+        db.close();
+        reject(tx.error);
+
+      };
+
+    }
+  );
+
 }
 
 
-function normalizePresetObject(obj){
-  const aliases = {
-    name:["name","ชื่อ","ชื่อโทน","tone","preset"],
-    cat:["cat","category","หมวด"],
-    control:["control","imagecontrol","image_control","image control","โทนภาพ"],
-    wb:["wb","whitebalance","white_balance","white balance"],
-    shift:["shift","wbshift","wb_shift","wb shift"],
-    ev:["ev","exposure","exposurecompensation"],
-    highlight:["highlight","highlights"],
-    shadow:["shadow","shadows"],
-    sat:["sat","saturation","สี","ความอิ่มสี"],
-    sharp:["sharp","sharpness","ความคม"],
-    hdf:["hdf"],
-    use:["use","เหมาะกับ","usage","suitable"],
-    advice:["advice","คำแนะนำ","note","notes"],
-    cover:["cover","สีการ์ด"],
-    scenes:["scenes","scene","หัวข้อ"]
-  };
+/* =============================
+MIGRATE OLD BASE64 IMAGES
+============================= */
 
-  const clean = {};
-  Object.entries(obj || {}).forEach(([k,v])=>{
-    clean[String(k).toLowerCase().replace(/\s+/g,"").replace(/_/g,"")] = v;
-  });
+async function migrateOldImages(){
 
-  const out = {};
-  Object.entries(aliases).forEach(([target, keys])=>{
-    for(const key of keys){
-      const normalized = key.toLowerCase().replace(/\s+/g,"").replace(/_/g,"");
-      if(clean[normalized] !== undefined){
-        out[target] = clean[normalized];
-        break;
+  let changed =
+    false;
+
+
+  for(const p of presets){
+
+    if(
+      p.image &&
+      typeof p.image === "string" &&
+      p.image.startsWith(
+        "data:image/"
+      )
+    ){
+
+      try{
+
+        p.imageId =
+          await saveImageToDB(
+            p.image
+          );
+
+        p.imageUrl =
+          "";
+
+        delete p.image;
+
+        changed =
+          true;
+
       }
-    }
-  });
-  return out;
-}
 
-function parseLoosePresetText(text){
-  const obj = {};
-  const lines = text.split(/\n+/);
+      catch(err){
 
-  const mapKey = (raw)=>{
-    const k = raw.trim().toLowerCase();
-    if(/^(name|ชื่อ|ชื่อโทน)$/.test(k)) return "name";
-    if(/^(cat|category|หมวด)$/.test(k)) return "cat";
-    if(/^(image\s*control|control|โทนภาพ)$/.test(k)) return "control";
-    if(/^(wb|white\s*balance)$/.test(k)) return "wb";
-    if(/^(wb\s*shift|shift)$/.test(k)) return "shift";
-    if(/^ev$/.test(k)) return "ev";
-    if(/^highlights?$/.test(k)) return "highlight";
-    if(/^shadows?$/.test(k)) return "shadow";
-    if(/^(sat|saturation)$/.test(k)) return "sat";
-    if(/^(sharp|sharpness)$/.test(k)) return "sharp";
-    if(/^hdf$/.test(k)) return "hdf";
-    if(/^(use|เหมาะกับ)$/.test(k)) return "use";
-    if(/^(advice|คำแนะนำ|note)$/.test(k)) return "advice";
-    if(/^scenes?$/.test(k)) return "scenes";
-    if(/^cover$/.test(k)) return "cover";
-    return null;
-  };
+        console.error(
+          "Image migration error",
+          err
+        );
 
-  for(const line of lines){
-    const m = line.match(/^\s*[-•*]?\s*([^:=：]+)\s*[:=：]\s*(.+)\s*$/);
-    if(!m) continue;
-    const key = mapKey(m[1]);
-    if(!key) continue;
-    let value = m[2].trim().replace(/^["']|["']$/g,"");
-    if(key==="scenes"){
-      value = value.replace(/[\[\]"]/g,"").split(/[,/|+]+/).map(x=>x.trim()).filter(Boolean);
-    }
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-function sceneIdsFromAny(value){
-  if(!value) return [];
-  const items = Array.isArray(value) ? value : String(value).split(/[,/|+]+/);
-  const aliases = {
-    "แดดจัด":"sunny","sunny":"sunny",
-    "แดดอ่อน":"softsun","softsun":"softsun",
-    "ฟ้าครึ้ม":"cloudy","cloudy":"cloudy",
-    "ฝน":"rainy","rainy":"rainy",
-    "golden hour":"golden","golden":"golden",
-    "กลางคืน":"night","night":"night",
-    "นีออน":"neon","neon":"neon",
-    "คาเฟ่":"cafe","cafe":"cafe",
-    "เมือง":"city","city":"city",
-    "ทะเล":"sea","sea":"sea",
-    "ภูเขา":"mountain","mountain":"mountain",
-    "ป่า":"forest","forest":"forest",
-    "portrait":"portrait","คน":"portrait",
-    "fashion":"fashion","outfit":"fashion",
-    "อาหาร":"food","food":"food",
-    "architecture":"architecture",
-    "street":"street",
-    "travel":"travel","เที่ยว":"travel",
-    "ขาวดำ":"bw","bw":"bw",
-    "backlight":"backlight","ย้อนแสง":"backlight",
-    "indoor":"indoor","ในร่ม":"indoor"
-  };
-
-  return [...new Set(items.map(x=>{
-    const s = String(x).trim();
-    const lower = s.toLowerCase();
-    if(SCENES.some(sc=>sc.id===lower)) return lower;
-    return aliases[lower] || aliases[s] || null;
-  }).filter(Boolean))];
-}
-
-function setFieldIfPresent(id, value){
-  if(value === undefined || value === null || value === "") return;
-  const el = document.getElementById(id);
-  if(el) el.value = value;
-}
-
-function applyQuickPreset(){
-  const text = document.getElementById("quickPresetText").value.trim();
-  const status = document.getElementById("quickPresetStatus");
-
-  if(!text){
-    status.textContent = "ยังไม่มีข้อความให้แปลง";
-    return;
-  }
-
-  try{
-    let parsed;
-    try{
-      parsed = JSON.parse(text);
-      if(parsed.presets && Array.isArray(parsed.presets)) parsed = parsed.presets[0];
-      if(Array.isArray(parsed)) parsed = parsed[0];
-      parsed = normalizePresetObject(parsed);
-    }catch(e){
-      parsed = parseLoosePresetText(text);
-    }
-
-    if(!parsed || Object.keys(parsed).length === 0){
-      throw new Error("อ่านสูตรไม่เจอ");
-    }
-
-    setFieldIfPresent("f_name", parsed.name);
-    setFieldIfPresent("f_cat", parsed.cat);
-    setFieldIfPresent("f_control", parsed.control);
-    setFieldIfPresent("f_wb", parsed.wb);
-    setFieldIfPresent("f_shift", parsed.shift);
-    setFieldIfPresent("f_ev", parsed.ev);
-    setFieldIfPresent("f_highlight", parsed.highlight);
-    setFieldIfPresent("f_shadow", parsed.shadow);
-    setFieldIfPresent("f_sat", parsed.sat);
-    setFieldIfPresent("f_sharp", parsed.sharp);
-    setFieldIfPresent("f_hdf", parsed.hdf);
-    setFieldIfPresent("f_use", parsed.use);
-    setFieldIfPresent("f_advice", parsed.advice);
-    setFieldIfPresent("f_cover", parsed.cover);
-
-    const scenes = sceneIdsFromAny(parsed.scenes);
-    if(scenes.length){
-      renderSceneCheckboxes(scenes);
-    }
-
-    status.textContent = "✅ เติมฟอร์มให้แล้ว ตรวจดูค่าก่อนกดบันทึกได้เลย";
-  }catch(err){
-    status.textContent = "⚠️ อ่านสูตรไม่สำเร็จ ลองใช้ JSON หรือข้อความรูปแบบ Name: / WB: / EV:";
-  }
-}
-
-async function pasteQuickPreset(){
-  const status = document.getElementById("quickPresetStatus");
-  try{
-    const text = await navigator.clipboard.readText();
-    document.getElementById("quickPresetText").value = text;
-    status.textContent = "📋 วางจาก Clipboard แล้ว กด “เติมฟอร์มอัตโนมัติ” ได้เลย";
-  }catch(err){
-    status.textContent = "เบราว์เซอร์ไม่อนุญาตอ่าน Clipboard ให้กดค้างแล้ววางในช่องข้อความแทน";
-  }
-}
-
-async function copyPresetTemplate(){
-  const template = `{
-  "name": "ชื่อโทน",
-  "cat": "City",
-  "control": "Positive Film",
-  "wb": "5200K",
-  "shift": "B2 G1",
-  "ev": "-0.7",
-  "highlight": "-2",
-  "shadow": "-1",
-  "sat": "+1",
-  "sharp": "+1",
-  "hdf": "OFF",
-  "use": "แดดจัด / Portrait / Travel",
-  "advice": "คำแนะนำการถ่าย",
-  "cover": "cyan",
-  "scenes": ["sunny","city","portrait","travel"]
-}`;
-
-  try{
-    await navigator.clipboard.writeText(template);
-    document.getElementById("quickPresetStatus").textContent = "✅ คัดลอก Template แล้ว";
-  }catch(err){
-    document.getElementById("quickPresetText").value = template;
-    document.getElementById("quickPresetStatus").textContent = "วาง Template ในช่องให้แล้ว";
-  }
-}
-
-function clearQuickPreset(){
-  document.getElementById("quickPresetText").value = "";
-  document.getElementById("quickPresetStatus").textContent = "";
-}
-
-
-function savePreset(){
-  const data = {
-    name: document.getElementById("f_name").value.trim(),
-    cat: document.getElementById("f_cat").value,
-    control: document.getElementById("f_control").value.trim(),
-    wb: document.getElementById("f_wb").value.trim(),
-    shift: document.getElementById("f_shift").value.trim(),
-    ev: document.getElementById("f_ev").value.trim(),
-    highlight: document.getElementById("f_highlight").value.trim(),
-    shadow: document.getElementById("f_shadow").value.trim(),
-    sat: document.getElementById("f_sat").value.trim(),
-    sharp: document.getElementById("f_sharp").value.trim(),
-    hdf: document.getElementById("f_hdf").value,
-    use: document.getElementById("f_use").value.trim(),
-    advice: document.getElementById("f_advice").value.trim(),
-    cover: document.getElementById("f_cover").value,
-    image: tempImageData || document.getElementById("f_image_url").value.trim() || "",
-    scenes: getSelectedFormScenes()
-  };
-
-  if(!data.name){
-    alert("กรุณาใส่ชื่อโทน");
-    return;
-  }
-
-  if(editingIndex === null){
-    presets.unshift(data);
-  } else {
-    presets[editingIndex] = data;
-  }
-
-  saveAll();
-  closePresetForm();
-  renderLibrary();
-  renderRecommendations();
-}
-
-function editPreset(index){
-  const p = presets[index];
-  editingIndex = index;
-  tempImageData = p.image || "";
-  document.getElementById("dialogTitle").textContent = "แก้ไขโทน";
-  document.getElementById("f_name").value = p.name || "";
-  document.getElementById("f_cat").value = p.cat || "Everyday";
-  document.getElementById("f_control").value = p.control || "";
-  document.getElementById("f_wb").value = p.wb || "";
-  document.getElementById("f_shift").value = p.shift || "";
-  document.getElementById("f_ev").value = p.ev || "";
-  document.getElementById("f_highlight").value = p.highlight || "";
-  document.getElementById("f_shadow").value = p.shadow || "";
-  document.getElementById("f_sat").value = p.sat || "";
-  document.getElementById("f_sharp").value = p.sharp || "";
-  document.getElementById("f_hdf").value = p.hdf || "OFF";
-  document.getElementById("f_cover").value = p.cover || "blue";
-  document.getElementById("f_use").value = p.use || "";
-  document.getElementById("f_advice").value = p.advice || "";
-  document.getElementById("f_image_url").value = (p.image && p.image.startsWith("http")) ? p.image : "";
-  document.getElementById("f_image_file").value = "";
-  setPreview(p.image || "");
-  renderSceneCheckboxes(p.scenes || []);
-  document.getElementById("presetDialog").classList.add("show");
-}
-
-function duplicatePreset(index){
-  const copy = JSON.parse(JSON.stringify(presets[index]));
-  copy.name = copy.name + " Copy";
-  presets.unshift(copy);
-  saveAll();
-  renderLibrary();
-}
-
-function deletePreset(index){
-  if(confirm("ลบโทนนี้หรือไม่?")){
-    presets.splice(index,1);
-    saveAll();
-    renderLibrary();
-    renderRecommendations();
-  }
-}
-
-function exportData(){
-  const blob = new Blob([JSON.stringify({presets, favorites}, null, 2)], {type:"application/json"});
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "ricoh-tone-vault-data.json";
-  a.click();
-  URL.revokeObjectURL(a.href);
-}
-
-function importJsonClick(){
-  document.getElementById("importJsonInput").click();
-}
-
-document.getElementById("importJsonInput").addEventListener("change", function(e){
-  const file = e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = function(evt){
-    try{
-      const data = JSON.parse(evt.target.result);
-      if(Array.isArray(data)){
-        presets = data;
-      } else {
-        presets = data.presets || presets;
-        favorites = data.favorites || favorites;
       }
-      saveAll();
-      renderLibrary();
-      renderRecommendations();
-      alert("Import สำเร็จ");
-    }catch(err){
-      alert("ไฟล์ไม่ถูกต้อง");
-    }
-  };
-  reader.readAsText(file);
-});
 
-function resetApp(){
-  if(confirm("ต้องการรีเซ็ตกลับเป็นค่าเริ่มต้นหรือไม่?")){
-    presets = JSON.parse(JSON.stringify(DEFAULT_PRESETS));
-    favorites = {};
-    selectedScenes = [];
-    selectedEnvironment = null;
-    saveAll();
-    renderLibrary();
-    renderSceneGrid();
-    renderRecommendations();
+    }
+
+    else if(
+      p.image &&
+      /^https?:\/\//i.test(
+        p.image
+      )
+    ){
+
+      p.imageUrl =
+        p.image;
+
+      delete p.image;
+
+      changed =
+        true;
+
+    }
+
   }
+
+
+  if(changed){
+
+    saveMetadata();
+
+  }
+
 }
+
+
+/* =============================
+IMAGE COMPRESS
+============================= */
+
+function compressImage(file){
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+      function(event){
+
+        const img =
+          new Image();
+
+
+        img.onload =
+        function(){
+
+          const MAX_SIZE =
+            1280;
+
+          let width =
+            img.width;
+
+          let height =
+            img.height;
+
+
+          if(
+            width > MAX_SIZE ||
+            height > MAX_SIZE
+          ){
+
+            const ratio =
+              Math.min(
+                MAX_SIZE / width,
+                MAX_SIZE / height
+              );
+
+            width =
+              Math.round(
+                width * ratio
+              );
+
+            height =
+              Math.round(
+                height * ratio
+              );
+
+          }
+
+
+          const canvas =
+            document.createElement(
+              "canvas"
+            );
+
+          canvas.width =
+            width;
+
+          canvas.height =
+            height;
+
+
+          const ctx =
+            canvas.getContext(
+              "2d"
+            );
+
+
+          ctx.drawImage(
+            img,
+            0,
+            0,
+            width,
+            height
+          );
+
+
+          resolve(
+            canvas.toDataURL(
+              "image/jpeg",
+              0.78
+            )
+          );
+
+        };
+
+
+        img.onerror =
+        function(){
+
+          reject(
+            new Error(
+              "ไม่สามารถอ่านรูปได้"
+            )
+          );
+
+        };
+
+
+        img.src =
+          event.target.result;
+
+      };
+
+
+      reader.onerror =
+      function(){
+
+        reject(
+          reader.error
+        );
+
+      };
+
+
+      reader.readAsDataURL(
+        file
+      );
+
+    }
+  );
+
+}
+
+
+async function getPresetImageSrc(p){
+
+  if(p.imageUrl){
+
+    return p.imageUrl;
+
+  }
+
+
+  if(p.imageId){
+
+    try{
+
+      return await getImageFromDB(
+        p.imageId
+      );
+
+    }
+
+    catch(err){
+
+      console.error(err);
+
+    }
+
+  }
+
+
+  return "";
+
+}
+
+
+/* =============================
+UTILS
+============================= */
 
 function escapeHtml(str){
-  return String(str ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+
+  return String(
+    str ?? ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  );
+
 }
+
 
 function escapeJs(str){
-  return String(str ?? "").replace(/'/g, "\\'");
+
+  return String(
+    str ?? ""
+  )
+  .replace(
+    /\\/g,
+    "\\\\"
+  )
+  .replace(
+    /'/g,
+    "\\'"
+  );
+
 }
 
 
-async function copyAiPromptPattern(){
-  const text = document.getElementById("aiPromptPattern").value;
-  const status = document.getElementById("aiPatternStatus");
-  try{
-    await navigator.clipboard.writeText(text);
-    status.textContent = "✅ คัดลอก Prompt ทั้งหมดแล้ว พร้อมเอาไปวางให้ AI ตัวอื่น";
-  }catch(err){
-    const box = document.getElementById("aiPromptPattern");
-    box.focus();
-    box.select();
-    status.textContent = "เลือกข้อความให้แล้ว กด Copy ได้เลย";
+function showPage(id,btn){
+
+  document
+  .querySelectorAll(
+    ".page"
+  )
+  .forEach(
+    el =>
+      el.classList.remove(
+        "active"
+      )
+  );
+
+
+  document
+  .getElementById(id)
+  .classList.add(
+    "active"
+  );
+
+
+  document
+  .querySelectorAll(
+    ".tab"
+  )
+  .forEach(
+    el =>
+      el.classList.remove(
+        "active"
+      )
+  );
+
+
+  btn.classList.add(
+    "active"
+  );
+
+}
+
+
+/* =============================
+LIBRARY
+============================= */
+
+async function renderLibrary(){
+
+  const grid =
+    document.getElementById(
+      "presetGrid"
+    );
+
+
+  grid.innerHTML =
+    `<div class="muted">กำลังโหลด...</div>`;
+
+
+  const q =
+    document
+    .getElementById(
+      "searchInput"
+    )
+    .value
+    .trim()
+    .toLowerCase();
+
+
+  const sort =
+    document
+    .getElementById(
+      "sortSelect"
+    )
+    .value;
+
+
+  const category =
+    document
+    .getElementById(
+      "categorySelect"
+    )
+    .value;
+
+
+  let list =
+    presets.map(
+      (p,i)=>({
+        ...p,
+        _index:i
+      })
+    );
+
+
+  list =
+    list.filter(
+      p=>{
+
+        const text =
+          JSON.stringify(p)
+          .toLowerCase();
+
+
+        const matchesSearch =
+          text.includes(q);
+
+
+        const matchesCategory =
+          category==="all"
+          ?
+          true
+          :
+          category==="favorite"
+          ?
+          !!favorites[p.name]
+          :
+          p.cat===category;
+
+
+        return (
+          matchesSearch &&
+          matchesCategory
+        );
+
+      }
+    );
+
+
+  if(sort==="name"){
+
+    list.sort(
+      (a,b)=>
+        a.name.localeCompare(
+          b.name,
+          "th"
+        )
+    );
+
   }
-}
 
-async function copyShortAiPrompt(){
-  const shortPrompt = `วิเคราะห์ภาพนี้เพื่อสร้างสูตร Ricoh GR IIIx HDF แล้วตอบเป็น JSON เท่านั้น
+  else if(
+    sort==="favorite"
+  ){
 
-Schema:
-{
-  "name":"",
-  "cat":"Everyday | Sunny | Cafe | Night | City | Nature | Portrait | Film | HDF | Special",
-  "control":"",
-  "wb":"",
-  "shift":"",
-  "ev":"",
-  "highlight":"",
-  "shadow":"",
-  "sat":"",
-  "sharp":"",
-  "hdf":"ON | OFF | Optional",
-  "use":"",
-  "advice":"",
-  "cover":"blue | brown | green | dark | pink | cyan",
-  "scenes":[]
-}
+    list.sort(
+      (a,b)=>
+        (favorites[b.name]?1:0)
+        -
+        (favorites[a.name]?1:0)
+    );
 
-ให้ดูแสง, สีผิว, WB, contrast, highlight, shadow, saturation, sharpness, film look, flash และ HDF
-ถ้าดูเหมือนใช้แฟลชให้ระบุใน advice
-WB Shift ใช้ A/B/G/M
-scenes ใช้เฉพาะ: sunny, softsun, cloudy, rainy, golden, night, neon, cafe, city, sea, mountain, forest, portrait, fashion, food, architecture, street, travel, bw, backlight, indoor
-ห้ามใส่ Markdown code fence และห้ามมีข้อความก่อนหรือหลัง JSON`;
-
-  const status = document.getElementById("aiPatternStatus");
-  try{
-    await navigator.clipboard.writeText(shortPrompt);
-    status.textContent = "✅ คัดลอก Prompt แบบสั้นแล้ว";
-  }catch(err){
-    status.textContent = "เบราว์เซอร์ไม่อนุญาต Clipboard ให้ใช้ Prompt แบบเต็มด้านบนแทน";
   }
+
+
+  const cards =
+    [];
+
+
+  for(const p of list){
+
+    const src =
+      await getPresetImageSrc(p);
+
+    cards.push(
+      buildPresetCard(
+        p,
+        src
+      )
+    );
+
+  }
+
+
+  grid.innerHTML =
+    cards.join("")
+    ||
+    `<div class="muted">ไม่พบโทนที่ค้นหา</div>`;
+
 }
 
 
-renderLibrary();
-renderSceneGrid();
-renderEnvironmentGrid();
-renderRecommendations();
+function buildPresetCard(
+  p,
+  imageSrc
+){
+
+  const cover =
+
+    imageSrc
+
+    ?
+
+    `
+    <div class="cover">
+
+      <img
+      src="${imageSrc}"
+      alt="${escapeHtml(p.name)}"
+      >
+
+      <div class="overlay"></div>
+
+      <span class="badge">
+      ${escapeHtml(p.cat)}
+      </span>
+
+      <button
+      class="fav"
+      onclick="toggleFavorite('${escapeJs(p.name)}')"
+      >
+      ${favorites[p.name] ? "♥" : "♡"}
+      </button>
+
+      <div class="cover-title">
+
+        <h3>
+        ${escapeHtml(p.name)}
+        </h3>
+
+        <small>
+        ${escapeHtml(p.use || "")}
+        </small>
+
+      </div>
+
+    </div>
+    `
+
+    :
+
+    `
+    <div
+    class="cover ${p.cover || "blue"}"
+    >
+
+      <div class="overlay"></div>
+
+      <span class="badge">
+      ${escapeHtml(p.cat)}
+      </span>
+
+      <button
+      class="fav"
+      onclick="toggleFavorite('${escapeJs(p.name)}')"
+      >
+      ${favorites[p.name] ? "♥" : "♡"}
+      </button>
+
+      <div class="cover-title">
+
+        <h3>
+        ${escapeHtml(p.name)}
+        </h3>
+
+        <small>
+        ${escapeHtml(p.use || "")}
+        </small>
+
+      </div>
+
+    </div>
+    `;
+
+
+  return `
+
+  <article class="card">
+
+  ${cover}
+
+  <div class="body">
+
+    <div class="tags">
+
+      <span class="tag">
+      ${escapeHtml(p.control || "-")}
+      </span>
+
+      <span class="tag">
+      HDF ${escapeHtml(p.hdf || "-")}
+      </span>
+
+    </div>
+
+
+    <div class="group-title">
+    🎞 IMAGE CONTROL
+    </div>
+
+    <div class="settings">
+
+      ${settingBox(
+        "Image Control",
+        p.control
+      )}
+
+      ${settingBox(
+        "Saturation",
+        p.saturation
+      )}
+
+      ${settingBox(
+        "Hue",
+        p.hue
+      )}
+
+      ${settingBox(
+        "High/Low Key",
+        p.highLowKey
+      )}
+
+      ${settingBox(
+        "Contrast",
+        p.contrast
+      )}
+
+      ${settingBox(
+        "Contrast Highlight",
+        p.contrastHighlight
+      )}
+
+      ${settingBox(
+        "Contrast Shadow",
+        p.contrastShadow
+      )}
+
+      ${settingBox(
+        "Sharpness",
+        p.sharpness
+      )}
+
+      ${settingBox(
+        "Shading",
+        p.shading
+      )}
+
+      ${settingBox(
+        "Clarity",
+        p.clarity
+      )}
+
+    </div>
+
+
+    <div class="group-title">
+    🌡 WHITE BALANCE
+    </div>
+
+    <div class="settings">
+
+      ${settingBox(
+        "White Balance",
+        p.wb
+      )}
+
+      ${settingBox(
+        "WB Shift",
+        p.shift
+      )}
+
+    </div>
+
+
+    <div class="group-title">
+    ☀️ EXPOSURE
+    </div>
+
+    <div class="settings">
+
+      ${settingBox(
+        "Exposure Compensation",
+        p.exposureCompensation
+      )}
+
+    </div>
+
+
+    <div class="group-title">
+    🛠 IMAGE CORRECTION
+    </div>
+
+    <div class="settings">
+
+      ${settingBox(
+        "Highlight Correction",
+        p.highlightCorrection
+      )}
+
+      ${settingBox(
+        "Shadow Correction",
+        p.shadowCorrection
+      )}
+
+      ${settingBox(
+        "Peripheral Illumination",
+        p.peripheralIllumination
+      )}
+
+      ${settingBox(
+        "Noise Reduction",
+        p.noiseReduction
+      )}
+
+    </div>
+
+
+    <div class="group-title">
+    ✨ HDF
+    </div>
+
+    <div class="settings">
+
+      ${settingBox(
+        "HDF",
+        p.hdf
+      )}
+
+    </div>
+
+
+    <div class="beginner-note">
+
+      <b>
+      WB สำหรับมือใหม่
+      </b>
+
+      <br>
+
+      WB:
+      ${escapeHtml(p.wb || "-")}
+
+      <br>
+
+      Shift:
+      ${escapeHtml(p.shift || "-")}
+
+      <br><br>
+
+      A = Amber / อุ่นขึ้น<br>
+      B = Blue / เย็นขึ้น<br>
+      G = Green / เขียวขึ้น<br>
+      M = Magenta / ชมพูม่วงขึ้น
+
+    </div>
+
+
+    <div class="advice">
+
+      💡
+      ${escapeHtml(p.advice || "")}
+
+    </div>
+
+
+    <div class="card-actions">
+
+      <button
+      class="small-btn"
+      onclick="editPreset(${p._index})"
+      >
+      แก้ไข
+      </button>
+
+      <button
+      class="small-btn"
+      onclick="duplicatePreset(${p._index})"
+      >
+      ทำสำเนา
+      </button>
+
+      <button
+      class="small-btn"
+      onclick="deletePreset(${p._index})"
+      >
+      ลบ
+      </button>
+
+    </div>
+
+  </div>
+
+  </article>
+
+  `;
+
+}
+
+
+function settingBox(
+  label,
+  value
+){
+
+  return `
+
+  <div class="setting">
+
+  <b>
+  ${escapeHtml(label)}
+  </b>
+
+  ${escapeHtml(
+    value || "-"
+  )}
+
+  </div>
+
+  `;
+
+}
+
+
+function toggleFavorite(name){
+
+  favorites[name] =
+    !favorites[name];
+
+  saveMetadata();
+
+  renderLibrary();
+
+}
+
+
+/* =============================
+ENVIRONMENT
+============================= */
+
+function renderEnvironmentGrid(){
+
+  document
+  .getElementById(
+    "environmentGrid"
+  )
+  .innerHTML =
+
+    ENVIRONMENTS
+    .map(
+      env=>`
+
+      <button
+      class="
+      environment
+      ${
+        selectedEnvironment===env.id
+        ?
+        "active"
+        :
+        ""
+      }
+      "
+      onclick="
+      selectEnvironment('${env.id}')
+      "
+      >
+
+      <div class="emoji">
+      ${env.emoji}
+      </div>
+
+      <b>
+      ${env.name}
+      </b>
+
+      <small>
+      ${env.desc}
+      </small>
+
+      </button>
+
+      `
+    )
+    .join("");
+
+
+  renderWBHelper();
+
+}
+
+
+function selectEnvironment(id){
+
+  selectedEnvironment =
+
+    selectedEnvironment===id
+
+    ?
+
+    null
+
+    :
+
+    id;
+
+
+  renderEnvironmentGrid();
+
+  renderRecommendations();
+
+}
+
+
+function getSelectedEnvironment(){
+
+  return ENVIRONMENTS.find(
+    env =>
+      env.id===selectedEnvironment
+  )
+  ||
+  null;
+
+}
+
+
+function renderWBHelper(){
+
+  const box =
+    document.getElementById(
+      "wbHelper"
+    );
+
+
+  const env =
+    getSelectedEnvironment();
+
+
+  if(!env){
+
+    box.innerHTML = `
+
+    <div class="beginner-note">
+
+    <b>
+    WB คือ White Balance
+    </b>
+
+    <br><br>
+
+    A = Amber = อุ่น/เหลืองขึ้น<br>
+
+    B = Blue = เย็น/ฟ้าขึ้น<br>
+
+    G = Green = เขียวขึ้น<br>
+
+    M = Magenta = ชมพู/ม่วงขึ้น
+
+    </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  box.innerHTML = `
+
+  <div class="wb-helper">
+
+    <h3>
+    ${env.emoji}
+    ${env.name}
+    </h3>
+
+    <div class="wb-summary">
+
+      <div>
+
+      <b>
+      WHITE BALANCE
+      </b>
+
+      ${env.wb}
+
+      </div>
+
+
+      <div>
+
+      <b>
+      WB SHIFT
+      </b>
+
+      ${env.shift}
+
+      </div>
+
+
+      <div>
+
+      <b>
+      EXPOSURE
+      </b>
+
+      ${env.ev}
+
+      </div>
+
+    </div>
+
+
+    <div
+    style="
+    margin-top:10px;
+    font-size:12px;
+    line-height:1.6
+    "
+    >
+
+    💡
+    ${env.advice}
+
+    </div>
+
+  </div>
+
+
+  <div class="adjust-list">
+
+    <div class="adjust-item">
+
+      <b>
+      ภาพเหลืองเกิน
+      </b>
+
+      <br>
+
+      ลด Kelvin ลง หรือขยับจาก A กลับหา 0
+
+    </div>
+
+
+    <div class="adjust-item">
+
+      <b>
+      ภาพฟ้าเกิน
+      </b>
+
+      <br>
+
+      เพิ่ม Kelvin หรือขยับไปทาง A
+
+    </div>
+
+
+    <div class="adjust-item">
+
+      <b>
+      ผิวติดเขียว
+      </b>
+
+      <br>
+
+      ขยับ WB Shift ไปทาง M
+
+    </div>
+
+
+    <div class="adjust-item">
+
+      <b>
+      ผิวติดชมพู
+      </b>
+
+      <br>
+
+      ขยับ WB Shift ไปทาง G
+
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+
+/* =============================
+SCENES
+============================= */
+
+function renderSceneGrid(){
+
+  document
+  .getElementById(
+    "sceneGrid"
+  )
+  .innerHTML =
+
+    SCENES
+    .map(
+      scene=>`
+
+      <button
+      class="
+      scene
+      ${
+        selectedScenes.includes(
+          scene.id
+        )
+        ?
+        "active"
+        :
+        ""
+      }
+      "
+      onclick="
+      toggleScene('${scene.id}')
+      "
+      >
+
+      <div class="emoji">
+      ${scene.emoji}
+      </div>
+
+      <b>
+      ${scene.name}
+      </b>
+
+      <small>
+      ${scene.desc}
+      </small>
+
+      </button>
+
+      `
+    )
+    .join("");
+
+}
+
+
+function toggleScene(id){
+
+  if(
+    selectedScenes.includes(id)
+  ){
+
+    selectedScenes =
+      selectedScenes.filter(
+        x=>x!==id
+      );
+
+  }
+
+  else{
+
+    selectedScenes.push(id);
+
+  }
+
+
+  renderSceneGrid();
+
+  renderRecommendations();
+
+}
+
+
+function clearSceneSelection(){
+
+  selectedScenes =
+    [];
+
+  selectedEnvironment =
+    null;
+
+  renderSceneGrid();
+
+  renderEnvironmentGrid();
+
+  renderRecommendations();
+
+}
+
+
+/* =============================
+SCORING
+============================= */
+
+function scorePreset(p){
+
+  let score =
+    0;
+
+
+  const presetScenes =
+    p.scenes || [];
+
+
+  const env =
+    getSelectedEnvironment();
+
+
+  if(env){
+
+    env.matchScenes
+    .forEach(
+      id=>{
+
+        if(
+          presetScenes.includes(id)
+        ){
+
+          score += 3;
+
+        }
+
+      }
+    );
+
+
+    const text =
+      (
+        (p.wb || "")
+        +
+        " "
+        +
+        (p.shift || "")
+      )
+      .toLowerCase();
+
+
+    if(
+      env.id==="bright_sun" &&
+      /daylight|5000|5200|5400|5600/
+      .test(text)
+    ){
+
+      score += 2;
+
+    }
+
+
+    if(
+      env.id==="night_city" &&
+      /3200|3400|3600|3800|4000|4200/
+      .test(text)
+    ){
+
+      score += 2;
+
+    }
+
+
+    if(
+      env.id==="neon" &&
+      /on|optional|ย้อนแสง|hdf/i.test(
+        p.hdf || ""
+      )
+    ){
+
+      score += 3;
+
+    }
+
+  }
+
+
+  selectedScenes
+  .forEach(
+    id=>{
+
+      if(
+        presetScenes.includes(id)
+      ){
+
+        score += 5;
+
+      }
+
+    }
+  );
+
+
+  return score;
+
+}
+
+
+/* =============================
+RECOMMENDATION
+============================= */
+
+async function renderRecommendations(){
+
+  const area =
+    document.getElementById(
+      "recommendationArea"
+    );
+
+
+  if(
+    selectedScenes.length===0 &&
+    !selectedEnvironment
+  ){
+
+    area.innerHTML = `
+
+    <p
+    class="muted"
+    style="margin-top:14px"
+    >
+    ยังไม่ได้เลือกสภาพแสงหรือสิ่งที่จะถ่าย
+    </p>
+
+    `;
+
+    return;
+
+  }
+
+
+  const top =
+    presets
+    .map(
+      p=>({
+        ...p,
+        score:scorePreset(p)
+      })
+    )
+    .sort(
+      (a,b)=>
+        b.score-a.score
+    )
+    .slice(
+      0,
+      3
+    );
+
+
+  const cards =
+    [];
+
+
+  for(
+    let i=0;
+    i<top.length;
+    i++
+  ){
+
+    const p =
+      top[i];
+
+
+    const src =
+      await getPresetImageSrc(p);
+
+
+    const cover =
+      src
+
+      ?
+
+      `
+      <div class="reco-cover">
+
+      <img
+      src="${src}"
+      >
+
+      <div class="overlay"></div>
+
+      </div>
+      `
+
+      :
+
+      `
+      <div
+      class="
+      reco-cover
+      ${p.cover || "blue"}
+      "
+      ></div>
+      `;
+
+
+    cards.push(`
+
+    <div class="reco">
+
+    ${cover}
+
+    <div class="reco-content">
+
+      <div class="muted">
+      อันดับ ${i+1}
+      </div>
+
+      <h3
+      style="
+      margin:4px 0 8px
+      "
+      >
+      ${escapeHtml(p.name)}
+      </h3>
+
+
+      <div class="reco-setup">
+
+      <b>
+      📷 ตั้งกล้องตามนี้
+      </b>
+
+      <br><br>
+
+      1. Image Control →
+      ${escapeHtml(p.control || "-")}
+
+      <br>
+
+      2. Saturation →
+      ${escapeHtml(p.saturation || "-")}
+
+      <br>
+
+      3. Hue →
+      ${escapeHtml(p.hue || "-")}
+
+      <br>
+
+      4. High/Low Key →
+      ${escapeHtml(p.highLowKey || "-")}
+
+      <br>
+
+      5. Contrast →
+      ${escapeHtml(p.contrast || "-")}
+
+      <br>
+
+      6. Contrast Highlight →
+      ${escapeHtml(p.contrastHighlight || "-")}
+
+      <br>
+
+      7. Contrast Shadow →
+      ${escapeHtml(p.contrastShadow || "-")}
+
+      <br>
+
+      8. Sharpness →
+      ${escapeHtml(p.sharpness || "-")}
+
+      <br>
+
+      9. Shading →
+      ${escapeHtml(p.shading || "-")}
+
+      <br>
+
+      10. Clarity →
+      ${escapeHtml(p.clarity || "-")}
+
+      <br><br>
+
+      11. White Balance →
+      ${escapeHtml(p.wb || "-")}
+
+      <br>
+
+      12. WB Shift →
+      ${escapeHtml(p.shift || "-")}
+
+      <br><br>
+
+      13. Exposure Compensation →
+      ${escapeHtml(p.exposureCompensation || "-")}
+
+      <br><br>
+
+      14. Highlight Correction →
+      ${escapeHtml(p.highlightCorrection || "-")}
+
+      <br>
+
+      15. Shadow Correction →
+      ${escapeHtml(p.shadowCorrection || "-")}
+
+      <br>
+
+      16. Peripheral Illumination →
+      ${escapeHtml(p.peripheralIllumination || "-")}
+
+      <br>
+
+      17. Noise Reduction →
+      ${escapeHtml(p.noiseReduction || "-")}
+
+      <br><br>
+
+      18. HDF →
+      ${escapeHtml(p.hdf || "-")}
+
+      </div>
+
+
+      <div class="beginner-note">
+
+      <b>
+      🌡 WB แบบเข้าใจง่าย
+      </b>
+
+      <br>
+
+      ${escapeHtml(p.wb || "-")}
+      /
+      ${escapeHtml(p.shift || "-")}
+
+      <br><br>
+
+      A = อุ่นขึ้น<br>
+      B = เย็นขึ้น<br>
+      G = เขียวขึ้น<br>
+      M = ชมพู/ม่วงขึ้น
+
+      </div>
+
+
+      <div class="advice">
+
+      💡
+      ${escapeHtml(p.advice || "")}
+
+      </div>
+
+    </div>
+
+    </div>
+
+    `);
+
+  }
+
+
+  area.innerHTML = `
+
+  <div style="margin-top:18px">
+
+  <h3>
+  3 โทนที่แนะนำ
+  </h3>
+
+  <div class="reco-grid">
+
+  ${cards.join("")}
+
+  </div>
+
+  </div>
+
+  `;
+
+}
+
+
+/* =============================
+FORM CHECKBOX
+============================= */
+
+function renderSceneCheckboxes(
+  selected=[]
+){
+
+  document
+  .getElementById(
+    "sceneCheckboxGrid"
+  )
+  .innerHTML =
+
+    SCENES
+    .map(
+      scene=>`
+
+      <label class="check-item">
+
+      <input
+      type="checkbox"
+      value="${scene.id}"
+      ${
+        selected.includes(
+          scene.id
+        )
+        ?
+        "checked"
+        :
+        ""
+      }
+      >
+
+      <span>
+      ${scene.emoji}
+      ${scene.name}
+      </span>
+
+      </label>
+
+      `
+    )
+    .join("");
+
+}
+
+
+function getSelectedFormScenes(){
+
+  return [
+    ...document
+    .querySelectorAll(
+      "#sceneCheckboxGrid input[type='checkbox']:checked"
+    )
+  ]
+  .map(
+    el=>el.value
+  );
+
+}
+
+
+/* =============================
+FORM OPEN
+============================= */
+
+function openPresetForm(){
+
+  editingIndex =
+    null;
+
+  tempImageData =
+    "";
+
+  tempImageUrl =
+    "";
+
+  existingImageId =
+    "";
+
+  existingImageUrl =
+    "";
+
+
+  clearForm();
+
+
+  document
+  .getElementById(
+    "dialogTitle"
+  )
+  .textContent =
+    "เพิ่มโทนใหม่";
+
+
+  renderSceneCheckboxes([]);
+
+
+  document
+  .getElementById(
+    "presetDialog"
+  )
+  .classList.add(
+    "show"
+  );
+
+}
+
+
+function closePresetForm(){
+
+  document
+  .getElementById(
+    "presetDialog"
+  )
+  .classList.remove(
+    "show"
+  );
+
+}
+
+
+/* =============================
+CLEAR FORM
+============================= */
+
+function clearForm(){
+
+  const ids = [
+
+    "f_name",
+    "f_control",
+    "f_saturation",
+    "f_hue",
+    "f_highLowKey",
+    "f_contrast",
+    "f_contrastHighlight",
+    "f_contrastShadow",
+    "f_sharpness",
+    "f_shading",
+    "f_clarity",
+
+    "f_wb",
+    "f_shift",
+
+    "f_exposureCompensation",
+
+    "f_highlightCorrection",
+    "f_shadowCorrection",
+    "f_peripheralIllumination",
+    "f_noiseReduction",
+
+    "f_hdf",
+
+    "f_use",
+    "f_advice",
+    "f_image_url",
+    "quickPresetText"
+
+  ];
+
+
+  ids.forEach(
+    id=>{
+
+      const el =
+        document.getElementById(id);
+
+      if(el){
+        el.value = "";
+      }
+
+    }
+  );
+
+
+  document
+  .getElementById(
+    "f_cat"
+  )
+  .value =
+    "Everyday";
+
+
+  document
+  .getElementById(
+    "f_cover"
+  )
+  .value =
+    "blue";
+
+
+  document
+  .getElementById(
+    "f_image_file"
+  )
+  .value =
+    "";
+
+
+  setPreview("");
+
+
+  showSaveStatus(
+    "",
+    ""
+  );
+
+
+  document
+  .getElementById(
+    "quickPresetStatus"
+  )
+  .textContent =
+    "";
+
+}
+
+
+/* =============================
+IMAGE PREVIEW
+============================= */
+
+function setPreview(src){
+
+  const img =
+    document.getElementById(
+      "imagePreview"
+    );
+
+  const placeholder =
+    document.getElementById(
+      "previewPlaceholder"
+    );
+
+
+  if(src){
+
+    img.src =
+      src;
+
+    img.style.display =
+      "block";
+
+    placeholder.style.display =
+      "none";
+
+  }
+
+  else{
+
+    img.src =
+      "";
+
+    img.style.display =
+      "none";
+
+    placeholder.style.display =
+      "block";
+
+  }
+
+}
+
+
+/* =============================
+IMAGE UPLOAD
+============================= */
+
+document
+.getElementById(
+  "f_image_file"
+)
+.addEventListener(
+  "change",
+  async function(event){
+
+    const file =
+      event.target.files[0];
+
+
+    if(!file){
+      return;
+    }
+
+
+    showSaveStatus(
+      "กำลังย่อรูป...",
+      "success"
+    );
+
+
+    try{
+
+      tempImageData =
+        await compressImage(file);
+
+      tempImageUrl =
+        "";
+
+
+      document
+      .getElementById(
+        "f_image_url"
+      )
+      .value =
+        "";
+
+
+      setPreview(
+        tempImageData
+      );
+
+
+      showSaveStatus(
+        "✅ รูปพร้อมแล้ว กดบันทึกได้เลย",
+        "success"
+      );
+
+    }
+
+    catch(err){
+
+      console.error(err);
+
+      showSaveStatus(
+        "❌ อ่านรูปไม่สำเร็จ",
+        "error"
+      );
+
+    }
+
+  }
+);
+
+
+/* =============================
+IMAGE URL
+============================= */
+
+document
+.getElementById(
+  "f_image_url"
+)
+.addEventListener(
+  "input",
+  function(event){
+
+    const url =
+      event.target.value.trim();
+
+
+    if(url){
+
+      tempImageUrl =
+        url;
+
+      tempImageData =
+        "";
+
+      document
+      .getElementById(
+        "f_image_file"
+      )
+      .value =
+        "";
+
+      setPreview(url);
+
+    }
+
+    else{
+
+      tempImageUrl =
+        "";
+
+    }
+
+  }
+);
+
+
+/* =============================
+SAVE STATUS
+============================= */
+
+function showSaveStatus(
+  message,
+  type
+){
+
+  const el =
+    document.getElementById(
+      "saveStatus"
+    );
+
+
+  el.className =
+    "save-status";
+
+
+  if(!message){
+
+    el.textContent =
+      "";
+
+    return;
+
+  }
+
+
+  el.textContent =
+    message;
+
+
+  if(type){
+
+    el.classList.add(type);
+
+  }
+
+}
+
+
+/* =============================
+SAVE PRESET
+============================= */
+
+async function savePreset(){
+
+  const button =
+    document.getElementById(
+      "savePresetBtn"
+    );
+
+
+  const name =
+    document
+    .getElementById(
+      "f_name"
+    )
+    .value
+    .trim();
+
+
+  if(!name){
+
+    showSaveStatus(
+      "❌ กรุณาใส่ชื่อโทน",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  button.disabled =
+    true;
+
+  button.textContent =
+    "กำลังบันทึก...";
+
+
+  try{
+
+    let imageId =
+      existingImageId;
+
+    let imageUrl =
+      existingImageUrl;
+
+
+    if(tempImageData){
+
+      const newImageId =
+        await saveImageToDB(
+          tempImageData
+        );
+
+
+      if(
+        existingImageId &&
+        existingImageId !== newImageId
+      ){
+
+        try{
+
+          await deleteImageFromDB(
+            existingImageId
+          );
+
+        }
+
+        catch(err){
+
+          console.warn(err);
+
+        }
+
+      }
+
+
+      imageId =
+        newImageId;
+
+      imageUrl =
+        "";
+
+    }
+
+    else if(tempImageUrl){
+
+      if(existingImageId){
+
+        try{
+
+          await deleteImageFromDB(
+            existingImageId
+          );
+
+        }
+
+        catch(err){
+
+          console.warn(err);
+
+        }
+
+      }
+
+
+      imageId =
+        "";
+
+      imageUrl =
+        tempImageUrl;
+
+    }
+
+
+    const data = {
+
+      name:name,
+
+      cat:
+        valueOf(
+          "f_cat"
+        ),
+
+      control:
+        valueOf(
+          "f_control"
+        ),
+
+
+      saturation:
+        valueOf(
+          "f_saturation"
+        ),
+
+      hue:
+        valueOf(
+          "f_hue"
+        ),
+
+      highLowKey:
+        valueOf(
+          "f_highLowKey"
+        ),
+
+      contrast:
+        valueOf(
+          "f_contrast"
+        ),
+
+      contrastHighlight:
+        valueOf(
+          "f_contrastHighlight"
+        ),
+
+      contrastShadow:
+        valueOf(
+          "f_contrastShadow"
+        ),
+
+      sharpness:
+        valueOf(
+          "f_sharpness"
+        ),
+
+      shading:
+        valueOf(
+          "f_shading"
+        ),
+
+      clarity:
+        valueOf(
+          "f_clarity"
+        ),
+
+
+      wb:
+        valueOf(
+          "f_wb"
+        ),
+
+      shift:
+        valueOf(
+          "f_shift"
+        ),
+
+
+      exposureCompensation:
+        valueOf(
+          "f_exposureCompensation"
+        ),
+
+
+      highlightCorrection:
+        valueOf(
+          "f_highlightCorrection"
+        ),
+
+      shadowCorrection:
+        valueOf(
+          "f_shadowCorrection"
+        ),
+
+      peripheralIllumination:
+        valueOf(
+          "f_peripheralIllumination"
+        ),
+
+      noiseReduction:
+        valueOf(
+          "f_noiseReduction"
+        ),
+
+
+      hdf:
+        valueOf(
+          "f_hdf"
+        ),
+
+
+      use:
+        valueOf(
+          "f_use"
+        ),
+
+      advice:
+        valueOf(
+          "f_advice"
+        ),
+
+      cover:
+        valueOf(
+          "f_cover"
+        ),
+
+
+      imageId:
+        imageId || "",
+
+      imageUrl:
+        imageUrl || "",
+
+
+      scenes:
+        getSelectedFormScenes()
+
+    };
+
+
+    if(
+      editingIndex===null
+    ){
+
+      presets.unshift(data);
+
+    }
+
+    else{
+
+      presets[
+        editingIndex
+      ] = data;
+
+    }
+
+
+    const saved =
+      saveMetadata();
+
+
+    if(!saved){
+
+      throw new Error(
+        "ไม่สามารถบันทึกข้อมูลได้"
+      );
+
+    }
+
+
+    showSaveStatus(
+      "✅ บันทึกโทนเรียบร้อยแล้ว",
+      "success"
+    );
+
+
+    await renderLibrary();
+
+    await renderRecommendations();
+
+
+    setTimeout(
+      closePresetForm,
+      450
+    );
+
+  }
+
+  catch(err){
+
+    console.error(err);
+
+
+    showSaveStatus(
+      "❌ บันทึกไม่สำเร็จ: "
+      +
+      (
+        err.message ||
+        "เกิดข้อผิดพลาด"
+      ),
+      "error"
+    );
+
+  }
+
+  finally{
+
+    button.disabled =
+      false;
+
+    button.textContent =
+      "💾 บันทึก";
+
+  }
+
+}
+
+
+function valueOf(id){
+
+  const el =
+    document.getElementById(id);
+
+  return el
+  ?
+  el.value.trim()
+  :
+  "";
+
+}
+
+
+/* =============================
+EDIT
+============================= */
+
+async function editPreset(index){
+
+  const p =
+    migratePresetSchema(
+      presets[index]
+    );
+
+
+  editingIndex =
+    index;
+
+
+  existingImageId =
+    p.imageId || "";
+
+  existingImageUrl =
+    p.imageUrl || "";
+
+  tempImageData =
+    "";
+
+  tempImageUrl =
+    "";
+
+
+  document
+  .getElementById(
+    "dialogTitle"
+  )
+  .textContent =
+    "แก้ไขโทน";
+
+
+  setFormValue(
+    "f_name",
+    p.name
+  );
+
+  setFormValue(
+    "f_cat",
+    p.cat
+  );
+
+  setFormValue(
+    "f_control",
+    p.control
+  );
+
+
+  setFormValue(
+    "f_saturation",
+    p.saturation
+  );
+
+  setFormValue(
+    "f_hue",
+    p.hue
+  );
+
+  setFormValue(
+    "f_highLowKey",
+    p.highLowKey
+  );
+
+  setFormValue(
+    "f_contrast",
+    p.contrast
+  );
+
+  setFormValue(
+    "f_contrastHighlight",
+    p.contrastHighlight
+  );
+
+  setFormValue(
+    "f_contrastShadow",
+    p.contrastShadow
+  );
+
+  setFormValue(
+    "f_sharpness",
+    p.sharpness
+  );
+
+  setFormValue(
+    "f_shading",
+    p.shading
+  );
+
+  setFormValue(
+    "f_clarity",
+    p.clarity
+  );
+
+
+  setFormValue(
+    "f_wb",
+    p.wb
+  );
+
+  setFormValue(
+    "f_shift",
+    p.shift
+  );
+
+
+  setFormValue(
+    "f_exposureCompensation",
+    p.exposureCompensation
+  );
+
+
+  setFormValue(
+    "f_highlightCorrection",
+    p.highlightCorrection
+  );
+
+  setFormValue(
+    "f_shadowCorrection",
+    p.shadowCorrection
+  );
+
+  setFormValue(
+    "f_peripheralIllumination",
+    p.peripheralIllumination
+  );
+
+  setFormValue(
+    "f_noiseReduction",
+    p.noiseReduction
+  );
+
+
+  setFormValue(
+    "f_hdf",
+    p.hdf
+  );
+
+
+  setFormValue(
+    "f_use",
+    p.use
+  );
+
+  setFormValue(
+    "f_advice",
+    p.advice
+  );
+
+  setFormValue(
+    "f_cover",
+    p.cover
+  );
+
+  setFormValue(
+    "f_image_url",
+    p.imageUrl
+  );
+
+
+  document
+  .getElementById(
+    "f_image_file"
+  )
+  .value =
+    "";
+
+
+  renderSceneCheckboxes(
+    p.scenes || []
+  );
+
+
+  if(p.imageUrl){
+
+    setPreview(
+      p.imageUrl
+    );
+
+  }
+
+  else if(p.imageId){
+
+    setPreview(
+      await getImageFromDB(
+        p.imageId
+      )
+    );
+
+  }
+
+  else{
+
+    setPreview("");
+
+  }
+
+
+  showSaveStatus(
+    "",
+    ""
+  );
+
+
+  document
+  .getElementById(
+    "presetDialog"
+  )
+  .classList.add(
+    "show"
+  );
+
+}
+
+
+function setFormValue(
+  id,
+  value
+){
+
+  const el =
+    document.getElementById(id);
+
+  if(el){
+
+    el.value =
+      value || "";
+
+  }
+
+}
+
+
+/* =============================
+DUPLICATE
+============================= */
+
+async function duplicatePreset(index){
+
+  const original =
+    presets[index];
+
+
+  const copy =
+    JSON.parse(
+      JSON.stringify(
+        original
+      )
+    );
+
+
+  copy.name =
+    copy.name +
+    " Copy";
+
+
+  if(original.imageId){
+
+    try{
+
+      const image =
+        await getImageFromDB(
+          original.imageId
+        );
+
+
+      if(image){
+
+        copy.imageId =
+          await saveImageToDB(
+            image
+          );
+
+      }
+
+    }
+
+    catch(err){
+
+      console.warn(err);
+
+    }
+
+  }
+
+
+  presets.unshift(copy);
+
+  saveMetadata();
+
+  renderLibrary();
+
+}
+
+
+/* =============================
+DELETE
+============================= */
+
+async function deletePreset(index){
+
+  const p =
+    presets[index];
+
+
+  if(
+    !confirm(
+      `ลบโทน "${p.name}" หรือไม่?`
+    )
+  ){
+
+    return;
+
+  }
+
+
+  if(p.imageId){
+
+    try{
+
+      await deleteImageFromDB(
+        p.imageId
+      );
+
+    }
+
+    catch(err){
+
+      console.warn(err);
+
+    }
+
+  }
+
+
+  presets.splice(
+    index,
+    1
+  );
+
+
+  delete favorites[
+    p.name
+  ];
+
+
+  saveMetadata();
+
+  await renderLibrary();
+
+  await renderRecommendations();
+
+}
+
+
+/* =============================
+QUICK JSON
+============================= */
+
+function applyQuickPreset(){
+
+  const text =
+    document
+    .getElementById(
+      "quickPresetText"
+    )
+    .value
+    .trim();
+
+
+  const status =
+    document
+    .getElementById(
+      "quickPresetStatus"
+    );
+
+
+  if(!text){
+
+    status.textContent =
+      "ยังไม่มี JSON";
+
+    return;
+
+  }
+
+
+  try{
+
+    let obj =
+      JSON.parse(text);
+
+
+    if(Array.isArray(obj)){
+
+      obj =
+        obj[0];
+
+    }
+
+
+    if(
+      obj.presets &&
+      Array.isArray(
+        obj.presets
+      )
+    ){
+
+      obj =
+        obj.presets[0];
+
+    }
+
+
+    const p =
+      migratePresetSchema(obj);
+
+
+    const map = {
+
+      f_name:
+        p.name,
+
+      f_cat:
+        p.cat,
+
+      f_control:
+        p.control,
+
+      f_saturation:
+        p.saturation,
+
+      f_hue:
+        p.hue,
+
+      f_highLowKey:
+        p.highLowKey,
+
+      f_contrast:
+        p.contrast,
+
+      f_contrastHighlight:
+        p.contrastHighlight,
+
+      f_contrastShadow:
+        p.contrastShadow,
+
+      f_sharpness:
+        p.sharpness,
+
+      f_shading:
+        p.shading,
+
+      f_clarity:
+        p.clarity,
+
+      f_wb:
+        p.wb,
+
+      f_shift:
+        p.shift,
+
+      f_exposureCompensation:
+        p.exposureCompensation,
+
+      f_highlightCorrection:
+        p.highlightCorrection,
+
+      f_shadowCorrection:
+        p.shadowCorrection,
+
+      f_peripheralIllumination:
+        p.peripheralIllumination,
+
+      f_noiseReduction:
+        p.noiseReduction,
+
+      f_hdf:
+        p.hdf,
+
+      f_use:
+        p.use,
+
+      f_advice:
+        p.advice,
+
+      f_cover:
+        p.cover
+
+    };
+
+
+    Object.entries(map)
+    .forEach(
+      ([id,value])=>{
+
+        setFormValue(
+          id,
+          value
+        );
+
+      }
+    );
+
+
+    renderSceneCheckboxes(
+      sceneIdsFromAny(
+        obj.scenes
+      )
+    );
+
+
+    status.textContent =
+      "✅ เติมค่าครบแล้ว ตรวจสอบก่อนกดบันทึก";
+
+  }
+
+  catch(err){
+
+    console.error(err);
+
+
+    status.textContent =
+      "⚠️ JSON ไม่ถูกต้อง กรุณาคัดลอกเฉพาะส่วน { ... }";
+
+  }
+
+}
+
+
+function sceneIdsFromAny(value){
+
+  if(!value){
+
+    return [];
+
+  }
+
+
+  const items =
+    Array.isArray(value)
+
+    ?
+
+    value
+
+    :
+
+    String(value)
+    .split(
+      /[,/|+]+/
+    );
+
+
+  return [
+    ...new Set(
+      items
+      .map(
+        item=>
+          String(item)
+          .trim()
+          .toLowerCase()
+      )
+      .filter(
+        id =>
+          SCENES.some(
+            s =>
+              s.id===id
+          )
+      )
+    )
+  ];
+
+}
+
+
+async function pasteQuickPreset(){
+
+  const status =
+    document.getElementById(
+      "quickPresetStatus"
+    );
+
+
+  try{
+
+    const text =
+      await navigator
+      .clipboard
+      .readText();
+
+
+    document
+    .getElementById(
+      "quickPresetText"
+    )
+    .value =
+      text;
+
+
+    status.textContent =
+      "📋 วางแล้ว กดเติมฟอร์มอัตโนมัติได้เลย";
+
+  }
+
+  catch(err){
+
+    status.textContent =
+      "บน iPhone ให้กดค้างในช่องแล้วเลือก “วาง”";
+
+  }
+
+}
+
+
+async function copyPresetTemplate(){
+
+  const template = `{
+  "name": "ชื่อโทน",
+  "cat": "Nature",
+  "control": "Negative Film",
+
+  "saturation": "-1",
+  "hue": "0",
+  "highLowKey": "+1",
+  "contrast": "-1",
+  "contrastHighlight": "-2",
+  "contrastShadow": "+1",
+  "sharpness": "-1",
+  "shading": "0",
+  "clarity": "-2",
+
+  "wb": "Daylight",
+  "shift": "G2 : A1",
+
+  "exposureCompensation": "+0.3 ถึง +0.7 EV",
+
+  "highlightCorrection": "ON",
+  "shadowCorrection": "Low",
+  "peripheralIllumination": "ON",
+  "noiseReduction": "Auto / Low",
+
+  "hdf": "ON เมื่อมีแสงย้อนหรือแดดอ่อน",
+
+  "use": "ภูเขา / Portrait / Travel",
+  "advice": "คำแนะนำการถ่าย",
+  "cover": "green",
+
+  "scenes": [
+    "mountain",
+    "portrait",
+    "travel",
+    "softsun"
+  ]
+}`;
+
+
+  try{
+
+    await navigator
+    .clipboard
+    .writeText(template);
+
+
+    document
+    .getElementById(
+      "quickPresetStatus"
+    )
+    .textContent =
+      "✅ คัดลอก Template แล้ว";
+
+  }
+
+  catch(err){
+
+    document
+    .getElementById(
+      "quickPresetText"
+    )
+    .value =
+      template;
+
+  }
+
+}
+
+
+function clearQuickPreset(){
+
+  document
+  .getElementById(
+    "quickPresetText"
+  )
+  .value =
+    "";
+
+
+  document
+  .getElementById(
+    "quickPresetStatus"
+  )
+  .textContent =
+    "";
+
+}
+
+
+/* =============================
+EXPORT
+============================= */
+
+function exportData(){
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          {
+            version:6,
+            presets:presets,
+            favorites:favorites
+          },
+          null,
+          2
+        )
+      ],
+      {
+        type:"application/json"
+      }
+    );
+
+
+  const a =
+    document.createElement(
+      "a"
+    );
+
+
+  a.href =
+    URL.createObjectURL(
+      blob
+    );
+
+
+  a.download =
+    "ricoh-tone-vault-full.json";
+
+
+  a.click();
+
+
+  setTimeout(
+    ()=>{
+
+      URL.revokeObjectURL(
+        a.href
+      );
+
+    },
+    500
+  );
+
+}
+
+
+/* =============================
+IMPORT
+============================= */
+
+function importJsonClick(){
+
+  document
+  .getElementById(
+    "importJsonInput"
+  )
+  .click();
+
+}
+
+
+document
+.getElementById(
+  "importJsonInput"
+)
+.addEventListener(
+  "change",
+  function(event){
+
+    const file =
+      event.target.files[0];
+
+
+    if(!file){
+      return;
+    }
+
+
+    const reader =
+      new FileReader();
+
+
+    reader.onload =
+    async function(evt){
+
+      try{
+
+        const data =
+          JSON.parse(
+            evt.target.result
+          );
+
+
+        if(Array.isArray(data)){
+
+          presets =
+            migrateSchemaArray(data);
+
+        }
+
+        else{
+
+          presets =
+            migrateSchemaArray(
+              data.presets || []
+            );
+
+
+          favorites =
+            data.favorites || {};
+
+        }
+
+
+        await migrateOldImages();
+
+
+        saveMetadata();
+
+
+        await renderLibrary();
+
+        await renderRecommendations();
+
+
+        alert(
+          "✅ Import สำเร็จ"
+        );
+
+      }
+
+      catch(err){
+
+        console.error(err);
+
+
+        alert(
+          "❌ JSON ไม่ถูกต้อง"
+        );
+
+      }
+
+    };
+
+
+    reader.readAsText(file);
+
+  }
+);
+
+
+/* =============================
+RESET
+============================= */
+
+async function resetApp(){
+
+  if(
+    !confirm(
+      "รีเซ็ตกลับค่าเริ่มต้นหรือไม่?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  presets =
+    JSON.parse(
+      JSON.stringify(
+        DEFAULT_PRESETS
+      )
+    );
+
+
+  favorites =
+    {};
+
+
+  selectedScenes =
+    [];
+
+
+  selectedEnvironment =
+    null;
+
+
+  saveMetadata();
+
+
+  renderSceneGrid();
+
+  renderEnvironmentGrid();
+
+  await renderLibrary();
+
+  await renderRecommendations();
+
+}
+
+
+/* =============================
+START
+============================= */
+
+async function startApp(){
+
+  try{
+
+    await openImageDB();
+
+  }
+
+  catch(err){
+
+    console.error(
+      "IndexedDB Error",
+      err
+    );
+
+  }
+
+
+  await migrateOldImages();
+
+
+  /*
+  หลัง migration ให้บันทึก schema ใหม่
+  */
+
+  presets =
+    migrateSchemaArray(
+      presets
+    );
+
+
+  saveMetadata();
+
+
+  renderSceneGrid();
+
+  renderEnvironmentGrid();
+
+  await renderLibrary();
+
+  await renderRecommendations();
+
+}
+
+
+startApp();
+
 </script>
+
 </body>
 </html>
