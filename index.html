@@ -580,6 +580,39 @@ label{
   color:#d8d8d8;
 }
 
+
+.ai-pattern{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:18px;
+  margin-top:14px;
+}
+.ai-pattern textarea{
+  width:100%;
+  min-height:420px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px;
+  background:#fafaf7;
+  line-height:1.6;
+  resize:vertical;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-size:12px;
+}
+.ai-pattern-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.ai-pattern-note{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.6;
+  margin-top:8px;
+}
+
 </style>
 </head>
 <body>
@@ -663,6 +696,99 @@ label{
       <div class="guide-card"><b>⛰️ ภูเขา</b><span>ถ้าเขียวแรงเกิน ลด Saturation ลง</span></div>
       <div class="guide-card"><b>👤 Portrait</b><span>สีผิวและ WB สำคัญกว่าฉากในหลายสถานการณ์</span></div>
       <div class="guide-card"><b>⚡ Fashion Flash</b><span>กด ambient ลงประมาณ 2/3–1 stop แล้วเติมแสงด้านหน้า</span></div>
+    </div>
+
+    <div class="ai-pattern">
+      <h2 style="margin-top:0">🤖 Prompt Pattern สำหรับสั่ง AI ตัวอื่น</h2>
+      <p class="muted">
+        ใช้ข้อความนี้เวลาส่งรูปให้ AI ตัวอื่น แล้วให้มันสร้างสูตรที่สามารถนำกลับมาวางใน “⚡ เพิ่มเร็ว” ได้ทันที
+      </p>
+
+      <textarea id="aiPromptPattern" readonly>คุณคือผู้ช่วยวิเคราะห์โทนภาพสำหรับ Ricoh GR IIIx HDF
+
+งานของคุณ:
+1) วิเคราะห์ภาพตัวอย่างที่ฉันส่งให้ โดยดู
+- ลักษณะแสง
+- White Balance โดยประมาณ
+- สีผิว
+- สีฟ้า/เขียว/แดง
+- Contrast
+- Highlight / Shadow
+- Saturation
+- Sharpness
+- ลักษณะ Film Look
+- มีลักษณะคล้ายการใช้ Flash หรือไม่
+- HDF เหมาะจะเปิดหรือปิด
+
+2) จากนั้นสร้างสูตรสำหรับ Ricoh GR IIIx HDF ที่พยายามให้ได้อารมณ์ใกล้ภาพตัวอย่างที่สุด
+
+3) ถ้าภาพดูเหมือนใช้แฟลช ให้บอกใน advice ด้วยว่าเป็น Fill Flash / Day Flash / Night Flash และแนะนำการกด EV ของ ambient โดยประมาณ
+
+4) White Balance:
+- ระบุค่า Kelvin หรือโหมด WB ที่ชัดเจน
+- ระบุ WB Shift ในรูป A / B / G / M
+- อธิบายแบบสั้น ๆ ว่าถ้าผิวเหลือง ฟ้า เขียว หรือชมพูเกินไป ควรปรับไปทางไหน
+
+5) ห้ามตอบเป็นคำอธิบายยาว
+ให้ตอบเป็น JSON เท่านั้น โดยใช้ schema ด้านล่างนี้แบบตรง ๆ เพื่อให้เว็บ Ricoh Tone Vault สามารถอ่านได้
+
+{
+  "name": "ชื่อโทนภาษาอังกฤษสั้น ๆ",
+  "cat": "Everyday | Sunny | Cafe | Night | City | Nature | Portrait | Film | HDF | Special",
+  "control": "ชื่อ Image Control",
+  "wb": "เช่น 5200K หรือ Daylight",
+  "shift": "เช่น B2 G1",
+  "ev": "เช่น -0.7",
+  "highlight": "เช่น -2",
+  "shadow": "เช่น -1",
+  "sat": "เช่น +1",
+  "sharp": "เช่น +1",
+  "hdf": "ON | OFF | Optional",
+  "use": "สถานการณ์ที่เหมาะ เช่น แดดจัด / Portrait / Travel",
+  "advice": "คำแนะนำสั้น ๆ รวมเรื่องแสง แฟลช และการแก้ WB",
+  "cover": "blue | brown | green | dark | pink | cyan",
+  "scenes": [
+    "sunny",
+    "softsun",
+    "cloudy",
+    "rainy",
+    "golden",
+    "night",
+    "neon",
+    "cafe",
+    "city",
+    "sea",
+    "mountain",
+    "forest",
+    "portrait",
+    "fashion",
+    "food",
+    "architecture",
+    "street",
+    "travel",
+    "bw",
+    "backlight",
+    "indoor"
+  ]
+}
+
+กฎสำคัญ:
+- ตอบ JSON อย่างเดียว
+- ห้ามใส่ Markdown code fence
+- ห้ามใส่ข้อความก่อนหรือหลัง JSON
+- scenes ให้เลือกเฉพาะค่าที่เกี่ยวข้องจริง
+- ถ้าไม่แน่ใจ ให้เลือกค่ากลางที่ปลอดภัยสำหรับเริ่มถ่าย
+- อย่าพยายามเดาค่าที่ละเอียดเกินกว่าภาพจะบอกได้
+- ตั้งชื่อโทนให้สื่ออารมณ์ของภาพและจำง่าย</textarea>
+
+      <div class="ai-pattern-actions">
+        <button class="btn primary" type="button" onclick="copyAiPromptPattern()">📋 คัดลอก Prompt ทั้งหมด</button>
+        <button class="btn" type="button" onclick="copyShortAiPrompt()">คัดลอกแบบสั้น</button>
+      </div>
+
+      <div id="aiPatternStatus" class="ai-pattern-note">
+        วิธีใช้: ส่งรูปให้ AI → วาง Prompt นี้ → คัดลอก JSON ที่ AI ตอบ → กลับมาที่ “+ เพิ่มโทนใหม่” → วางใน “⚡ เพิ่มเร็ว”
+      </div>
     </div>
   </section>
 
@@ -1868,6 +1994,59 @@ function escapeHtml(str){
 function escapeJs(str){
   return String(str ?? "").replace(/'/g, "\\'");
 }
+
+
+async function copyAiPromptPattern(){
+  const text = document.getElementById("aiPromptPattern").value;
+  const status = document.getElementById("aiPatternStatus");
+  try{
+    await navigator.clipboard.writeText(text);
+    status.textContent = "✅ คัดลอก Prompt ทั้งหมดแล้ว พร้อมเอาไปวางให้ AI ตัวอื่น";
+  }catch(err){
+    const box = document.getElementById("aiPromptPattern");
+    box.focus();
+    box.select();
+    status.textContent = "เลือกข้อความให้แล้ว กด Copy ได้เลย";
+  }
+}
+
+async function copyShortAiPrompt(){
+  const shortPrompt = `วิเคราะห์ภาพนี้เพื่อสร้างสูตร Ricoh GR IIIx HDF แล้วตอบเป็น JSON เท่านั้น
+
+Schema:
+{
+  "name":"",
+  "cat":"Everyday | Sunny | Cafe | Night | City | Nature | Portrait | Film | HDF | Special",
+  "control":"",
+  "wb":"",
+  "shift":"",
+  "ev":"",
+  "highlight":"",
+  "shadow":"",
+  "sat":"",
+  "sharp":"",
+  "hdf":"ON | OFF | Optional",
+  "use":"",
+  "advice":"",
+  "cover":"blue | brown | green | dark | pink | cyan",
+  "scenes":[]
+}
+
+ให้ดูแสง, สีผิว, WB, contrast, highlight, shadow, saturation, sharpness, film look, flash และ HDF
+ถ้าดูเหมือนใช้แฟลชให้ระบุใน advice
+WB Shift ใช้ A/B/G/M
+scenes ใช้เฉพาะ: sunny, softsun, cloudy, rainy, golden, night, neon, cafe, city, sea, mountain, forest, portrait, fashion, food, architecture, street, travel, bw, backlight, indoor
+ห้ามใส่ Markdown code fence และห้ามมีข้อความก่อนหรือหลัง JSON`;
+
+  const status = document.getElementById("aiPatternStatus");
+  try{
+    await navigator.clipboard.writeText(shortPrompt);
+    status.textContent = "✅ คัดลอก Prompt แบบสั้นแล้ว";
+  }catch(err){
+    status.textContent = "เบราว์เซอร์ไม่อนุญาต Clipboard ให้ใช้ Prompt แบบเต็มด้านบนแทน";
+  }
+}
+
 
 renderLibrary();
 renderSceneGrid();
